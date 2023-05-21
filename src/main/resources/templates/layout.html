@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/main.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/base.css}">
+    <link rel="stylesheet" th:href="@{/font/fontawesome-free-5.15.4-web/css/all.min.css}">
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap}" rel="stylesheet">
+    <title>Home</title>
+</head>
+<body>
+<div class="app">
+    <nav class="header_navbar">
+        <div class="header__nav--top">
+            <ul class="header_navbar_list">
+                        <span class="header_navbar_items">
+                            <i class="fas fa-globe-americas"></i>
+                            Levents love you
+                        </span>
+            </ul>
+            <ul class="header_navbar_list">
+                <li class="header_navbar_items">
+                    <a class="header__navbar-icon-link" href="">
+                        Mua Ngay!
+                        <i class="far fa-money-bill-alt"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <header class="header">
+        <div class="Host__Store">
+            <div class="icon__function_list icon__function_search">
+                <i class="icon__function_itemss icon__function_search-btn fas fa-search"></i>
+                <input type="text" class="header__search-input " placeholder="Nhập để tìm kiếm sản phẩm">
+            </div>
+            <a href=""><img th:src="@{/img/logo.png}" alt=""></a>
+            <div class="icon__function_list">
+                <i class="icon__function_items far fa-bell"></i>
+                <i class="icon__function_items icon__function_items_bag fas fa-shopping-bag">
+                    <div class="cart">
+                        <h2>Giỏ hàng của bạn</h2>
+                        <ul class="cart-items">
+                            <li class="cart-item">
+                                <img alt="Product image" th:src="@{'https://via.placeholder.com/50x50'}">
+                                <div class="item-details">
+                                    <h3>Product name</h3>
+                                    <p>Price: $10</p>
+                                    <p>Quantity: 1</p>
+                                </div>
+                                <button class="remove-item">Xóa</button>
+                            </li>
+                        </ul>
+                        <div class="cart-total">
+                            <h3>Tổng cộng: $10</h3>
+                        </div>
+                        <button class="checkout-button">Thanh toán</button>
+                    </div>
+                </i>
+                <i class="icon__function_items icon__function_items-user far fa-user-circle">
+                    <ul class="header__navbar-user-menu">
+                        <li class="header__navbar-user-item">
+                            <a class="header__navbar-user-item-link" href="">Đăng nhập</a>
+                        </li>
+                        <li class="header__navbar-user-item">
+                            <a class="header__navbar-user-item-link" href="">Đăng ký</a>
+                        </li>
+                    </ul>
+                </i>
+            </div>
+        </div>
+
+
+        <div class="header__nav_bot">
+            <ul class="header__nav_bot-list">
+                <li class="header__nav_bot-item">
+                    <a class="header__nav_bot-link-sp" href="">Về chúng tôi</a>
+                </li>
+                <li class="header__nav_bot-item header__nav_bot-flex">
+                    <a class="header__nav_bot-link" href="">
+                        Sản phẩm
+                        <i class="header__search-select-icon fas fa-angle-down"></i>
+                    </a>
+                    <ul class="header__search-option">
+                        <li class="header__search-option-item">Áo</li>
+                        <li class="header__search-option-item">Quần</li>
+                        <li class="header__search-option-item">Hoodie</li>
+                    </ul>
+                </li>
+                <li class="header__nav_bot-item">
+                    <a class="header__nav_bot-link" href="">Bộ sưu tập</a>
+                </li>
+                <li class="header__nav_bot-item">
+                    <a class="header__nav_bot-link header__nav_bot-sale" href="">Giảm giá</a>
+                </li>
+                <li class="header__nav_bot-item">
+                    <a class="header__nav_bot-link" href="">Liên hệ</a>
+                </li>
+                <li class="header__nav_bot-item">
+                    <a class="header__nav_bot-link" href="">Chăm sóc khách hàng</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="app__container">
+        <div class="product">
+            <h4 class="product_top">Về chúng tôi</h4>
+        </div>
+        <div class="cont__top">
+            <div class="cont__top_list">
+                <span class="cont__top_item" >VỀ CHÚNG TÔI</span>
+            </div>
+            <div class="cont__top_list cont__top__list_item">
+                <span>Levents® - Popular Streetwear brand/ Lì - ven /</span>
+            </div>
+        </div>
+        <div class="cont_pic">
+            <img class="cont_pic_1" th:src="@{/img/info.jpg}" alt="">
+        </div>
+        <div class="cont__medium_text">
+            <div class="cont__medium_list cont__medium_list_one">
+                <h1 class="cont__medium_item" >Chúng tôi là ai?</h1>
+            </div>
+            <div class="cont__medium_list cont__medium_list_two">
+                <h2 class="cont__medium_item" >Levents® là lựa chọn hàng đầu dành cho các tín đồ thời trang Đường phố sành điệu. Sứ mệnh của Levents® là trao quyền cho thế hệ trẻ toàn thế giới tự do thể hiện phong cách thông qua thời trang, thương hiệu vượt qua ranh giới của thời trang đường phố bằng cách không ngừng sáng tạo các trang phục với các bộ sưu tập độc đáo.</h2>
+            </div>
+        </div>
+        <div class="cont_pic">
+            <img class="cont_pic_1" th:src="@{/img/info2.jpg}" alt="">
+        </div>
+        <div class="cont__medium_text">
+            <div class="cont__medium_list cont__medium_list_one">
+                <h1 class="cont__medium_item" >Chất lượng trải nghiệm vượt trội</h1>
+            </div>
+            <div class="cont__medium_list cont__medium_list_two">
+                <h2 class="cont__medium_item" >Chúng tôi không ngừng nỗ lực, tập trung vào chất lượng sản phẩm và trải nghiệm mua sắm vượt trội nhất chưa từng có trước đây, các cửa hàng vật lý của chúng tôi, tối ưu hóa trải nghiệm, giúp người dùng mua sắm một sản phẩm cao cấp thật sự.
+                    Mua sắm trực tuyến dễ dàng, đa nền tảng trải nghiệm tuyệt vời. Giá thành hợp lý.
+                    Điều này đã giải quyết bài toán để bạn vừa cân đối khả năng tài chính, vừa đáp ứng hoàn hảo cho nhu cầu thời trang của bạn và xu hướng nhanh của thời đại.</h2>
+            </div>
+        </div>
+
+
+        <footer class="footer">
+            <div class="footer__grid">
+                <div class="footer__grid_col">
+                    <h3 class="footer__grid_namecol">
+                        Chăm sóc khách hàng
+                    </h3>
+                    <ul class="footer__grid_list">
+                        <li class="footer__grid_item" >Trung Tâm Trợ Giúp</li>
+                        <li class="footer__grid_item" >Hướng Dẫn Mua Hàng</li>
+                        <li class="footer__grid_item" >Thông Tin Đơn Hàng</li>
+                    </ul>
+                </div>
+                <div class="footer__grid_col">
+                    <h3 class="footer__grid_namecol">
+                        Giới thiệu
+                    </h3>
+                    <ul class="footer__grid_list">
+                        <li class="footer__grid_item" >
+                            Levents® - Popular Streetwear Brand
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer__grid_col">
+                    <h3 class="footer__grid_namecol">
+                        Theo dõi chúng tôi
+                    </h3>
+                    <ul class="footer__grid_list">
+                        <li class="footer__grid_item" >
+                            <a href="" class="footer__list-item-link">
+                                <i class="fab fa-facebook"></i>
+                                Facebook
+                            </a>
+                        </li>
+                        <li class="footer__grid_item" >
+                            <a href="" class="footer__list-item-link">
+                                <i class="fab fa-instagram-square"></i>
+                                Instagram
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer__grid_col">
+                    <h3 class="footer__grid_namecol">
+                        Cửa hàng
+                    </h3>
+                    <ul class="footer__grid_list">
+                        <li class="footer__grid_item" >842 Sư Vạn Hạnh, Phường 12, Quận 10, HCM</li>
+                        <li class="footer__grid_item" >The New Playground, 04, Quận 1, HCM</li>
+                        <li class="footer__grid_item" >54, Mậu Thân, Phường Xuân Khánh, Quận Ninh Kiều, Cần Thơ</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <div class="testcode">
+                    <div class="iamadd__text">
+                        <a href="" class="iamadd__text-test">CHÍNH SÁCH BẢO MẬT</a>
+                    </div>
+                    <div class="iamadd__text">
+                        <a href="" class="iamadd__text-test">QUY CHẾ HOẠT ĐỘNG</a>
+                    </div>
+                    <div class="iamadd__text">
+                        <a href="" class="iamadd__text-test">CHÍNH SÁCH VẬN CHUYỂN</a>
+                    </div>
+                    <div class="iamadd__text">
+                        <a href="" class="iamadd__text-test">CHÍNH SÁCH TRẢ HÀNG VÀ HOÀN TIỀN</a>
+                    </div>
+                </div>
+                <p class="footer__text">© 2023 - Bản quyền thuộc về Team 3TL</p>
+            </div>
+        </footer>
+    </div>
+</div>
+</body>
+</html>

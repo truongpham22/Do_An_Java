@@ -1,14 +1,14 @@
 :root {
     --primary-color: #EE4D2D;
-    --white-color: #fff; 
+    --white-color: #fff;
     --black-color: #000;
     --text-color: #333;
     --border-color: #dbdbdb;
-    
 
-    
-} 
-* {    
+
+
+}
+* {
     box-sizing: inherit;
 }
 html {

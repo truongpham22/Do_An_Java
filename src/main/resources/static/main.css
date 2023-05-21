@@ -5,9 +5,20 @@
 }
 
 .header{
-    height: 130px;
+    position: fixed;
+    top: 44px;
+    right: 0;
+    left: 0;
+    height: 138px;
     background-color: var(--white-color);
-
+    z-index: 1;
+}
+.header_navbar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index:1;
 }
 .header__nav--top{
     background-color: var(--black-color);
@@ -86,7 +97,7 @@
     font-size: 18px;
     color: rgba(0, 0, 0, 0.5);
     margin-left: 4px;
-}footer feBlend
+}
 .icon__function_list{
     padding: 0 35px;
 }
@@ -109,6 +120,9 @@
 }
 .icon__function_items_bag{
 
+}
+.app__container{
+    margin-top:200px;
 }
 .cart {
     position: absolute;
@@ -369,6 +383,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index:0;
   }
   .cont__top_item{
     font-size: 14px;

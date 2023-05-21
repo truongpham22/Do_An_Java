@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Levents</title>
+    <th:block th:replace="layout :: link-main-css"></th:block>
+    <th:block th:replace="layout :: link-base-css"></th:block>
+    <th:block th:replace="layout :: link-font-css"></th:block>
+    <th:block th:replace="layout :: link-rob-css"></th:block>
+</head>
+<body>
+<div class="app">
+<th:block th:replace="layout :: head_top"></th:block>
+<div class="app__container">
+    <div class="product">
+        <h4 class="product_top">Về chúng tôi</h4>
+    </div>
+    <div class="cont__top">
+        <div class="cont__top_list">
+            <span class="cont__top_item" >VỀ CHÚNG TÔI</span>
+        </div>
+        <div class="cont__top_list cont__top__list_item">
+            <span>Levents® - Popular Streetwear brand/ Lì - ven /</span>
+        </div>
+    </div>
+    <div class="cont_pic">
+        <img class="cont_pic_1" th:src="@{/img/info.jpg}" alt="">
+    </div>
+    <div class="cont__medium_text">
+        <div class="cont__medium_list cont__medium_list_one">
+            <h1 class="cont__medium_item" >Chúng tôi là ai?</h1>
+        </div>
+        <div class="cont__medium_list cont__medium_list_two">
+            <h2 class="cont__medium_item" >Levents® là lựa chọn hàng đầu dành cho các tín đồ thời trang Đường phố sành điệu. Sứ mệnh của Levents® là trao quyền cho thế hệ trẻ toàn thế giới tự do thể hiện phong cách thông qua thời trang, thương hiệu vượt qua ranh giới của thời trang đường phố bằng cách không ngừng sáng tạo các trang phục với các bộ sưu tập độc đáo.</h2>
+        </div>
+    </div>
+    <div class="cont_pic">
+        <img class="cont_pic_1" th:src="@{/img/info2.jpg}" alt="">
+    </div>
+    <div class="cont__medium_text">
+        <div class="cont__medium_list cont__medium_list_one">
+            <h1 class="cont__medium_item" >Chất lượng trải nghiệm vượt trội</h1>
+        </div>
+        <div class="cont__medium_list cont__medium_list_two">
+            <h2 class="cont__medium_item" >Chúng tôi không ngừng nỗ lực, tập trung vào chất lượng sản phẩm và trải nghiệm mua sắm vượt trội nhất chưa từng có trước đây, các cửa hàng vật lý của chúng tôi, tối ưu hóa trải nghiệm, giúp người dùng mua sắm một sản phẩm cao cấp thật sự.
+                Mua sắm trực tuyến dễ dàng, đa nền tảng trải nghiệm tuyệt vời. Giá thành hợp lý.
+                Điều này đã giải quyết bài toán để bạn vừa cân đối khả năng tài chính, vừa đáp ứng hoàn hảo cho nhu cầu thời trang của bạn và xu hướng nhanh của thời đại.</h2>
+        </div>
+    </div>
+</div>
+    <th:block th:replace="layout :: footer"></th:block>
+</div>
+</body>
+</html>

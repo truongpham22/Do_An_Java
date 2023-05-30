@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Embeddable
 public class KeyOrderDetail implements Serializable {
-    @Column(name = "order_id")
+    @Column(name = "orders_id")
     Long orderId;
 
     @Column(name = "product_id")

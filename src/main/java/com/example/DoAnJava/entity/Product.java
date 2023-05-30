@@ -15,7 +15,7 @@ public class Product {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id",referencedColumnName = "id")
     private Category category;
 
     @Column(name = "name")
@@ -36,6 +36,6 @@ public class Product {
     @Column(name = "quantityStock")
     private Integer quantityStock;
 
-    @OneToMany(mappedBy = "product")
-    Set<OrderDetail> orderDetails;
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    private Set<OrderDetail> orderDetails;
 }

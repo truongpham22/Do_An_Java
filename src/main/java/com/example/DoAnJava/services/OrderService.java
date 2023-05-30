@@ -1,6 +1,6 @@
 package com.example.DoAnJava.services;
 
-import com.example.DoAnJava.entity.Order;
+import com.example.DoAnJava.entity.Orders;
 import com.example.DoAnJava.entity.PaymentMethod;
 import com.example.DoAnJava.repository.IOrderRepository;
 import com.example.DoAnJava.repository.IPaymentMethodRepository;
@@ -14,11 +14,11 @@ public class OrderService {
     @Autowired
     private IOrderRepository orderRepository;
 
-    public List<Order> getAllOrder(){
+    public List<Orders> getAllOrder(){
         return orderRepository.findAll();
     }
 
-    public void saveOrder(Order order){
+    public void saveOrder(Orders order){
         orderRepository.save(order);
     }
     public void deleteOrder(Long orderId){

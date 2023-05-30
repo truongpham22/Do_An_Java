@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.type.descriptor.jdbc.TinyIntJdbcType;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -12,6 +13,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
@@ -30,9 +32,9 @@ public class User {
     private String passWord;
 
     @ManyToOne
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "role_id",referencedColumnName = "id")
     private Role role;
 
     @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
-    private List<Order> order;
+    private Set<Orders> orders;
 }

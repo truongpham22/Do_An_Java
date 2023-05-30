@@ -11,11 +11,12 @@ import java.util.List;
 public class PaymentMethod {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
     private String name;
 
     @OneToMany(mappedBy = "paymentMethod" ,cascade = CascadeType.ALL)
-    private List<Order> order;
+    private List<Orders> orders;
 }

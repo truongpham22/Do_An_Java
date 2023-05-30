@@ -1,18 +1,19 @@
 package com.example.DoAnJava.entity;
 
+
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "order")
-public class Order {
+@Table(name = "orders")
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne
@@ -38,6 +39,7 @@ public class Order {
     @Column(name = "totalPrice")
     private Double totalPrice;
 
-    @OneToMany(mappedBy = "order")
-    Set<OrderDetail> orderDetails;
+    @OneToMany(mappedBy = "orders",cascade = CascadeType.ALL)
+    private Set<OrderDetail> orderDetails;
+
 }

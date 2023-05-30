@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -37,6 +38,6 @@ public class Order {
     @Column(name = "totalPrice")
     private Double totalPrice;
 
-    @OneToMany(mappedBy = "order" ,cascade = CascadeType.ALL)
-    private List<OrderDetail> orderDetail;
+    @OneToMany(mappedBy = "order")
+    Set<OrderDetail> orderDetails;
 }

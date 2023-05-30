@@ -7,13 +7,17 @@ import lombok.Data;
 @Entity
 @Table(name = "orderDetail")
 public class OrderDetail {
-    @Id
+    @EmbeddedId
+    KeyOrderDetail id;
+
     @ManyToOne
+    @MapsId("orderId")
     @JoinColumn(name = "order_id")
     private Order order;
 
-    @Id
+
     @ManyToOne
+    @MapsId("productId")
     @JoinColumn(name = "product_id")
     private Product product;
 

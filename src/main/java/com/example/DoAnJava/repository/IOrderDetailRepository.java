@@ -1,10 +1,9 @@
 package com.example.DoAnJava.repository;
 
-import com.example.DoAnJava.entity.Category;
+import com.example.DoAnJava.entity.OrderDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-
-public interface ICategoryRepository extends JpaRepository<Category,Long> {
+public interface IOrderDetailRepository extends JpaRepository<OrderDetail,Long> {
 }

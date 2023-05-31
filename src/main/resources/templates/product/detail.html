@@ -15,20 +15,19 @@
     <div class="app__container">
         <nav aria-label="breadcrumb " class="product">
             <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item active">
-                    <a style="color: #000; text-decoration: none;" href="/home" >Trang chủ</a>
-                </li>
+                <li class="breadcrumb-item active"><a style="color: #000; text-decoration: none;" th:href="@{/home}" >Trang chủ</a></li>
+                <li class="breadcrumb-item active"><a style="color: #000; text-decoration: none;" th:href="@{/product}" >Cửa hàng</a></li>
                 <li class="breadcrumb-item active "><strong>Chi tiết sản phẩm</strong></li>
             </ol>
         </nav>
-        <div class="row py-5 g-5">
+        <div class="row g-5" style="padding: 0px 210px 30px 210px;">
             <div class="col-12 col-lg-6">
-                <img src="/img/4jpg.jpg" class="m-1 w-100 sliderMainImage shadow" data-bs-toggle="modal" data-bs-target="#imageModal" />
+                <img th:src="${product.urlImageThumbnail}" class="m-1 w-100 sliderMainImage shadow"/>
             </div>
             <div class="col-12 col-lg-6">
-                <h2 id="productName">ten san pham</h2>
+                <h2 id="productName"  th:text="${product.name}"></h2>
                 <small class="text-muted">Levent</small>
-                <h4 class="my-4"><span id="price">Gia tien </span>VNĐ</h4>
+                <h4 class="my-4"><span id="price" th:text="${product.price}"> </span>VNĐ</h4>
                 <div class="d-grid my-4">
                     <a href="" class="btn btn-lg btn-dark">
                         Thêm vào giỏ hàng
@@ -40,7 +39,7 @@
                             <strong>Mô tả:</strong>
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
-                            <div class="accordion-body"> Mota </div>
+                            <div class="accordion-body" th:text="${product.description}"></div>
                         </div>
                     </div>
                 </div>

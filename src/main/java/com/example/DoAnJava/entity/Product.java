@@ -31,7 +31,7 @@ public class Product {
     private String unit;
 
     @Column(name = "urlImageThumbnail", columnDefinition="LONGBLOB")
-    private List<byte[]> urlImageThumbnail;
+    private String urlImageThumbnail;
 
     @Column(name = "quantityStock")
     private Integer quantityStock;

@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/product")
 public class ProductController {
@@ -23,12 +25,18 @@ public class ProductController {
     @GetMapping("/detail")
     public String addBookForm(Model model){
         Long id = 1l;
-        Long catId = 2l;
         String name = "Sản phẩm test";
+        Double gia = 200.0;
+        String mota = "test mo ta san pham";
 
+        String hinh = "/img/4jpg.jpg";
 
         Product product = new Product();
         product.setId(id);
+        product.setName(name);
+        product.setPrice(gia);
+        product.setDescription(mota);
+        product.setUrlImageThumbnail(hinh);
         model.addAttribute("product", product);
         return "product/detail";
     }

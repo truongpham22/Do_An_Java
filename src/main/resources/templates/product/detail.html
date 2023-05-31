@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Detail Product</title>
+    <th:block th:replace="layout :: link-bootstrap"></th:block>
     <th:block th:replace="layout :: link-main-css"></th:block>
     <th:block th:replace="layout :: link-base-css"></th:block>
     <th:block th:replace="layout :: link-font-css"></th:block>
@@ -12,15 +13,17 @@
 <div class="app">
     <th:block th:replace="layout :: head_top"></th:block>
     <div class="app__container">
-        <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item active">
-                <a style="color: #000; text-decoration: none;" href="@{/home/index}">Trang chủ</a>
-            </li>
-            <li class="breadcrumb-item active "><strong>Chi tiết sản phẩm</strong></li>
-        </ol>
+        <nav aria-label="breadcrumb " class="product">
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active">
+                    <a style="color: #000; text-decoration: none;" href="/home" >Trang chủ</a>
+                </li>
+                <li class="breadcrumb-item active "><strong>Chi tiết sản phẩm</strong></li>
+            </ol>
+        </nav>
         <div class="row py-5 g-5">
             <div class="col-12 col-lg-6">
-                <img src="" class="m-1 w-100 sliderMainImage shadow" data-bs-toggle="modal" data-bs-target="#imageModal" />
+                <img src="/img/4jpg.jpg" class="m-1 w-100 sliderMainImage shadow" data-bs-toggle="modal" data-bs-target="#imageModal" />
             </div>
             <div class="col-12 col-lg-6">
                 <h2 id="productName">ten san pham</h2>

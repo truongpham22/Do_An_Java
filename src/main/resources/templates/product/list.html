@@ -9,10 +9,60 @@
     <th:block th:replace="layout :: link-rob-css"></th:block>
     <th:block th:replace="layout :: link-bootstrap"></th:block>
 </head>
-<body>
+<body class="app">
 <th:block th:replace="layout :: head_top"></th:block>
-<div>
+<div class="app__container pb-5">
+    <nav aria-label="breadcrumb " class="product">
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active"><a style="color: #000; text-decoration: none;" th:href="@{/home}" >Trang chủ</a></li>
+            <li class="breadcrumb-item active "><strong>Cửa hàng</strong></li>
+        </ol>
+    </nav>
+    <div class="container">
+        <div class="row gy-3" >
+            <div class="col-4 ">
+                <div class="card shadow">
+                    <a th:href="@{/product/detail}" style="text-decoration:none; color:black;">
+                        <img th:src="@{/img/4jpg.jpg}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <p class="card-text"> @item.Mota</p>
+                            <h5 class="card-text text-danger m-1"> @item.Price.ToString("#,##0") VNĐ</h5>
+                            <a asp-controller="Home" asp-action="AddToCart" asp-route-id="@item.Id" class="btn btn-lg btn-dark">Thêm vào giỏ hàng</a>
+                        </div>
+                    </a>
+                </div>
+            </div>
 
+            <div class="col-4 ">
+                <div class="card shadow">
+                    <a th:href="@{/product/detail}" style="text-decoration:none; color:black;">
+                        <img th:src="@{/img/4jpg.jpg}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Sản phẩm 2</h5>
+                            <p class="card-text"> Mô tả 2</p>
+                            <h5 class="card-text text-danger m-1"> @item.Price.ToString("#,##0") VNĐ</h5>
+                            <a asp-controller="Home" asp-action="AddToCart" asp-route-id="@item.Id" class="btn btn-lg btn-dark">Thêm vào giỏ hàng</a>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-4 ">
+                <div class="card shadow">
+                    <a th:href="@{/product/detail}" style="text-decoration:none; color:black;">
+                        <img th:src="@{/img/4jpg.jpg}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Sản phẩm 3</h5>
+                            <p class="card-text"> Sản phẩm 3</p>
+                            <h5 class="card-text text-danger m-1"> @item.Price.ToString("#,##0") VNĐ</h5>
+                            <a asp-controller="Home" asp-action="AddToCart" asp-route-id="@item.Id" class="btn btn-lg btn-dark">Thêm vào giỏ hàng</a>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <th:block th:replace="layout :: footer"></th:block>
 </body>

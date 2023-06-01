@@ -17,6 +17,11 @@
         .form-floating{
         margin: 5px 0;
         }
+        .form-control{
+        font-size: 14px;
+        padding: 14px;
+        margin-bottom: 14px;
+        }
     </style>
 </head>
 <body class="app">
@@ -26,45 +31,60 @@
         <div class="col-xl-6">
             <h1>Thông tin giao hàng</h1>
             <div class="row">
-                <div class="form-floating col-12">
-                    <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
-                    <label for="name">Name</label>
+                <div class="col-12">
+                    <input type="text" class="form-control" id="name" placeholder="Họ và Tên">
                 </div>
-                <div class="form-floating col-xl-6">
-                    <input type="text" class="form-control" id="phone" placeholder="Enter phone" name="phone">
-                    <label for="phone">Phone</label>
+                 <div class="col-xl-6">
+                     <input type="text" class="form-control" id="phone" placeholder="SĐT">
                 </div>
-                <div class="form-floating col-xl-6">
-                    <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
-                    <label for="email">Email</label>
+
+                <div class="col-xl-6">
+                    <input type="text" class="form-control" id="email" placeholder="Email" name="email">
                 </div>
-                <div class="form-floating col-xl-8">
+                <div class="col-xl-8">
                     <input type="text" class="form-control" id="address" placeholder="Địa chỉ" name ="address">
-                    <label for="address">Địa chỉ</label>
                 </div>
-                <div class="form-floating col-xl-4" >
-                    <select class="form-select">
+                <div class="col-xl-4" >
+                    <select class="form-control form-select">
                         <option>TP.Hồ Chí Minh</option>
                         <option>Hà Nội</option>
                         <option>Đà Nẵng</option>
                     </select>
                 </div>
-                <div class="form-floating col-xl-6">
+                <div class="col-xl-6">
                     <input type="text" class="form-control" id="location-district" placeholder="Quận/huyện" name ="district">
-                    <label for="location-district">Quận/huyện</label>
                 </div>
-                <div class="form-floating col-xl-6">
+                <div class="col-xl-6">
                     <input type="text" class="form-control" id="location-ward" placeholder="Phường" name ="ward">
-                    <label for="location-ward">Phường</label>
                 </div>
-                <button type="submit" class="btn btn-primary col-xl-12" style="width:19%; padding: 8px; margin-left: 80%;">Submit</button>
+                <button type="submit" class="btn btn-primary col-xl-12" style="width:19%; padding: 8px; margin-left: 80%; background-color:black;">Submit</button>
             </div>
         </div>
-        <div class="col-xl-6 mx-auto">
+        <div class="col-xl-6">
             <h1>Đơn hàng</h1>
-            <div class="form-floating col-xl-6">
+            <section>
+                <div class="cart_list">
+                    <div class="cart_item">
+                        <div class="carf_img">
+                            <a href="" class="box_img">
+                                <img src="/img/4jpg.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="card_info">
+                            <div class="wrap-title">
+                                
+                            </div>
+                            <div class="txt">
 
-            </div>
+                            </div>
+                            <div class="quantity">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
         </div>
     </div>
 </div>

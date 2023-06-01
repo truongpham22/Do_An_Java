@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Detail Product</title>
-    <th:block th:replace="layout :: link-bootstrap"></th:block>
-    <th:block th:replace="layout :: link-main-css"></th:block>
-    <th:block th:replace="layout :: link-base-css"></th:block>
-    <th:block th:replace="layout :: link-font-css"></th:block>
-    <th:block th:replace="layout :: link-rob-css"></th:block>
+    <th:block th:replace="@{layout/layoutClient} :: link-bootstrap"></th:block>
+    <th:block th:replace="@{layout/layoutClient} :: link-main-css"></th:block>
+    <th:block th:replace="@{layout/layoutClient} :: link-base-css"></th:block>
+    <th:block th:replace="@{layout/layoutClient} :: link-font-css"></th:block>
+    <th:block th:replace="@{layout/layoutClient} :: link-rob-css"></th:block>
 </head>
 <body class="app">
-    <th:block th:replace="layout :: head_top"></th:block>
+    <th:block th:replace="@{layout/layoutClient} :: head_top"></th:block>
     <div class="app__container">
         <nav aria-label="breadcrumb " class="product">
             <ol class="breadcrumb mb-4">
@@ -50,6 +50,6 @@
             </div>
         </div>
     </div>
-    <th:block th:replace="layout :: footer"></th:block>
+    <th:block th:replace="@{layout/layoutClient} :: footer"></th:block>
 </body>
 </html>

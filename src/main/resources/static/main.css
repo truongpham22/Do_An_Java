@@ -298,6 +298,12 @@
     padding: 0 25px 0;
     border-right: 1px solid rgba(0,0,0,0.09);
 }
+.cont__Picap img{
+    width: 100%;
+}
+.cont__Picap video{
+    width: 100%;
+}
 .iamadd__text:last-child {
     border-right: none;
 }
@@ -397,6 +403,20 @@
   .cont_pic_1{
     padding-top: 50px;
     width: 100%;
+  }
+  .cont__text{
+      display: flex;
+      justify-content: center;
+
+  }
+  .cont__text_vb{
+      height: 50px;
+      font-size: 20px;
+      margin-bottom: 65px;
+      display: inline-flex;
+      align-items: center;
+      font-weight: 550;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   .cont__medium_text{
     padding-top: 50px;

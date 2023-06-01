@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Levents</title>
-    <th:block th:replace="layout :: link-main-css"></th:block>
-    <th:block th:replace="layout :: link-base-css"></th:block>
-    <th:block th:replace="layout :: link-font-css"></th:block>
-    <th:block th:replace="layout :: link-rob-css"></th:block>
-    <th:block th:replace="layout :: link-bootstrap"></th:block>
+    <th:block th:replace="@{layout/layoutClient} :: link-main-css"></th:block>
+    <th:block th:replace="@{layout/layoutClient} :: link-base-css"></th:block>
+    <th:block th:replace="@{layout/layoutClient} :: link-font-css"></th:block>
+    <th:block th:replace="@{layout/layoutClient} :: link-rob-css"></th:block>
+    <th:block th:replace="@{layout/layoutClient} :: link-bootstrap"></th:block>
 </head>
 <body class="app">
-    <th:block th:replace="layout :: head_top"></th:block>
+    <th:block th:replace="@{layout/layoutClient} :: head_top"></th:block>
     <div class="app__container">
         <div class="cont__Picap">
+            <img th:src="@{/img/1920x760-1920x988.png}" alt="">
         </div>
         <!--danh sach san pham-->
         <div class="container">
@@ -69,7 +70,7 @@
             </video>
         </div>
     </div>
-    <th:block th:replace="layout :: footer"></th:block>
+    <th:block th:replace="@{layout/layoutClient} :: footer"></th:block>
 </div>
 </body>
 </html>

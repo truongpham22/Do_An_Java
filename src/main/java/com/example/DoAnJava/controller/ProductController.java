@@ -16,10 +16,10 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
+
     @GetMapping
     public String listProduct()
     {
-
         return  "product/list";
     }
     @GetMapping("/detail")
@@ -40,4 +40,11 @@ public class ProductController {
         model.addAttribute("product", product);
         return "product/detail";
     }
+
+    //nghia
+
+
+
+
+
 }

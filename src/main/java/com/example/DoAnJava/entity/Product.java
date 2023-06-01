@@ -33,6 +33,9 @@ public class Product {
     @Column(name = "urlImageThumbnail", columnDefinition="LONGBLOB")
     private String urlImageThumbnail;
 
+    @Column(name = "imageList", columnDefinition="text")
+    private List<String> imageList;
+
     @Column(name = "quantityStock")
     private Integer quantityStock;
 

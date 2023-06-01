@@ -17,6 +17,10 @@ public class Category {
     @Column(name = "name")
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "product_type_id", referencedColumnName = "id")
+    private  ProductType productType;
+
     @OneToMany(mappedBy = "category" ,cascade = CascadeType.ALL)
     private List<Product> products;
 }

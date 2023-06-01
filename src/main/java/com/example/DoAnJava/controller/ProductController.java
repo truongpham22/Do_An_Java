@@ -23,7 +23,7 @@ public class ProductController {
         return  "product/list";
     }
     @GetMapping("/detail")
-    public String addBookForm(Model model){
+    public String detailProduct(Model model){
         Long id = 1l;
         String name = "Sản phẩm test";
         Double gia = 200.0;

@@ -14,9 +14,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id",referencedColumnName = "id")
-    private Category category;
+
 
     @Column(name = "name")
     private String name;
@@ -41,4 +39,12 @@ public class Product {
 
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
     private Set<OrderDetail> orderDetails;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "product_type_id")
+    private ProductType productType;
 }

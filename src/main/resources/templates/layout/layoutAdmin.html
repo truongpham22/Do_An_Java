@@ -1,184 +1,91 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <link th:fragment="link-bootstrap" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:fragment="link-main-css" rel="stylesheet" th:href="@{/main.css}">
-    <link th:fragment="link-base-css" rel="stylesheet" th:href="@{/base.css}">
-    <link th:fragment="link-font-css" rel="stylesheet" th:href="@{/font/fontawesome-free-5.15.4-web/css/all.min.css}">
-    <link th:fragment="link-rob-css" th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap}" rel="stylesheet">
-    <title>Home</title>
+<head th:fragment="header(title)">
+    <meta charset="UTF-8" />
+    <title th:text="${title}"></title>
+    <link th:href="@{https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css}" rel="stylesheet" />
+    <link th:href="@{/AdminAssets/css/styles.css}" rel="stylesheet" />
+    <script th:src="@{https://use.fontawesome.com/releases/v6.3.0/js/all.js}" crossorigin="anonymous"></script>
+
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js}" crossorigin="anonymous"></script>
+    <script th:src="@{/AdminAssets/js/scripts.js}"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js}" crossorigin="anonymous"></script>
+    <script th:src="@{/AdminAssets/demo/chart-area-demo.js}"></script>
+    <script th:src="@{/AdminAssets/demo/chart-bar-demo.js}"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js}" crossorigin="anonymous"></script>
+    <script th:src="@{/AdminAssets/js/datatables-simple-demo.js}"></script>
+    <script th:src="@{/lib/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/lib/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/site.js}" asp-append-version="true"></script>
 </head>
-<body>
-<div class="app">
-    <div th:fragment="head_top">
-        <nav class="header_navbar">
-            <div class="header__nav--top">
-                <ul class="header_navbar_list">
-                        <span class="header_navbar_items">
-                            <i class="fas fa-globe-americas"></i>
-                            Levents love you
-                        </span>
-                </ul>
-                <ul class="header_navbar_list">
-                    <li class="header_navbar_items">
-                        <a class="header__navbar-icon-link" href="">
-                            Mua Ngay!
-                            <i class="far fa-money-bill-alt"></i>
-                        </a>
-                    </li>
-                </ul>
+<body class="sb-nav-fixed">
+<nav th:fragment="header_top" class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <!-- Navbar Brand-->
+    <a class="navbar-brand ps-3" th:href="@{/}">Levent</a>
+    <!-- Sidebar Toggle-->
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" th:href="@{/}"><i class="fas fa-bars"></i></button>
+    <!-- Navbar Search-->
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        <div class="input-group">
+            <input id="keyword" name="keyword" class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+            <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+        </div>
+    </form>
+    <!-- Navbar-->
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4 text-light">
+       <!-- <li>dang nhap</li>
+        <li>dang ky</li>-->
+    </ul>
+</nav>
+<div id="layoutSidenav">
+    <div th:fragment="menu" id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <a class="nav-link collapsed" th:href="@{/}" data-bs-toggle="collapse" data-bs-target="#collapseProducts" aria-expanded="false" aria-controls="collapseProducts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        Quản lý sản phẩm
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseProducts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" th:href="@{/}">Danh sách sản phẩm</a>
+                            <a class="nav-link" th:href="@{/}">Quản lý danh mục</a>
+                        </nav>
+                    </div>
+                    <a class="nav-link collapsed" th:href="@{/}" data-bs-toggle="collapse" data-bs-target="#collapseCustomers" aria-expanded="false" aria-controls="collapseCustomers">
+                        <div class="sb-nav-link-icon"><i class="fa-regular fa-address-card"></i></div>
+                        Quản lý tài khoản
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseCustomers" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" th:href="@{/}">Danh sách tài khoản</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="sb-sidenav-footer">
+                <div class="small">Logged in as:</div>
+                Start Bootstrap
             </div>
         </nav>
-        <header class="header">
-            <div class="Host__Store">
-                <div class="icon__function_list icon__function_search">
-                    <i class="icon__function_itemss icon__function_search-btn fas fa-search"></i>
-                    <input type="text" class="header__search-input " placeholder="Nhập để tìm kiếm sản phẩm">
-                </div>
-                <a href=""><img th:src="@{/img/logo.png}" alt=""></a>
-                <div class="icon__function_list">
-                    <i class="icon__function_items far fa-bell"></i>
-                    <i class="icon__function_items icon__function_items_bag fas fa-shopping-bag">
-                        <div class="cart">
-                            <h2>Giỏ hàng của bạn</h2>
-                            <ul class="cart-items">
-                                <li class="cart-item">
-                                    <img alt="Product image" th:src="@{'https://via.placeholder.com/50x50'}">
-                                    <div class="item-details">
-                                        <h3>Product name</h3>
-                                        <p>Price: $10</p>
-                                        <p>Quantity: 1</p>
-                                    </div>
-                                    <button class="remove-item">Xóa</button>
-                                </li>
-                            </ul>
-                            <div class="cart-total">
-                                <h3>Tổng cộng: $10</h3>
-                            </div>
-                            <a href="/pay">
-                                <button  class="checkout-button">Thanh toán</button>
-                            </a>
-
-                        </div>
-                    </i>
-                    <i class="icon__function_items icon__function_items-user far fa-user-circle">
-                        <ul class="header__navbar-user-menu">
-                            <li class="header__navbar-user-item">
-                                <a class="header__navbar-user-item-link" href="">Đăng nhập</a>
-                            </li>
-                            <li class="header__navbar-user-item">
-                                <a class="header__navbar-user-item-link" href="">Đăng ký</a>
-                            </li>
-                        </ul>
-                    </i>
-                </div>
-            </div>
-
-
-            <div class="header__nav_bot">
-                <ul class="header__nav_bot-list">
-                    <li class="header__nav_bot-item">
-                        <a class="header__nav_bot-link-sp" href="">Về chúng tôi</a>
-                    </li>
-                    <li class="header__nav_bot-item header__nav_bot-flex">
-                        <a class="header__nav_bot-link" th:href="@{/product}">
-                            Sản phẩm
-                            <i class="header__search-select-icon fas fa-angle-down"></i>
-                        </a>
-                        <ul class="header__search-option">
-                            <li class="header__search-option-item">Áo</li>
-                            <li class="header__search-option-item">Quần</li>
-                            <li class="header__search-option-item">Hoodie</li>
-                        </ul>
-                    </li>
-                    <li class="header__nav_bot-item">
-                        <a class="header__nav_bot-link" href="">Bộ sưu tập</a>
-                    </li>
-                    <li class="header__nav_bot-item">
-                        <a class="header__nav_bot-link header__nav_bot-sale" href="">Giảm giá</a>
-                    </li>
-                    <li class="header__nav_bot-item">
-                        <a class="header__nav_bot-link" href="">Liên hệ</a>
-                    </li>
-                    <li class="header__nav_bot-item">
-                        <a class="header__nav_bot-link" href="">Chăm sóc khách hàng</a>
-                    </li>
-                </ul>
-            </div>
-        </header>
     </div>
+    <div id="layoutSidenav_content">
 
-    <footer th:fragment="footer">
-        <div class="footer__grid">
-            <div class="footer__grid_col">
-                <h3 class="footer__grid_namecol">
-                    Chăm sóc khách hàng
-                </h3>
-                <ul class="footer__grid_list">
-                    <li class="footer__grid_item" >Trung Tâm Trợ Giúp</li>
-                    <li class="footer__grid_item" >Hướng Dẫn Mua Hàng</li>
-                    <li class="footer__grid_item" >Thông Tin Đơn Hàng</li>
-                </ul>
-            </div>
-            <div class="footer__grid_col">
-                <h3 class="footer__grid_namecol">
-                    Giới thiệu
-                </h3>
-                <ul class="footer__grid_list">
-                    <li class="footer__grid_item" >
-                        Levents® - Popular Streetwear Brand
-                    </li>
-                </ul>
-            </div>
-            <div class="footer__grid_col">
-                <h3 class="footer__grid_namecol">
-                    Theo dõi chúng tôi
-                </h3>
-                <ul class="footer__grid_list">
-                    <li class="footer__grid_item" >
-                        <a href="" class="footer__list-item-link">
-                            <i class="fab fa-facebook"></i>
-                            Facebook
-                        </a>
-                    </li>
-                    <li class="footer__grid_item" >
-                        <a href="" class="footer__list-item-link">
-                            <i class="fab fa-instagram-square"></i>
-                            Instagram
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="footer__grid_col">
-                <h3 class="footer__grid_namecol">
-                    Cửa hàng
-                </h3>
-                <ul class="footer__grid_list">
-                    <li class="footer__grid_item" >842 Sư Vạn Hạnh, Phường 12, Quận 10, HCM</li>
-                    <li class="footer__grid_item" >The New Playground, 04, Quận 1, HCM</li>
-                    <li class="footer__grid_item" >54, Mậu Thân, Phường Xuân Khánh, Quận Ninh Kiều, Cần Thơ</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer__bottom">
-            <div class="testcode">
-                <div class="iamadd__text">
-                    <a href="" class="iamadd__text-test">CHÍNH SÁCH BẢO MẬT</a>
-                </div>
-                <div class="iamadd__text">
-                    <a href="" class="iamadd__text-test">QUY CHẾ HOẠT ĐỘNG</a>
-                </div>
-                <div class="iamadd__text">
-                    <a href="" class="iamadd__text-test">CHÍNH SÁCH VẬN CHUYỂN</a>
-                </div>
-                <div class="iamadd__text">
-                    <a href="" class="iamadd__text-test">CHÍNH SÁCH TRẢ HÀNG VÀ HOÀN TIỀN</a>
+        <footer th:fragment="footer" class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                    <div>
+                        <a th:href="@{/}">Privacy Policy</a>
+                        &middot;
+                        <a th:href="@{/}">Terms &amp; Conditions</a>
+                    </div>
                 </div>
             </div>
-            <p class="footer__text">© 2023 - Bản quyền thuộc về Team 3TL</p>
-        </div>
-    </footer>
+        </footer>
+    </div>
 </div>
 </body>
 </html>

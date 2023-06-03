@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="@{layout/layoutAdmin} :: header(Levent-Admin)">
 </head>
-<body class="app">
- <div class="app__container">
-    test edit code by iphone
- </div>
+<body class="sb-nav-fixed">
+<nav th:replace="@{layout/layoutAdmin} :: header_top"></nav>
+<div id="layoutSidenav">
+    <div th:replace="@{layout/layoutAdmin} :: menu"></div>
+    <div id="layoutSidenav_content">
+
+        <div>
+            test
+        </div>
+
+        <footer th:replace="@{layout/layoutAdmin} :: footer"></footer>
+    </div>
+</div>
 </body>
 </html>

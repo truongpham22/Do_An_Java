@@ -1,10 +1,16 @@
 package com.example.DoAnJava.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
-
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Data
 @Table(name = "product_type")
@@ -18,5 +24,6 @@ public class ProductType {
     private String name;
 
     @OneToMany(mappedBy = "productType", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Product> products;
 }

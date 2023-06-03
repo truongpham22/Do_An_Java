@@ -19,8 +19,15 @@ public class ProductService {
 
     static final Logger logger = LoggerFactory.getLogger(ProductService.class);
 
+
+    public  List<Product> searchProducts(String name){
+        return productRepository.searchByName(name);
+    }
+    public  List<Product> getProductsByCategory(String category){
+        return productRepository.findByCategory(category);
+    }
     public List<Product> getAllProduct(){
-        return (List<Product>) productRepository.findAll();
+        return productRepository.findAll();
     }
     public Product getProductById(Long id){
         Optional<Product> optional = productRepository.findById(id);

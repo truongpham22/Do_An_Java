@@ -1,7 +1,10 @@
 package com.example.DoAnJava.entity;
 
+import com.example.DoAnJava.validator.annotation.ValidUsername;
 import jakarta.persistence.*;
 import lombok.Data;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.hibernate.type.descriptor.jdbc.TinyIntJdbcType;
 
 import java.util.List;
@@ -13,28 +16,27 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "phoneNumber")
-    private String phoneNumber;
-
-    @Column(name = "userName")
-    private String userName;
-
-    @Column(name = "email")
+    @Column(name = "username", length = 50, nullable = false, unique = true)
+    @NotBlank(message = "Username is required")
+    @Size(max = 50, message = "Username must be less than 50 characters")
+    @ValidUsername
+    private String username;
+    @Column(name = "password", length = 250, nullable = false)
+    @NotBlank(message = "Password is required")
+    private String password;
+    @Column(name = "email", length = 50)
+    @Size(max = 50, message = "Email must be less than 50 characters")
     private String email;
-
-    @Column(name = "passWord")
-    private String passWord;
-
+    @Column(name = "name", length = 50, nullable = false)
+    @Size(max = 50, message = "Your name must be less than 50 characters")
+    @NotBlank(message = "Your name is required")
+    private String name;
+    @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
+    private Set<Orders> orders;
     @ManyToOne
     @JoinColumn(name = "role_id",referencedColumnName = "id")
     private Role role;
-
-    @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
-    private Set<Orders> orders;
+    @Column(name = "phoneNumber")
+    private String phoneNumber;
 }

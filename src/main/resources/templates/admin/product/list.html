@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="@{layout/layoutAdmin} :: header(Levent-Admin)">
+</head>
+<body class="sb-nav-fixed">
+<nav th:replace="@{layout/layoutAdmin} :: header_top"></nav>
+<div id="layoutSidenav">
+    <div th:replace="@{layout/layoutAdmin} :: menu"></div>
+    <div id="layoutSidenav_content">
+
+        <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Hình</th>
+            <th scope="col">Tên sản phẩm</th>
+            <th scope="col">Danh mục</th>
+            <th scope="col">Giá</th>
+            <th scope="col">Tồn kho</th>
+            <th scope="col">Tình trạng</th>
+            <th scope="col">Tùy chọn</th>
+        </tr>
+        </thead>
+        <tbody id="records_table">
+
+        <tr th:each="product: ${products}">
+            <th scope="row" th:text="${product.id}"></th>
+            <td>
+                <p> <img th:src="@{/img/4jpg.jpg}" alt="hinh thumnail" height="60px" class="shadow-sm"></p>
+            </td>
+            <td>
+                <div class="d-flex align-items-center">
+                    <h6 class="" th:text="${product.name}"></h6>
+                </div>
+            </td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.quantityStock}"></td>
+            <td th:switch="${product.quantityStock}">
+                <span th:case="0" class="badge rounded-pill bg-danger">Out Stock</span>
+
+                <span th:case="*" class="badge rounded-pill bg-dark">In Stock</span>
+
+            </td>
+            <td>
+                <a class="btn btn-dark"><i class='fa fa-ellipsis-h'></i></a>
+                <a class="btn btn-dark" ><i class="fa-solid fa-pen-to-square"></i></a>
+                <a class="btn btn-danger" ><i class="fa-solid fa-trash"></i></a>
+            </td>
+        </tr>
+
+
+        </tbody>
+        </table>
+
+        <footer th:replace="@{layout/layoutAdmin} :: footer"></footer>
+    </div>
+</div>
+</body>
+</html>

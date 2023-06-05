@@ -1,22 +1,26 @@
 package com.example.DoAnJava.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Set;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+
 @Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id",referencedColumnName = "id")
-    private Category category;
 
     @Column(name = "name")
     private String name;
@@ -34,11 +38,23 @@ public class Product {
     private String urlImageThumbnail;
 
     @Column(name = "imageList", columnDefinition="text")
-    private List<String> imageList;
+    private String imageList;
 
     @Column(name = "quantityStock")
     private Integer quantityStock;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
     private Set<OrderDetail> orderDetails;
+
+    @ManyToOne
+    @JsonManagedReference
+    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = true)
+    private Category category;
+
+
+    @ManyToOne
+    @JsonManagedReference
+    @JoinColumn(name = "product_type_id", referencedColumnName = "id", nullable = true)
+    private ProductType productType;
 }

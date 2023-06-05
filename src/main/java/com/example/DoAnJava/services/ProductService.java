@@ -1,7 +1,11 @@
 package com.example.DoAnJava.services;
 
+import com.example.DoAnJava.controller.ProductController;
 import com.example.DoAnJava.entity.Product;
 import com.example.DoAnJava.repository.IProductRepository;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +17,15 @@ public class ProductService {
     @Autowired
     private IProductRepository productRepository;
 
+    static final Logger logger = LoggerFactory.getLogger(ProductService.class);
+
+
+    public  List<Product> searchProducts(String name){
+        return productRepository.searchByName(name);
+    }
+    public  List<Product> getProductsByCategory(String category){
+        return productRepository.findByCategory(category);
+    }
     public List<Product> getAllProduct(){
         return productRepository.findAll();
     }

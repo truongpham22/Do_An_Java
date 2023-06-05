@@ -1,9 +1,14 @@
 package com.example.DoAnJava.services;
 
+import com.example.DoAnJava.DTO.CreateProductDto;
 import com.example.DoAnJava.controller.ProductController;
+import com.example.DoAnJava.entity.Category;
 import com.example.DoAnJava.entity.Product;
+import com.example.DoAnJava.entity.ProductType;
+import com.example.DoAnJava.repository.ICategoryRepository;
 import com.example.DoAnJava.repository.IProductRepository;
 
+import com.example.DoAnJava.repository.IProductTypeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +21,12 @@ import java.util.Optional;
 public class ProductService {
     @Autowired
     private IProductRepository productRepository;
+
+    @Autowired
+    private ICategoryRepository categoryRepository;
+
+    @Autowired
+    private IProductTypeRepository productTypeRepository;
 
     static final Logger logger = LoggerFactory.getLogger(ProductService.class);
 
@@ -34,8 +45,20 @@ public class ProductService {
         return  optional.orElse(null);
     }
 
-    public void saveProduct(Product product){
-        productRepository.save(product);
+    public Product saveProduct(CreateProductDto product){
+        Product productSaved = new Product();
+        productSaved.setName(product.getName());
+        productSaved.setDescription(product.getDescription());
+        productSaved.setPrice(product.getPrice());
+        productSaved.setUnit(product.getUnit());
+        productSaved.setUrlImageThumbnail(product.getUrlImageThumbnail());
+        productSaved.setImageList(product.getImageList());
+        productSaved.setQuantityStock(product.getQuantityStock());
+        Category cate = this.categoryRepository.findById(product.getCategory_id()).orElse(null);
+        productSaved.setCategory(cate);
+        ProductType productType = this.productTypeRepository.findById(product.getProduct_type_id()).orElse(null);
+        productSaved.setProductType(productType);
+        return productRepository.save(productSaved);
     }
     public void deleteProduct(Long productId){
         productRepository.deleteById(productId);

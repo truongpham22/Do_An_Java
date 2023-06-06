@@ -3,7 +3,9 @@ package com.example.DoAnJava.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -17,6 +19,6 @@ public class Role {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "role" ,cascade = CascadeType.ALL)
-    private List<User> users;
+    @OneToMany(mappedBy = "roles")
+    private Set<User> users = new HashSet<>();
 }

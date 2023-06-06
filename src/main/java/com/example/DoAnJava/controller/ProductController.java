@@ -86,6 +86,15 @@ public class ProductController {
         return this.productService.saveProduct(product);
     }
 
+//    @PostMapping("/{id}/edit")
+//    @ResponseBody
+//    public String updateProduct(@PathVariable Long id, @RequestBody CreateProductDto createProductDto) {
+//        productService.updateProduct(id, createProductDto);
+//        return "redirect:/products/";
+//    }
+
+
+
 
 
 }

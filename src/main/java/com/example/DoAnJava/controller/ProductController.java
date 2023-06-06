@@ -2,16 +2,15 @@ package com.example.DoAnJava.controller;
 
 import com.example.DoAnJava.DTO.CreateProductDto;
 import com.example.DoAnJava.DTO.ProductDto;
-import com.example.DoAnJava.entity.Category;
 import com.example.DoAnJava.entity.Product;
 import com.example.DoAnJava.services.FirebaseService;
 import com.example.DoAnJava.services.ProductService;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +31,27 @@ public class ProductController {
 
     /*create api list products*/
 
+    @GetMapping("/delete/{id}")
+    @ResponseBody
+    public ResponseEntity deleteProduct(@PathVariable Long id){
+        Product product = this.productService.getProductById(id);
+        if (product != null) {
+            this.productService.deleteProduct(id);
+            return ResponseEntity.status(HttpStatus.OK).body("delete product successfully");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST ).body("Product not found");
+    }
+    @PostMapping("/edit/{id}")
+    @ResponseBody
+    public ResponseEntity updateProduct(@PathVariable Long id, @RequestBody CreateProductDto createProductDto) {
+        Product product = this.productService.getProductById(id);
+        if (product != null) {
+            this.productService.updateProduct(createProductDto, id);
+            return ResponseEntity.status(HttpStatus.OK).body(product);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product not found");
+    }
+
     @GetMapping("/view")
     public String getView() {
         String url = "http://localhost:8080/product/detail/1";
@@ -39,6 +59,7 @@ public class ProductController {
         System.out.println("A " + product.getId());
         return "layout/layoutClient";
     }
+
     @GetMapping("/list")
     @ResponseBody
     public List<Product> getProductList() {
@@ -80,13 +101,6 @@ public class ProductController {
         System.out.println("url list  " + result);
         return this.productService.saveProduct(product);
     }
-
-//    @PostMapping("/{id}/edit")
-//    @ResponseBody
-//    public String updateProduct(@PathVariable Long id, @RequestBody CreateProductDto createProductDto) {
-//        productService.updateProduct(id, createProductDto);
-//        return "redirect:/products/";
-//    }
 
 
 }

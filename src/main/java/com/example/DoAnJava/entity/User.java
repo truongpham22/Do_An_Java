@@ -7,13 +7,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.hibernate.type.descriptor.jdbc.TinyIntJdbcType;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Data
 @Entity
 @Table(name = "user")
-public class User {
+public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -46,6 +48,14 @@ public class User {
 
     @Column(name = "phoneNumber")
     private String phoneNumber;
+
+    @ManyToMany
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name ="role_id"))
+    private Set<Role> roles = new HashSet<>();
+
+
 
 
 }

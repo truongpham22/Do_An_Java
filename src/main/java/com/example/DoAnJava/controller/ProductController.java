@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-<<<<<<< HEAD
+
 import org.springframework.web.client.RestTemplate;
-=======
+
 import org.springframework.web.multipart.MultipartFile;
->>>>>>> e99ebda8e7c654606c7093026b21d9749c2f4845
+
 
 import java.util.List;
 

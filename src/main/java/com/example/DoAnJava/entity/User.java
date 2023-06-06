@@ -39,4 +39,6 @@ public class User {
     private Role role;
     @Column(name = "phoneNumber")
     private String phoneNumber;
+
+
 }

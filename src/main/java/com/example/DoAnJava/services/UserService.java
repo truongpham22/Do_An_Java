@@ -9,17 +9,22 @@ import java.util.List;
 
 @Service
 public class UserService {
+
     @Autowired
     private IUserRepository userRepository;
+
 
     public List<User> getAllUser(){
         return userRepository.findAll();
     }
 
+
     public void saveUser(User user){
         userRepository.save(user);
     }
+
     public void deleteUser(Long userId){
         userRepository.deleteById(userId);
     }
+
 }

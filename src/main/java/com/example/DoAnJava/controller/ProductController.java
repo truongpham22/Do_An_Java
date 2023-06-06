@@ -1,7 +1,9 @@
 package com.example.DoAnJava.controller;
 
+import com.example.DoAnJava.DTO.CreateProductDto;
 import com.example.DoAnJava.entity.Category;
 import com.example.DoAnJava.entity.Product;
+import com.example.DoAnJava.services.FirebaseService;
 import com.example.DoAnJava.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -10,7 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+<<<<<<< HEAD
 import org.springframework.web.client.RestTemplate;
+=======
+import org.springframework.web.multipart.MultipartFile;
+>>>>>>> e99ebda8e7c654606c7093026b21d9749c2f4845
 
 import java.util.List;
 
@@ -19,6 +25,9 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private FirebaseService firebaseService;
     static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     /*create api list products*/
@@ -47,6 +56,19 @@ public class ProductController {
         return  this.productService.searchProducts(search);
     }
 
+    @PostMapping
+    @ResponseBody
+    public Product create(@ModelAttribute() CreateProductDto product, @RequestParam("file") List<MultipartFile> file, @RequestParam("files") List<MultipartFile> files){
+        String url = this.firebaseService.uploadImages(file).get(0);
+        System.out.println("url 0  " + url);
+        List<String> url_list = this.firebaseService.uploadImages(files);
+        product.setUrlImageThumbnail(url);
+        String result = String.join(",", url_list);
+        product.setImageList(result);
+        System.out.println("url list  " + result);
+
+        return this.productService.saveProduct(product);
+    }
 
 
 

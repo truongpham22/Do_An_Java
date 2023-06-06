@@ -1,4 +1,4 @@
-package com.example.DoAnJava.controller.admin;
+package com.example.DoAnJava.controller;
 
 import com.example.DoAnJava.entity.Category;
 import com.example.DoAnJava.services.CategoryService;

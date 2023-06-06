@@ -17,6 +17,7 @@ import java.util.List;
 
 @Controller
 public class UserController {
+
     @Autowired
     private UserService userService;
     @GetMapping("/login")
@@ -26,9 +27,11 @@ public class UserController {
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("user", new User());
+
         return "user/register";
     }
     @PostMapping("/register")
+
     public String register(@Valid @ModelAttribute("user") User user,
                            BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -42,6 +45,8 @@ public class UserController {
         user.setPassword(new
                 BCryptPasswordEncoder().encode(user.getPassword()));
         userService.saveUser(user);
+
         return "redirect:/login";
+
     }
 }

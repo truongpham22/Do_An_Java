@@ -25,6 +25,6 @@ public class ProductType {
 
     @OneToMany(mappedBy = "productType", cascade = CascadeType.ALL)
     @JsonIgnore
-    @JsonBackReference
+    @JsonBackReference("productType")
     private List<Product> products;
 }

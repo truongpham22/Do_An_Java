@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Product</title>
+</head>
+<body>
+<h1>Edit Product</h1>
+<form th:object="${product}" method="post" enctype="multipart/form-data">
+  <input type="hidden" th:field="*{id}">
+  <div>
+    <label>Name:</label>
+    <input type="text" th:field="*{name}">
+  </div>
+  <div>
+    <label>Description:</label>
+    <textarea th:field="*{description}"></textarea>
+  </div>
+  <div>
+    <label>Price:</label>
+    <input type="number" th:field="*{price}" step="0.01">
+  </div>
+  <div>
+    <label>Unit:</label>
+    <input type="text" th:field="*{unit}">
+  </div>
+  <div>
+    <label>Thumbnail Image:</label>
+    <input type="file" name="thumbnailImage">
+  </div>
+  <div>
+    <label>Stock Quantity:</label>
+    <input type="number" th:field="*{quantityStock}">
+  </div>
+  <div>
+    <label>Category:</label>
+    <select th:field="*{category}">
+      <option th:each="category : ${categories}" th:value="${category}" th:text="${category.name}"></option>
+    </select>
+  </div>
+  <div>
+    <label>Product Type:</label>
+    <select th:field="*{productType}">
+      <option th:each="productType : ${productTypes}" th:value="${productType}" th:text="${productType.name}"></option>
+    </select>
+  </div>
+  <button type="submit">Save</button>
+</form>
+</body>
+</html>

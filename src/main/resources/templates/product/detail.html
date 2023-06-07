@@ -20,9 +20,12 @@
             </ol>
         </nav>
         <div class="row g-5" style="padding: 0px 210px 30px 210px;">
+            <!-- image thumb -->
             <div class="col-12 col-lg-6">
                 <img th:src="${product.urlImageThumbnail}" class="m-1 w-100 sliderMainImage shadow"/>
             </div>
+            <!--  list images          -->
+                <img th:each="img: ${products.imageList}" th:src="${img}" width="̉60" class="m-1 sliderThumb">
             <div class="col-12 col-lg-6">
                 <h2 id="productName"  th:text="${product.name}"></h2>
                 <small class="text-muted">Levent</small>

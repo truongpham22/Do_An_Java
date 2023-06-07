@@ -43,10 +43,6 @@ public class Product {
     @Column(name = "quantityStock")
     private Integer quantityStock;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
-    private Set<OrderDetail> orderDetails;
-
     @ManyToOne
     @JsonManagedReference
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = true)
@@ -57,4 +53,8 @@ public class Product {
     @JsonManagedReference
     @JoinColumn(name = "product_type_id", referencedColumnName = "id", nullable = true)
     private ProductType productType;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    private Set<OrderDetail> orderDetails;
 }

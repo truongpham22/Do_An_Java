@@ -45,6 +45,22 @@ public class ProductService {
         return  optional.orElse(null);
     }
 
+
+    public Product updateProduct(CreateProductDto product, Long id){
+        Product productSaved = this.productRepository.findById(id).orElse(null);
+        productSaved.setName(product.getName());
+        productSaved.setDescription(product.getDescription());
+        productSaved.setPrice(product.getPrice());
+        productSaved.setUnit(product.getUnit());
+        productSaved.setUrlImageThumbnail(product.getUrlImageThumbnail());
+        productSaved.setImageList(product.getImageList());
+        productSaved.setQuantityStock(product.getQuantityStock());
+        Category cate = this.categoryRepository.findById(product.getCategory_id()).orElse(null);
+        productSaved.setCategory(cate);
+        ProductType productType = this.productTypeRepository.findById(product.getProduct_type_id()).orElse(null);
+        productSaved.setProductType(productType);
+        return productRepository.save(productSaved);
+    }
     public Product saveProduct(CreateProductDto product){
         Product productSaved = new Product();
         productSaved.setName(product.getName());
@@ -61,6 +77,6 @@ public class ProductService {
         return productRepository.save(productSaved);
     }
     public void deleteProduct(Long productId){
-        productRepository.deleteById(productId);
+         productRepository.deleteById(productId);
     }
 }

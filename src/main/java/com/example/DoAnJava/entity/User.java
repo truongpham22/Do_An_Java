@@ -60,5 +60,7 @@ public class User {
     @JsonBackReference
     @JsonIgnore
     private Set<UserRole> user_roles;
+
+
 }
 

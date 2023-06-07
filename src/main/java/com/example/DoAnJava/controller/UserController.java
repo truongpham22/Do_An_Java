@@ -2,6 +2,7 @@ package com.example.DoAnJava.controller;
 
 import com.example.DoAnJava.entity.Product;
 import com.example.DoAnJava.entity.User;
+import com.example.DoAnJava.repository.IUserRepository;
 import com.example.DoAnJava.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,17 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
-@Controller()
+
+@Controller
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private IUserRepository userRepository;
 
     @GetMapping("/login")
     public String login() {
@@ -51,5 +57,6 @@ public class UserController {
         return "redirect:/login";
 
     }
+
 
 }

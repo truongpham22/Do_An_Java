@@ -69,7 +69,6 @@ public class ProductController {
 
     @GetMapping("/detail/{id}")
     @ResponseBody
-
     public Product product(@PathVariable(value = "id") Long id) {
         Product product = productService.getProductById(id);
         return product;

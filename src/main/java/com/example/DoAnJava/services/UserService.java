@@ -1,8 +1,8 @@
 package com.example.DoAnJava.services;
 
+import com.example.DoAnJava.DTO.CreateProductDto;
 import com.example.DoAnJava.DTO.CreateUserDto;
-import com.example.DoAnJava.entity.Role;
-import com.example.DoAnJava.entity.User;
+import com.example.DoAnJava.entity.*;
 import com.example.DoAnJava.repository.IRoleRepository;
 import com.example.DoAnJava.repository.IUserRepository;
 import com.example.DoAnJava.repository.IUserRoleRepository;
@@ -50,8 +50,27 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void deleteUser(Long userId){
+    public void DeleteUser(Long userId){
         userRepository.deleteById(userId);
+    }
+
+    public User saveUser(CreateUserDto user){
+        User usersave = new User();
+        usersave.setUsername(user.getUsername());
+        usersave.setPassword(user.getPassword());
+        usersave.setEmail(user.getEmail());
+        usersave.setName(user.getName());
+        usersave.setPhoneNumber(user.getPhoneNumber());
+        return userRepository.save(usersave);
+    }
+    public User updateUser(CreateUserDto user, Long id){
+        User usersave = this.userRepository.findById(id).orElse(null);
+        usersave.setUsername(user.getUsername());
+        usersave.setPassword(user.getPassword());
+        usersave.setEmail(user.getEmail());
+        usersave.setName(user.getName());
+        usersave.setPhoneNumber(user.getPhoneNumber());
+        return userRepository.save(usersave);
     }
 
     public void save(User user){

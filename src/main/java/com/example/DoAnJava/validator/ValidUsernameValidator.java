@@ -8,9 +8,11 @@ public class ValidUsernameValidator implements ConstraintValidator<ValidUsername
 
     @Autowired
     private IUserRepository userRepository;
+
     @Override
-    public boolean isValid(String username, ConstraintValidatorContext context){
-        if(userRepository == null)
+    public boolean isValid(String username, ConstraintValidatorContext context) {
+        if (userRepository == null)
             return true;
         return userRepository.findByUsername(username) == null;
     }
+}

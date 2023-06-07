@@ -20,7 +20,7 @@ import java.util.Optional;
 
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/login")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -57,6 +57,5 @@ public class UserController {
         return "redirect:/login";
 
     }
-
 
 }

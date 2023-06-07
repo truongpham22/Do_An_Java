@@ -18,10 +18,14 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public void saveOrder(Orders order){
+    public void SaveOrder(Orders order){
         orderRepository.save(order);
     }
-    public void deleteOrder(Long orderId){
+    public void DeleteOrder(Long orderId){
         orderRepository.deleteById(orderId);
     }
+
+
+
+
 }

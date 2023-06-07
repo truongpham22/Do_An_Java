@@ -23,7 +23,11 @@ public class User {
     private Long id;
     @Column(name = "username", length = 50, nullable = false, unique = true)
     @NotBlank(message = "Username is required")
-
+    @ManyToMany
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
     @Size(max = 50, message = "Username must be less than 50 characters")
     @ValidUsername
     private String username;
@@ -56,5 +60,5 @@ public class User {
     @JsonBackReference
     @JsonIgnore
     private Set<UserRole> user_roles;
-
 }
+

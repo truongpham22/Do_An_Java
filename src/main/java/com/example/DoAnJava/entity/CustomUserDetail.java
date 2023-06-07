@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-
 public class CustomUserDetail implements UserDetails {
     private final User user;
     private final IUserRepository userRepository;
@@ -58,3 +57,4 @@ public class CustomUserDetail implements UserDetails {
     }
 
 }
+

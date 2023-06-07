@@ -1,6 +1,8 @@
 package com.example.DoAnJava.entity;
 
 import com.example.DoAnJava.validator.annotation.ValidUsername;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import jakarta.validation.constraints.NotBlank;
@@ -15,7 +17,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "user")
-public class User  {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,23 +41,20 @@ public class User  {
     @NotBlank(message = "Your name is required")
     private String name;
 
-    @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Orders> orders;
 
     @ManyToOne
-    @JoinColumn(name = "role_id",referencedColumnName = "id")
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
 
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    @ManyToMany
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name ="role_id"))
-    private Set<Role> roles = new HashSet<>();
-
-
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonBackReference
+    @JsonIgnore
+    private Set<UserRole> user_roles;
 
 }

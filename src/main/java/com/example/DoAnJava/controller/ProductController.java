@@ -29,9 +29,9 @@ public class ProductController {
     @Autowired
     private RestTemplate restTemplate;
 
-    /*create api list products*/
+    /* TODO create api list products*/
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @ResponseBody
     public ResponseEntity deleteProduct(@PathVariable Long id){
         Product product = this.productService.getProductById(id);
@@ -101,6 +101,8 @@ public class ProductController {
         System.out.println("url list  " + result);
         return this.productService.saveProduct(product);
     }
+    /* TODO create api list products END*/
+
 
 
 }

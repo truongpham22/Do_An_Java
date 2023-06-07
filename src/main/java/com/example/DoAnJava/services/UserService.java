@@ -1,8 +1,11 @@
 package com.example.DoAnJava.services;
 
+import com.example.DoAnJava.DTO.CreateUserDto;
+import com.example.DoAnJava.entity.Role;
 import com.example.DoAnJava.entity.User;
 import com.example.DoAnJava.repository.IRoleRepository;
 import com.example.DoAnJava.repository.IUserRepository;
+import com.example.DoAnJava.repository.IUserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +16,38 @@ public class UserService {
 
     @Autowired
     private IUserRepository userRepository;
-
     @Autowired
     private IRoleRepository roleRepository;
+
+    @Autowired
+    private IUserRoleRepository userroleRepository;
+
     public List<User> getAllUser(){
         return userRepository.findAll();
     }
 
+    public User getUserById(Long id){
+        return this.userRepository.findById(id).orElse(null);
+    }
 
-    public void saveUser(User user){
-        userRepository.save(user);
+//    public User create(CreateUserDto user){
+//        User usertoSave = new User();
+//        usertoSave.setUsername(user.getUsername());
+//        usertoSave.setPassword(user.getPassword());
+//        usertoSave.setEmail(user.getEmail());
+//        usertoSave.setName(user.getName());
+//        if(user.getRoleName() == null){
+//            user.setRoleName("USER");
+//        }
+//        Long role_id = this.roleRepository.getRoleIdByName(user.getRoleName());
+//        Role role = this.roleRepository.findById(role_id).orElse(null);
+//        usertoSave.setRole(role);
+//        usertoSave.setPhoneNumber(user.getPhoneNumber());
+//        return userRepository.save(usertoSave);
+//    }
+
+    public User saveUser(User user){
+        return userRepository.save(user);
     }
 
     public void deleteUser(Long userId){

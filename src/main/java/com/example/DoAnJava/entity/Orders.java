@@ -1,6 +1,7 @@
 package com.example.DoAnJava.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -39,6 +40,7 @@ public class Orders {
     @Column(name = "totalPrice")
     private Double totalPrice;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "orders",cascade = CascadeType.ALL)
     private Set<OrderDetail> orderDetails;
 

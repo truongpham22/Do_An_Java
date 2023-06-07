@@ -53,7 +53,4 @@ public class User  {
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
-
-
-
 }

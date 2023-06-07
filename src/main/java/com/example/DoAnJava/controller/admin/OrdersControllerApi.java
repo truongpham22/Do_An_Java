@@ -33,7 +33,7 @@ public class OrdersControllerApi {
 
     @GetMapping("/detail/{id}")
     @ResponseBody
-    public Orders getDetaiOrders(@PathVariable Long id) {
+    public Orders getDetailOrders(@PathVariable Long id) {
         return this.orderService.getOrdersById(id);
     }
 

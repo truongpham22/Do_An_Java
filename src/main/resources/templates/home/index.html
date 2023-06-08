@@ -14,52 +14,26 @@
     <div class="app__container">
         <div class="cont__Picap">
         </div>
-        <!--danh sach san pham-->
+        <!-- Star - danh sach san pham-->
         <div class="container">
             <div class="row gy-3" >
-                <div class="col-4 ">
+                <div class="col-4 " th:each="product: ${products}">
                     <div class="card shadow">
-                        <a th:href="@{/product/detail}" style="text-decoration:none; color:black;">
-                            <img th:src="@{/img/4jpg.jpg}" class="card-img-top" alt="...">
+                        <a th:href="@{/product/{id}(id=${product.id})}" style="text-decoration:none; color:black;">
+                            <img th:src="${product.urlImageThumbnail}" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">@item.Name</h5>
-                                <p class="card-text"> @item.Mota</p>
-                                <h5 class="card-text text-danger m-1"> @item.Price.ToString("#,##0") VNĐ</h5>
-                                <a asp-controller="Home" asp-action="AddToCart" asp-route-id="@item.Id" class="btn btn-lg btn-dark">Thêm vào giỏ hàng</a>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-4 ">
-                    <div class="card shadow">
-                        <a th:href="@{/product/detail}" style="text-decoration:none; color:black;">
-                            <img th:src="@{/img/4jpg.jpg}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Sản phẩm 2</h5>
-                                <p class="card-text"> Mô tả 2</p>
-                                <h5 class="card-text text-danger m-1"> @item.Price.ToString("#,##0") VNĐ</h5>
-                                <a asp-controller="Home" asp-action="AddToCart" asp-route-id="@item.Id" class="btn btn-lg btn-dark">Thêm vào giỏ hàng</a>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-4 ">
-                    <div class="card shadow">
-                        <a th:href="@{/product/detail}" style="text-decoration:none; color:black;">
-                            <img th:src="@{/img/4jpg.jpg}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Sản phẩm 3</h5>
-                                <p class="card-text"> Sản phẩm 3</p>
-                                <h5 class="card-text text-danger m-1"> @item.Price.ToString("#,##0") VNĐ</h5>
-                                <a asp-controller="Home" asp-action="AddToCart" asp-route-id="@item.Id" class="btn btn-lg btn-dark">Thêm vào giỏ hàng</a>
+                                <h5 class="card-title" th:text="${product.name}"></h5>
+                                <p class="card-text" th:text="${#strings.length(product.description) > 20 ?
+                            #strings.substring(product.description, 0, 20) + '...' : product.description}"></p>
+                                <h5 class="card-text text-danger m-1 product_price" th:text="${product.price}">  VNĐ</h5>
+                                <a th:href="@{/}" class="btn btn-lg btn-dark">Thêm vào giỏ hàng</a>
                             </div>
                         </a>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- End - danh sách sản phẩm đừng đụng đến nha đụng là đập-->
         <div class="cont__text">
             <span class="cont__text_vb">Cách chúng tôi tạo ra 1 chiếc áo thun</span>
         </div>
@@ -71,5 +45,8 @@
     </div>
 <th:block th:replace="@{layout/layoutClient} :: footer"></th:block>
 </div>
+<!--còn này là script chuyển đổi vnd của t đụng là đập-->
+<script src="/js/toVND.js"></script>
+<!--!!!-->
 </body>
 </html>

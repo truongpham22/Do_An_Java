@@ -61,12 +61,12 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product not found");
     }
 
-    @GetMapping("/view")
-    public String getView() {
-        String url = "http://localhost:8080/product/detail/1";
+    @GetMapping("/{id}")
+    public String getView(@PathVariable(value = "id") Long id,Model model) {
+        String url = "http://localhost:8080/product/detail/"+id;
         ProductDto product = this.restTemplate.getForObject(url, ProductDto.class);
-        System.out.println("A " + product.getId());
-        return "layout/layoutClient";
+        model.addAttribute("product", product);
+        return "product/detail";
     }
 
     @GetMapping("/list")

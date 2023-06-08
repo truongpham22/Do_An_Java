@@ -24,13 +24,13 @@
         <div class="row gy-3" >
             <div class="col-4 " th:each="product: ${products}">
                 <div class="card shadow">
-                    <a th:href="@{/detail/{id}(id=${product.id})}" style="text-decoration:none; color:black;">
+                    <a th:href="@{/product/{id}(id=${product.id})}" style="text-decoration:none; color:black;">
                         <img th:src="${product.urlImageThumbnail}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${product.name}"></h5>
                             <p class="card-text" th:text="${#strings.length(product.description) > 20 ?
                             #strings.substring(product.description, 0, 20) + '...' : product.description}"></p>
-                            <h5 class="card-text text-danger m-1" th:text="${product.price}">  VNĐ</h5>
+                            <h5 class="card-text text-danger m-1 product_price" th:text="${product.price}">  VNĐ</h5>
                             <a th:href="@{/}" class="btn btn-lg btn-dark">Thêm vào giỏ hàng</a>
                         </div>
                     </a>
@@ -39,17 +39,7 @@
         </div>
     </div>
 </div>
+<script src="/js/toVND.js"></script>
 <th:block th:replace="@{layout/layoutClient} :: footer"></th:block>
 </body>
 </html>
-<!--<div class="card shadow">
-    <a th:href="@{/product/detail}" style="text-decoration:none; color:black;">
-        <img th:src="@{/img/4jpg.jpg}" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">@item.Name</h5>
-            <p class="card-text"> @item.Mota</p>
-            <h5 class="card-text text-danger m-1"> @item.Price.ToString("#,##0") VNĐ</h5>
-            <a asp-controller="Home" asp-action="AddToCart" asp-route-id="@item.Id" class="btn btn-lg btn-dark">Thêm vào giỏ hàng</a>
-        </div>
-    </a>
-</div>-->

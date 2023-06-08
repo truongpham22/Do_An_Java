@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -19,7 +20,7 @@ public class CreateOrdersDto {
     private String status;
     private Date orderDate;
     private Date deliveryDate;
-    private Double totalPrice;
+    private BigDecimal totalPrice;
 
     public Long getId() {
         return id;
@@ -61,11 +62,11 @@ public class CreateOrdersDto {
         this.deliveryDate = deliveryDate;
     }
 
-    public Double getTotalPrice() {
+    public BigDecimal  getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(Double totalPrice) {
+    public void setTotalPrice(BigDecimal  totalPrice) {
         this.totalPrice = totalPrice;
     }
 }

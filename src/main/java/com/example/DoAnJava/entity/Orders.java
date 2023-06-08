@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
@@ -38,7 +39,7 @@ public class Orders {
     private Date deliveryDate;
 
     @Column(name = "totalPrice")
-    private Double totalPrice;
+    private BigDecimal totalPrice;
 
     @JsonIgnore
     @OneToMany(mappedBy = "orders",cascade = CascadeType.ALL)

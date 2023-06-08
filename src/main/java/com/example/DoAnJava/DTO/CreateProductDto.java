@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -13,7 +14,7 @@ import java.util.List;
 public class CreateProductDto {
     private String name;
     private String description;
-    private Double price;
+    private BigDecimal price;
     private String unit;
     private String urlImageThumbnail;
     private String imageList;

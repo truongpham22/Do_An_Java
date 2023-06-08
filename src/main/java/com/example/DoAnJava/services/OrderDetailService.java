@@ -5,6 +5,7 @@ import com.example.DoAnJava.DTO.CreateOrdersDto;
 import com.example.DoAnJava.entity.OrderDetail;
 import com.example.DoAnJava.entity.Orders;
 import com.example.DoAnJava.entity.Product;
+import com.example.DoAnJava.entity.ProductType;
 import com.example.DoAnJava.repository.IOrderDetailRepository;
 import com.example.DoAnJava.repository.IOrderRepository;
 import com.example.DoAnJava.repository.IProductRepository;
@@ -45,6 +46,10 @@ public class OrderDetailService {
         Orders orders = this.orderRepository.findById(orderdetail.getOrders().getId()).orElse(null);
         orderDetailsave.setOrders(orders);
       */
+        orderDetailsave.setQuantity(orderdetail.getQuantity());
+      /* Product productPrice= this.productRepository.findById(orderdetail.getProduct().getId()).orElse(null);
+        orderDetailsave.setProduct(productPrice);
+       */
         return orderDetailRepository.save(orderDetailsave);
     }
     public OrderDetail updateOrdersDetail(CreateOrdersDetailDto orderdetail, Long id) {

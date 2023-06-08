@@ -6,7 +6,7 @@ prices.forEach(price => {
 
   // Kiểm tra nếu giá sản phẩm bằng null thì gán giá trị mặc định "Giá sản phẩm chưa cập nhật"
   let formattedPrice;
-  if (price.textContent === null) {
+  if (price.textContent === "0.0" ) {
     formattedPrice = "Giá sản phẩm chưa cập nhật";
   } else {
     // Định dạng giá trị hiển thị của phần tử bằng cách sử dụng hàm Intl.NumberFormat()

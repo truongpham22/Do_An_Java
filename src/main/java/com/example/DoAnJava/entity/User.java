@@ -21,6 +21,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Size(max = 50, message = "Username must be less than 50 characters")
+    @ValidUsername
+    private String username;
+
     @Column(name = "username", length = 50, nullable = false, unique = true)
     @NotBlank(message = "Username is required")
     @ManyToMany
@@ -28,9 +33,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-    @Size(max = 50, message = "Username must be less than 50 characters")
-    @ValidUsername
-    private String username;
+
 
     @Column(name = "password", length = 250, nullable = false)
     @NotBlank(message = "Password is required")

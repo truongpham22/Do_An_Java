@@ -17,7 +17,7 @@ public class CreateProductDto {
     private BigDecimal price;
     private String unit;
     private String urlImageThumbnail;
-    private String imageList;
+    private List<String> imageList;
     private Integer quantityStock;
     private Long category_id;
     private Long product_type_id;

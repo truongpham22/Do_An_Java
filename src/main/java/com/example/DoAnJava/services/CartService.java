@@ -27,4 +27,11 @@ public class CartService {
         session.removeAttribute(CART_SESSION_KEY);
     }
 
+    public double getSumPrice(@jakarta.validation.constraints.NotNull HttpSession session) {
+        return getCart(session).getItems().stream()
+                .mapToDouble(item -> item.getPrice() *
+                        item.getQuantity())
+                .sum();
+    }
+
 }

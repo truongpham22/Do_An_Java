@@ -40,13 +40,24 @@ public class CartItem {
 
     private String imageList;
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    private int quantity;
+
 
 
     // Constructor
-    public CartItem(Long id, String imageList,String name, double price) {
+    public CartItem(Long id, int quantity ,String imageList,String name, double price) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.imageList= imageList;
+        this.quantity = quantity;
     }
 }

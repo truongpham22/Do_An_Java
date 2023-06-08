@@ -40,7 +40,7 @@ public class ProductController {
         model.addAttribute("products",products);
         return "product/list";
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @ResponseBody
     public ResponseEntity deleteProduct(@PathVariable Long id){
         Product product = this.productService.getProductById(id);
@@ -50,7 +50,7 @@ public class ProductController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST ).body("Product not found");
     }
-    @PostMapping("/edit/{id}")
+    @PutMapping("/{id}")
     @ResponseBody
     public ResponseEntity updateProduct(@PathVariable Long id, @RequestBody CreateProductDto createProductDto) {
         Product product = this.productService.getProductById(id);
@@ -61,9 +61,11 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product not found");
     }
 
-    @GetMapping("/{id}")
+    /*TODO test call api here */
+
+    @GetMapping("/view")
     public String getView(@PathVariable(value = "id") Long id,Model model) {
-        String url = "http://localhost:8080/product/detail/"+id;
+        String url = "http://localhost:8080/product/"+id;
         ProductDto product = this.restTemplate.getForObject(url, ProductDto.class);
         model.addAttribute("product", product);
         return "product/detail";
@@ -73,10 +75,12 @@ public class ProductController {
     @ResponseBody
     public List<Product> getProductList() {
         List<Product> product = this.productService.getAllProduct();
+        logger.error("đôi khi con người ta hay buồn do lỗi nhiều quá");
+
         return product;
     }
 
-    @GetMapping("/detail/{id}")
+    @GetMapping("/{id}")
     @ResponseBody
     public Product product(@PathVariable(value = "id") Long id) {
         Product product = productService.getProductById(id);
@@ -86,14 +90,14 @@ public class ProductController {
     // /product/category?category=abc
     @GetMapping("/category")
     @ResponseBody
-    public List<Product> getProductsByCate(@RequestParam("category") String category) {
+    public List<Product> getProductsByCate(@RequestParam("name") String category) {
         List<Product> product = this.productService.getProductsByCategory(category);
         return product;
     }
 
     @GetMapping("/search")
     @ResponseBody
-    public List<Product> search(@RequestParam("search") String search) {
+    public List<Product> search(@RequestParam("name") String search) {
         return this.productService.searchProducts(search);
     }
     //upsoluong theo tên sản phẩm
@@ -108,16 +112,16 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product not found");
     }
     //end
-    @PostMapping("/add")
+    @PostMapping()
     @ResponseBody
     public Product create(@ModelAttribute() CreateProductDto product) {
         String url = this.firebaseService.uploadImages(product.getFile()).get(0);
         System.out.println("url 0  " + url);
         List<String> url_list = this.firebaseService.uploadImages(product.getFiles());
         product.setUrlImageThumbnail(url);
-        String result = String.join(",", url_list);
-        product.setImageList(result);
-        System.out.println("url list  " + result);
+//        String result = String.join(",", url_list);
+        product.setImageList(url_list);
+        System.out.println(url_list);
         return this.productService.saveProduct(product);
     }
     /* TODO create api list products END*/

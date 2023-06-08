@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,11 +36,14 @@ public class Product {
     @Column(name = "unit")
     private String unit;
 
-    @Column(name = "urlImageThumbnail", columnDefinition="text", nullable = true)
+    @Column(name = "urlImageThumbnail", columnDefinition = "text", nullable = true)
     private String urlImageThumbnail;
 
-    @Column(name = "imageList", columnDefinition="text")
-    private String imageList;
+    //    @Column(name = "imageList", columnDefinition="text")
+//    private String imageList;
+    @ElementCollection
+    @Column(name = "imageList", length = 1000)
+    private List<String> imageList;
 
     @Column(name = "quantityStock")
     private Integer quantityStock;
@@ -56,6 +60,6 @@ public class Product {
     private ProductType productType;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Set<OrderDetail> orderDetails;
 }

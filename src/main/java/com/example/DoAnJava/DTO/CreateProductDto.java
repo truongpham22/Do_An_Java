@@ -3,6 +3,9 @@ package com.example.DoAnJava.DTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -17,4 +20,6 @@ public class CreateProductDto {
     private Integer quantityStock;
     private Long category_id;
     private Long product_type_id;
+    private List<MultipartFile> file;
+    private List<MultipartFile> files;
 }

@@ -1,5 +1,6 @@
 package com.example.DoAnJava.controller.admin;
 
+import com.example.DoAnJava.DTO.CreateProductDto;
 import com.example.DoAnJava.entity.Category;
 import com.example.DoAnJava.entity.ProductType;
 import com.example.DoAnJava.services.CategoryService;
@@ -12,12 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
-public class adminController {
+public class adminProductController {
     @Autowired
     private ProductService productService;
 
@@ -26,6 +28,9 @@ public class adminController {
 
     @Autowired
     private ProductTypeService productTypeService;
+    @Autowired
+    private RestTemplate restTemplate;
+
 
 
     @GetMapping
@@ -33,12 +38,21 @@ public class adminController {
     {
         return  "admin/index";
     }
-    @GetMapping("/product")
+    @GetMapping("/products")
     public String listProduct(Model model)
     {
-        List<Product> products = productService.getAllProduct();
-        model.addAttribute("products", products);
+        String url = "http://localhost:8080/product/list";
+        List products = this.restTemplate.getForObject(url, List.class);
+        model.addAttribute("products",products);
         return "admin/product/list";
+    }
+
+    @GetMapping("/add")
+    public String addProductForm(Model model){
+        model.addAttribute("product", new CreateProductDto());
+        model.addAttribute("categories", categoryService.getAllCate());
+        model.addAttribute("types", productTypeService.getAllProductTypes());
+        return "admin/product/add";
     }
 
 

@@ -8,6 +8,15 @@
     <div th:replace="@{layout/layoutAdmin} :: menu"></div>
     <div id="layoutSidenav_content">
 
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin}">Home</a> </li>
+            <li class="breadcrumb-item"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin/products}">Quản lý sản phẩm</a> </li>
+        </ol>
+        <hr />
+        <p>
+            <a class="btn btn-dark m-1" th:href="@{/admin/add}">Tạo Mới</a>
+        </p>
+
         <table class="table">
         <thead>
         <tr>
@@ -33,7 +42,9 @@
                     <h6 class="" th:text="${product.name}"></h6>
                 </div>
             </td>
-            <td th:text="${product.description}"></td>
+            <td>
+                <span th:text="${#strings.length(product.description) > 20 ? #strings.substring(product.description, 0, 20) + '...' : product.description}"></span>
+            </td>
             <td th:text="${product.price}"></td>
             <td th:text="${product.quantityStock}"></td>
             <td th:switch="${product.quantityStock}">

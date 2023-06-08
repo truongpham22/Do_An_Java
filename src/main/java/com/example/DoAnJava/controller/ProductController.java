@@ -88,12 +88,12 @@ public class ProductController {
         return this.productService.searchProducts(search);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     @ResponseBody
-    public Product create(@ModelAttribute() CreateProductDto product, @RequestParam("file") List<MultipartFile> file, @RequestParam("files") List<MultipartFile> files) {
-        String url = this.firebaseService.uploadImages(file).get(0);
+    public Product create(@ModelAttribute() CreateProductDto product) {
+        String url = this.firebaseService.uploadImages(product.getFile()).get(0);
         System.out.println("url 0  " + url);
-        List<String> url_list = this.firebaseService.uploadImages(files);
+        List<String> url_list = this.firebaseService.uploadImages(product.getFiles());
         product.setUrlImageThumbnail(url);
         String result = String.join(",", url_list);
         product.setImageList(result);

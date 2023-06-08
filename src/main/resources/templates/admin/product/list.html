@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="@{layout/layoutAdmin} :: header(Levent-Admin)">
 </head>
-<body class="sb-nav-fixed">
+<body class="sb-nav-fixed" style="background-color: whitesmoke;">
 <nav th:replace="@{layout/layoutAdmin} :: header_top"></nav>
 <div id="layoutSidenav">
     <div th:replace="@{layout/layoutAdmin} :: menu"></div>
@@ -12,28 +12,28 @@
             <li class="breadcrumb-item"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin}">Home</a> </li>
             <li class="breadcrumb-item active"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin/products}">Quản lý sản phẩm</a> </li>
         </ol>
-        <hr />
         <p>
             <a class="btn btn-dark m-1" th:href="@{/admin/add}">Tạo Mới</a>
         </p>
 
-        <table class="table">
+        <table class="table rounded shadow " style="background-color: white; width:98%">
         <thead>
         <tr>
-            <th scope="col">ID</th>
+            <th class="text-center" scope="col">ID</th>
             <th scope="col">Hình</th>
             <th scope="col">Tên sản phẩm</th>
-            <th scope="col">Danh mục</th>
+            <th scope="col">Loại sản phẩm</th>
+            <th scope="col">Mô tả</th>
             <th scope="col">Giá</th>
             <th scope="col">Tồn kho</th>
-            <th scope="col">Tình trạng</th>
-            <th scope="col">Tùy chọn</th>
+            <th scope="col">Trạng thái</th>
+            <th scope="col">Đơn vị tính</th>
         </tr>
         </thead>
         <tbody id="records_table">
 
         <tr th:each="product: ${products}">
-            <th scope="row" th:text="${product.id}"></th>
+            <th class="text-center" scope="row" th:text="${product.id}"></th>
             <td>
                 <p> <img th:src="${product.urlImageThumbnail}" alt="hinh thumnail" height="60px" class="shadow-sm"></p>
             </td>
@@ -42,25 +42,19 @@
                     <h6 class="" th:text="${product.name}"></h6>
                 </div>
             </td>
+            <td th:text="${product.productType.name +' - '+ product.category.name}"></td>
             <td>
                 <span th:text="${#strings.length(product.description) > 20 ? #strings.substring(product.description, 0, 20) + '...' : product.description}"></span>
             </td>
-            <td th:text="${product.price}"></td>
+            <td class="product_price" th:text="${product.price}"></td>
             <td th:text="${product.quantityStock}"></td>
             <td th:switch="${product.quantityStock}">
                 <span th:case="0" class="badge rounded-pill bg-danger">Out Stock</span>
 
                 <span th:case="*" class="badge rounded-pill bg-dark">In Stock</span>
-
             </td>
-            <td>
-                <a class="btn btn-dark"><i class='fa fa-ellipsis-h'></i></a>
-                <a class="btn btn-dark" ><i class="fa-solid fa-pen-to-square"></i></a>
-                <a class="btn btn-danger" ><i class="fa-solid fa-trash"></i></a>
-            </td>
+            <td th:text="${product.unit}"></td>
         </tr>
-
-
         </tbody>
         </table>
 
@@ -68,5 +62,7 @@
         <footer th:replace="@{layout/layoutAdmin} :: footer"></footer>
     </div>
 </div>
+<script src="/js/toVND.js"></script>
+
 </body>
 </html>

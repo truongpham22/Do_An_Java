@@ -15,4 +15,6 @@ public class CreateOrdersDetailDto {
     KeyOrderDetail id;
     private Product product;
     private Orders orders;
+    private Integer quantity;
+    private Product productPrice;
 }

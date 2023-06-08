@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:strings="http://www.thymeleaf.org/extras/spring-strings">
 <head>
     <meta charset="UTF-8">
     <title>Detail Product</title>
@@ -25,11 +25,18 @@
                 <img th:src="${product.urlImageThumbnail}" class="m-1 w-100 sliderMainImage shadow"/>
             </div>
             <!--  list images          -->
-                <img th:each="img: ${products.imageList}" th:src="${img}" width="̉60" class="m-1 sliderThumb">
+            <ul>
+                <li th:each="image : ${#strings.arraySplit(products?.imageList, ',')}">
+                    <a th:href="@{/}">
+                        <img th:src="${image}" th:alt=""/>
+                    </a>
+                </li>
+            </ul>
+                <!--<img th:each="img: ${products.imageList}" th:src="${img}" width="̉60" class="m-1 sliderThumb">-->
             <div class="col-12 col-lg-6">
                 <h2 id="productName"  th:text="${product.name}"></h2>
                 <small class="text-muted">Levent</small>
-                <h4 class="my-4"><span id="price" th:text="${product.price}"> </span>VNĐ</h4>
+                <h4 class="my-4 product_price"><span  id="price" th:text="${product.price}"> </span></h4>
                 <div class="d-grid my-4">
                     <a href="" class="btn btn-lg btn-dark">
                         Thêm vào giỏ hàng
@@ -54,5 +61,6 @@
         </div>
     </div>
     <th:block th:replace="@{layout/layoutClient} :: footer"></th:block>
+    <script src="/js/toVND.js"></script>
 </body>
 </html>

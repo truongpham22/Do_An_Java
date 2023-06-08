@@ -2,6 +2,7 @@ package com.example.DoAnJava.controller;
 
 import com.example.DoAnJava.entity.Product;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,14 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class HomeController {
+    @Autowired
+    private RestTemplate restTemplate;
     @GetMapping
-    public String home()
+    public String home(Model model)
     {
-
+        String url = "http://localhost:8080/product/list";
+        List products = this.restTemplate.getForObject(url, List.class);
+        model.addAttribute("products",products);
         return  "home/index";
     }
     @GetMapping("/products")

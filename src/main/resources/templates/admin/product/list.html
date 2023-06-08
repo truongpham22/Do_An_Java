@@ -10,7 +10,7 @@
 
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin}">Home</a> </li>
-            <li class="breadcrumb-item"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin/products}">Quản lý sản phẩm</a> </li>
+            <li class="breadcrumb-item active"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin/products}">Quản lý sản phẩm</a> </li>
         </ol>
         <hr />
         <p>
@@ -35,7 +35,7 @@
         <tr th:each="product: ${products}">
             <th scope="row" th:text="${product.id}"></th>
             <td>
-                <p> <img th:src="@{/img/4jpg.jpg}" alt="hinh thumnail" height="60px" class="shadow-sm"></p>
+                <p> <img th:src="${product.urlImageThumbnail}" alt="hinh thumnail" height="60px" class="shadow-sm"></p>
             </td>
             <td>
                 <div class="d-flex align-items-center">

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,7 +32,14 @@ public class ProductController {
     private RestTemplate restTemplate;
 
     /* TODO create api list products*/
-
+    @GetMapping("/products")
+    public String listProduct(Model model)
+    {
+        String url = "http://localhost:8080/product/list";
+        List products = this.restTemplate.getForObject(url, List.class);
+        model.addAttribute("products",products);
+        return "product/list";
+    }
     @DeleteMapping("/delete/{id}")
     @ResponseBody
     public ResponseEntity deleteProduct(@PathVariable Long id){

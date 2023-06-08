@@ -28,7 +28,8 @@
                         <img th:src="${product.urlImageThumbnail}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${product.name}"></h5>
-                            <p class="card-text" th:text="${product.description}"> </p>
+                            <p class="card-text" th:text="${#strings.length(product.description) > 20 ?
+                            #strings.substring(product.description, 0, 20) + '...' : product.description}"></p>
                             <h5 class="card-text text-danger m-1" th:text="${product.price}">  VNĐ</h5>
                             <a th:href="@{/}" class="btn btn-lg btn-dark">Thêm vào giỏ hàng</a>
                         </div>

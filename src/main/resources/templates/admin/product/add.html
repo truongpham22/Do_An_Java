@@ -8,7 +8,14 @@
   <div th:replace="@{layout/layoutAdmin} :: menu"></div>
   <div id="layoutSidenav_content">
 <!--main-->
-    <form id="product-form" th:object="${product}" class="row g-3 px-5">
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin}">Home</a> </li>
+      <li class="breadcrumb-item"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin/products}">Quản lý sản phẩm</a> </li>
+      <li class="breadcrumb-item active"> <a class="nav-link" style="display: inline-block;" >Thêm sản phẩm</a> </li>
+
+    </ol>
+    <hr />
+    <form id="product-form" th:object="${product}" class="row g-3 px-5 ">
       <div class="col-md-12">
         <label class="form-label" for="name">Tên sản phẩm:</label>
         <input class="form-control" type="text" th:field="*{name}" id="name">

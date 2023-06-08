@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.swing.plaf.PanelUI;
 import java.util.List;
 
 @Controller
@@ -87,7 +88,18 @@ public class ProductController {
     public List<Product> search(@RequestParam("search") String search) {
         return this.productService.searchProducts(search);
     }
-
+    //upsoluong theo tên sản phẩm
+    @PostMapping("/updatesoluong/{id}")
+    @ResponseBody
+    public ResponseEntity updatesoluong(@PathVariable Long id, @RequestBody CreateProductDto createProductDto){
+        Product products = this.productService.getProductById(id);
+        if (products != null) {
+            this.productService.updateSoLuong(createProductDto, id);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(products);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product not found");
+    }
+    //end
     @PostMapping("/add")
     @ResponseBody
     public Product create(@ModelAttribute() CreateProductDto product) {

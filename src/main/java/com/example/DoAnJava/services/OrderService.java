@@ -41,7 +41,7 @@ public class OrderService {
 
     public Orders saveOrders(CreateOrdersDto order){
         Orders orderssave = new Orders();
-      /*User user = this.userRepository.findById(order.getUser().getId()).orElse(null);
+       /* User user = this.userRepository.findById(order.getUser().getId()).orElse(null);
         orderssave.setUser(user);
         PaymentMethod paymentMethod = this.paymentMethodRepository.findById(order.getPaymentMethod().getId()).orElse(null);
         orderssave.setPaymentMethod(paymentMethod);
@@ -55,11 +55,13 @@ public class OrderService {
     }
     public Orders updateOrders(CreateOrdersDto order, Long id){
         Orders orderssave = this.orderRepository.findById(id).orElse(null);
-      /*  User user = this.userRepository.findById(order.getUser().getId()).orElse(null);
+      /*User user = this.userRepository.findById(order.getUser().getId()).orElse(null);
         orderssave.setUser(user);
         PaymentMethod paymentMethod = this.paymentMethodRepository.findById(order.getPaymentMethod().getId()).orElse(null);
         orderssave.setPaymentMethod(paymentMethod);
        */
+        orderssave.setUser(order.getUser());
+        orderssave.setPaymentMethod(order.getPaymentMethod());
         orderssave.setDiscount(order.getDiscount());
         orderssave.setStatus(order.getStatus());
         orderssave.setOrderDate(order.getOrderDate());

@@ -76,6 +76,12 @@ public class ProductService {
         productSaved.setProductType(productType);
         return productRepository.save(productSaved);
     }
+    public Product updateSoLuong(CreateProductDto product, Long id){
+        Product productSaved = this.productRepository.findById(id).orElse(null);
+        productSaved.setName(product.getName());
+        productSaved.setQuantityStock(product.getQuantityStock());
+        return productRepository.save(productSaved);
+    }
     public void deleteProduct(Long productId){
          productRepository.deleteById(productId);
     }

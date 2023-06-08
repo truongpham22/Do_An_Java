@@ -18,6 +18,6 @@ public class CreateUserDto {
     private String password;
     private String email;
     private String name;
-    private String roleName;
+    private Role role;
     private String phoneNumber;
 }

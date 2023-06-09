@@ -51,7 +51,7 @@ public class UserControllerApi {
     @ResponseBody
     public User createUser(@ModelAttribute() CreateUserDto user) {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        return this.userService.saveUser(user);
+        return this.userService.saveUsers(user);
     }
 
     @PostMapping("/update/{id}")

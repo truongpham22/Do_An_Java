@@ -39,29 +39,14 @@ public class OrdersControllerApi {
 
     @PostMapping
     @ResponseBody
-    public Orders createOrders(@RequestBody() CreateOrdersDto orders) {
-        return this.orderService.saveOrders(orders);
+    public ResponseEntity createOrders(@RequestBody() CreateOrdersDto orders) {
+        boolean isSuccess = this.orderService.createOrder(orders);
+        if (isSuccess) {
+            return ResponseEntity.ok(isSuccess);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(isSuccess) ;
     }
-//    @PostMapping("/update/{id}")
-//    @ResponseBody
-//    public ResponseEntity updateOrders(@PathVariable Long id, @RequestBody CreateOrdersDto createOrdersDto) {
-//        Orders orders = this.orderService.getOrdersById(id);
-//        if (orders != null) {
-//            this.orderService.updateOrders(createOrdersDto, id);
-//            return ResponseEntity.status(HttpStatus.OK).body(orders);
-//        }
-//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Orders not found");
-//    }
-//    @DeleteMapping("/Xoa/{id}")
-//    @ResponseBody
-//    public ResponseEntity DeleteOrders(@PathVariable (value = "id") Long id){
-//        Orders orders = this.orderService.getOrdersById(id);
-//        if(orders != null){
-//            this.orderService.DeleteOrder(id);
-//            return ResponseEntity.status(HttpStatus.OK).body("delete Orders successfully");
-//        }
-//        return ResponseEntity.status(HttpStatus.BAD_REQUEST ).body("Orders not found");
-//    }
+
 
 
 }

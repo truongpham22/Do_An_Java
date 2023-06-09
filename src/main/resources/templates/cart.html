@@ -87,10 +87,12 @@
                 </a>
               </div>
               <div class="quantity" style="display: flex; justify-content: space-between;">
-                <h3 style="width: 38px;height: 5rem;" class="form-control" id="quantity" name ="quantity" th:text="${item.quantity}"></h3>
+<!--                <h3 style="width: 38px;height: 5rem;" class="form-control" id="quantity" name ="quantity" th:text="${item.quantity}"></h3>-->
+
+                  <input style="margin-top: 25px;width: 54px;padding-left: 13px;height: 34px;" type="number" name ="quantity" id="quantity" class="form-control"th:value="${item.quantity}"/>
                 <div class="card_price">
                   <h3 class="price product_price" th:text="${item.price * item.quantity}">Price</h3>
-                  <a th:href="@{/remove/{id}(id=${item.getId})}" style="padding: 7px 14px;" class="btn btn-dark btn-primary btn-sm">Xóa</a>
+                  <a th:href="@{/remove/{id}(id=${item.getId})}" style="padding: 9px 20px;" class="btn btn-dark btn-primary btn-sm">Xóa</a>
                 </div>
               </div>
             </div>

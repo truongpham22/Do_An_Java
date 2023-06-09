@@ -39,29 +39,29 @@ public class OrdersControllerApi {
 
     @PostMapping
     @ResponseBody
-    public Orders createOrders(@ModelAttribute() CreateOrdersDto orders) {
+    public Orders createOrders(@RequestBody() CreateOrdersDto orders) {
         return this.orderService.saveOrders(orders);
     }
-    @PostMapping("/update/{id}")
-    @ResponseBody
-    public ResponseEntity updateOrders(@PathVariable Long id, @RequestBody CreateOrdersDto createOrdersDto) {
-        Orders orders = this.orderService.getOrdersById(id);
-        if (orders != null) {
-            this.orderService.updateOrders(createOrdersDto, id);
-            return ResponseEntity.status(HttpStatus.OK).body(orders);
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Orders not found");
-    }
-    @DeleteMapping("/Xoa/{id}")
-    @ResponseBody
-    public ResponseEntity DeleteOrders(@PathVariable (value = "id") Long id){
-        Orders orders = this.orderService.getOrdersById(id);
-        if(orders != null){
-            this.orderService.DeleteOrder(id);
-            return ResponseEntity.status(HttpStatus.OK).body("delete Orders successfully");
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST ).body("Orders not found");
-    }
+//    @PostMapping("/update/{id}")
+//    @ResponseBody
+//    public ResponseEntity updateOrders(@PathVariable Long id, @RequestBody CreateOrdersDto createOrdersDto) {
+//        Orders orders = this.orderService.getOrdersById(id);
+//        if (orders != null) {
+//            this.orderService.updateOrders(createOrdersDto, id);
+//            return ResponseEntity.status(HttpStatus.OK).body(orders);
+//        }
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Orders not found");
+//    }
+//    @DeleteMapping("/Xoa/{id}")
+//    @ResponseBody
+//    public ResponseEntity DeleteOrders(@PathVariable (value = "id") Long id){
+//        Orders orders = this.orderService.getOrdersById(id);
+//        if(orders != null){
+//            this.orderService.DeleteOrder(id);
+//            return ResponseEntity.status(HttpStatus.OK).body("delete Orders successfully");
+//        }
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST ).body("Orders not found");
+//    }
 
 
 }

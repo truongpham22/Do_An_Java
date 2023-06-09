@@ -55,8 +55,8 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
+    public User saveUsers(CreateUserDto user){
 
-    public User saveUser(CreateUserDto user){
         User usersave = new User();
         usersave.setUsername(user.getUsername());
         usersave.setPassword(user.getPassword());

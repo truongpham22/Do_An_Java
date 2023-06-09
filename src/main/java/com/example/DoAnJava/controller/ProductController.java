@@ -40,7 +40,7 @@ public class ProductController {
         model.addAttribute("products",products);
         return "product/list";
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @ResponseBody
     public ResponseEntity deleteProduct(@PathVariable Long id){
         Product product = this.productService.getProductById(id);
@@ -50,7 +50,7 @@ public class ProductController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST ).body("Product not found");
     }
-    @PutMapping("/{id}")
+    @PutMapping("/edit/{id}")
     @ResponseBody
     public ResponseEntity updateProduct(@PathVariable Long id, @RequestBody CreateProductDto createProductDto) {
         Product product = this.productService.getProductById(id);
@@ -63,7 +63,7 @@ public class ProductController {
 
     /*TODO test call api here */
 
-    @GetMapping("/view")
+    @GetMapping("/view/{id}")
     public String getView(@PathVariable(value = "id") Long id,Model model) {
         String url = "http://localhost:8080/product/"+id;
         ProductDto product = this.restTemplate.getForObject(url, ProductDto.class);

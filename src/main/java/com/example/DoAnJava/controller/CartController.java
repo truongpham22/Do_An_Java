@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -35,7 +36,7 @@ public class CartController {
     }
 
     @RequestMapping(value = "/cart/add", method = {RequestMethod.GET, RequestMethod.POST})
-    public String addToCart(@RequestParam Long id,@RequestParam int quantity ,@RequestParam String imageList,@RequestParam String name, @RequestParam double price, Model model) {
+    public String addToCart(@RequestParam Long id, @RequestParam int quantity , @RequestParam String imageList, @RequestParam String name, @RequestParam BigDecimal price, Model model) {
         // Lấy giỏ hàng từ session
         Cart cart = (Cart) model.getAttribute("cart");
 

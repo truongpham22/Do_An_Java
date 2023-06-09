@@ -18,14 +18,6 @@ public class Orders {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "paymentMethod_id")
-    private PaymentMethod paymentMethod;
-
     @Column(name = "discount")
     private Integer discount;
 
@@ -45,4 +37,11 @@ public class Orders {
     @OneToMany(mappedBy = "orders",cascade = CascadeType.ALL)
     private Set<OrderDetail> orderDetails;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "paymentMethod_id")
+    private PaymentMethod paymentMethod;
 }

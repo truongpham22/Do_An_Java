@@ -24,6 +24,5 @@ public class Role {
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     @JsonBackReference
     @JsonIgnore
-
     private Set<UserRole> user_roles = new HashSet<>();
 }

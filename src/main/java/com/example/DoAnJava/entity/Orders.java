@@ -3,7 +3,9 @@ package com.example.DoAnJava.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -11,6 +13,8 @@ import java.util.Set;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "orders")
 public class Orders {
     @Id
@@ -19,7 +23,7 @@ public class Orders {
     private Long id;
 
     @Column(name = "discount")
-    private Integer discount;
+    private int discount;
 
     @Column(name = "status")
     private String status;

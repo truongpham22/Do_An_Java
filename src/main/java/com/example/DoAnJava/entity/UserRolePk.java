@@ -14,5 +14,4 @@ public class UserRolePk implements Serializable {
     @Column(name = "role_id")
 
     private Long roleId;
-    // getters and setters
 }

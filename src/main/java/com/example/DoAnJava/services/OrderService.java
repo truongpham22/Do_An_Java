@@ -31,7 +31,7 @@ public class OrderService {
         return this.orderRepository.findById(id).orElse(null);
     }
 
-    public boolean createOrder(CreateOrdersDto order){
+    public boolean createOrder(CreateOrdersDto order) {
         try {
             Orders orderToSave = new Orders();
             orderToSave.setDiscount(order.getDiscount());
@@ -43,9 +43,9 @@ public class OrderService {
             orderToSave.setUser(user);
             PaymentMethod paymentMethod = this.paymentMethodRepository.findById(order.getPaymentMethodId()).orElse(null);
             orderToSave.setPaymentMethod(paymentMethod);
-             orderRepository.save(orderToSave); // done create order
+            orderRepository.save(orderToSave); // done create order
             // order details
-            for (AddCartToOrderDto item: order.getCartItems()
+            for (AddCartToOrderDto item : order.getCartItems()
             ) {
                 OrderDetail detail = new OrderDetail();
                 KeyOrderDetail keyOrderDetail = new KeyOrderDetail();
@@ -63,22 +63,17 @@ public class OrderService {
                 this.orderDetailRepository.save(detail);
                 System.out.println("sau khi SAVE");
 
-                if(product != null) {
+                if (product != null) {
                     product.setQuantityStock(product.getQuantityStock() - item.getQuantity());
                     this.productRepository.save(product);// update sl
                 }
 
             }
             return true;
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
         }
         //
 
-
-    }
-
-
-
-}
+    }}

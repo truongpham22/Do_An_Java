@@ -33,6 +33,23 @@
           color: black;
         }
     </style>
+      <script>
+            document.addEventListener('DOMContentLoaded', function() {
+      var quantityInput = document.getElementById('quantity');
+      var priceElement = document.querySelector('.price.product_price');
+      var priceElement = document.querySelector('.total.product_price');
+
+      quantityInput.addEventListener('input', updatePrice);
+      quantityInput.addEventListener('change', updatePrice);
+
+      function updatePrice() {
+        var quantity = parseInt(quantityInput.value);
+        var price = parseFloat(priceElement.textContent);
+        var updatedPrice = price * quantity;
+        priceElement.textContent = updatedPrice;
+      }
+    });
+    </script>
 </head>
 <body class="app">
 <th:block th:replace="@{layout/layoutClient} :: head_top"></th:block>
@@ -89,7 +106,7 @@
               <div class="quantity" style="display: flex; justify-content: space-between;">
 <!--                <h3 style="width: 38px;height: 5rem;" class="form-control" id="quantity" name ="quantity" th:text="${item.quantity}"></h3>-->
 
-                  <input style="margin-top: 25px;width: 54px;padding-left: 13px;height: 34px;" type="number" name ="quantity" id="quantity" class="form-control"th:value="${item.quantity}"/>
+                  <input style="margin-top: 25px;width: 54px;padding-left: 13px;height: 34px;" min="0" type="number" name ="quantity" id="quantity" class="form-control"th:value="${item.quantity}"/>
                 <div class="card_price">
                   <h3 class="price product_price" th:text="${item.price * item.quantity}">Price</h3>
                   <a th:href="@{/remove/{id}(id=${item.getId})}" style="padding: 9px 20px;" class="btn btn-dark btn-primary btn-sm">Xóa</a>
@@ -102,7 +119,7 @@
       <div class="check_total" style="display: flex; justify-content: space-between; margin-top: 31px;border-top: 1px solid black;
     line-height: 100px;">
         <div style="font-size: 20px; font-weight:500">Tổng</div>
-        <div class="product_price" style="font-size: 14px; font-weight:500" th:text="${totalPrice}"></div>
+        <div class="total product_price" style="font-size: 14px; font-weight:500" th:text="${totalPrice}"></div>
       </div>
     </div>
   </div>

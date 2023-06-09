@@ -46,11 +46,7 @@ public class OrderService {
         PaymentMethod paymentMethod = this.paymentMethodRepository.findById(order.getPaymentMethod().getId()).orElse(null);
         orderssave.setPaymentMethod(paymentMethod);
         */
-        orderssave.setDiscount(order.getDiscount());
-        orderssave.setStatus(order.getStatus());
-        orderssave.setOrderDate(order.getOrderDate());
-        orderssave.setDeliveryDate(order.getDeliveryDate());
-        orderssave.setTotalPrice(order.getTotalPrice());
+
         return orderRepository.save(orderssave);
     }
     public Orders updateOrders(CreateOrdersDto order, Long id){
@@ -60,12 +56,7 @@ public class OrderService {
         PaymentMethod paymentMethod = this.paymentMethodRepository.findById(order.getPaymentMethod().getId()).orElse(null);
         orderssave.setPaymentMethod(paymentMethod);
        */
-        orderssave.setUser(order.getUser());
-        orderssave.setPaymentMethod(order.getPaymentMethod());
-        orderssave.setDiscount(order.getDiscount());
-        orderssave.setStatus(order.getStatus());
-        orderssave.setOrderDate(order.getOrderDate());
-        orderssave.setDeliveryDate(order.getDeliveryDate());
+
         orderssave.setTotalPrice(order.getTotalPrice());
         return orderRepository.save(orderssave);
 

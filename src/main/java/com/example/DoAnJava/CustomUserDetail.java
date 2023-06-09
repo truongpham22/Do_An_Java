@@ -1,10 +1,15 @@
-package com.example.DoAnJava.entity;
+package com.example.DoAnJava;
+import com.example.DoAnJava.entity.User;
 import com.example.DoAnJava.repository.IUserRepository;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.stream.Collectors;
+
 public class CustomUserDetail implements UserDetails {
     private final User user;
     private final IUserRepository userRepository;
@@ -16,7 +21,10 @@ public class CustomUserDetail implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
-        return Collections.emptyList();
+
+        return Arrays.stream(userRepository.getRolesOfUser(this.user.getId()))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toSet());
     }
 
 

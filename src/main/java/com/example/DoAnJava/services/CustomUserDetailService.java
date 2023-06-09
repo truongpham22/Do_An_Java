@@ -1,5 +1,5 @@
 package com.example.DoAnJava.services;
-import com.example.DoAnJava.entity.CustomUserDetail;
+import com.example.DoAnJava.CustomUserDetail;
 import com.example.DoAnJava.entity.User;
 import com.example.DoAnJava.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

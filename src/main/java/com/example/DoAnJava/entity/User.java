@@ -26,14 +26,6 @@ public class User {
     @ValidUsername
     private String username;
 
-    @Column(name = "username", length = 50, nullable = false, unique = true)
-    @NotBlank(message = "Username is required")
-    @ManyToMany
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
-
 
     @Column(name = "password", length = 250, nullable = false)
     @NotBlank(message = "Password is required")
@@ -51,10 +43,6 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Orders> orders;
-
-    @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
-    private Role role;
 
     @Column(name = "phoneNumber")
     private String phoneNumber;

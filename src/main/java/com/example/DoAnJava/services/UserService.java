@@ -63,7 +63,6 @@ public class UserService {
         usersave.setEmail(user.getEmail());
         usersave.setName(user.getName());
         Role role = this.roleRepository.findById(2L).orElse(null);
-        usersave.setRole(role);
         usersave.setPhoneNumber(user.getPhoneNumber());
         return userRepository.save(usersave);
     }
@@ -73,8 +72,7 @@ public class UserService {
         usersave.setPassword(user.getPassword());
         usersave.setEmail(user.getEmail());
         usersave.setName(user.getName());
-        Role role = this.roleRepository.findById(user.getRole().getId()).orElse(null);
-        usersave.setRole(role);
+      // TODO tao quyen
         usersave.setPhoneNumber(user.getPhoneNumber());
         return userRepository.save(usersave);
     }

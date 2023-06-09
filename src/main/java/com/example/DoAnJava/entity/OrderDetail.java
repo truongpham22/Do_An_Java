@@ -9,7 +9,6 @@ import lombok.Data;
 public class OrderDetail {
     @EmbeddedId
     KeyOrderDetail id;
-
     @ManyToOne
     @MapsId("productId")
     @JoinColumn(name = "product_id")
@@ -19,14 +18,6 @@ public class OrderDetail {
     @JoinColumn(name = "orders_id")
     private Orders orders;
 
-
-
-
     @Column(name = "quantity")
     private Integer quantity;
-
-    @ManyToOne
-    @JoinColumn(name = "product_price")
-    private Product productPrice;
-
 }

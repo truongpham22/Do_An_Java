@@ -19,19 +19,21 @@
                 <li class="breadcrumb-item active "><strong>Chi tiết sản phẩm</strong></li>
             </ol>
         </nav>
-        <div class="row g-5" style="padding: 0px 210px 30px 210px;">
+        <div class="row g-5 shadow" style="padding: 0px 210px 30px 210px;">
             <!-- image thumb -->
-            <div class="col-12 col-lg-6">
-                <img th:src="${product.urlImageThumbnail}" class="m-1 w-100 sliderMainImage shadow"/>
+            <div class="col-12 col-lg-6 ">
+                <img th:src="${product.urlImageThumbnail}" class="m-1 w-100 sliderMainImage large-image"/>
+                <ul class="list-group list-group-horizontal ">
+                    <li class="list-group-item border-0 ">
+                        <img th:src="${product.urlImageThumbnail}" th:alt="hinh" width="60px" class="m-1 sliderThumb selected-image"/>
+                    </li>
+                    <li class="list-group-item border-0" th:each="image : ${product.imageList}">
+                        <img th:src="${image}" th:alt="hinh" width="60px" class="m-1 sliderThumb"/>
+                    </li>
+                </ul>
             </div>
             <!--  list images          -->
-            <ul>
-                <li th:each="image : ${#strings.arraySplit(products?.imageList, ',')}">
-                    <a th:href="@{/}">
-                        <img th:src="${image}" th:alt=""/>
-                    </a>
-                </li>
-            </ul>
+
                 <!--<img th:each="img: ${products.imageList}" th:src="${img}" width="̉60" class="m-1 sliderThumb">-->
             <div class="col-12 col-lg-6">
                 <h2 id="productName"  th:text="${product.name}"></h2>
@@ -44,16 +46,24 @@
                 </div>
                 <div class="accordion">
                     <div class="accordion-item">
-                        <h2>
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <strong>Mô tả</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
+                            <div class="accordion-body" th:text="${product.description}"> </div>
+                        </div>
+                        <!--<h2>
                             <strong>Mô tả:</strong>
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
                             <div class="accordion-body" th:text="${product.description}"></div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
                 <div class="d-grid my-4">
-                    <a class="btn btn-lg btn-dark">
+                    <a class="btn btn-lg btn-danger">
                         Tiếp tục mua sắm
                     </a>
                 </div>
@@ -64,3 +74,36 @@
     <script src="/js/toVND.js"></script>
 </body>
 </html>
+<style>
+    .selected-image {
+        border: 2px solid whitesmoke; /* Thay đổi màu sắc và độ dày đường viền tùy ý */
+        opacity: 0.5;
+        transition: opacity 0.2s ease-in-out; /* Thay đổi màu sắc và độ mờ của hiệu ứng box-shadow tùy ý */
+    }
+</style>
+<script>
+    // Lấy phần tử hình ảnh chính
+var mainImage = document.querySelector('.sliderMainImage');
+
+// Lấy tất cả các hình ảnh thu nhỏ
+var thumbnailImages = document.querySelectorAll('.sliderThumb');
+
+// Lặp qua từng hình ảnh thu nhỏ và thêm một trình lắng nghe sự kiện click
+thumbnailImages.forEach(function(thumbnailImage) {
+    thumbnailImage.addEventListener('click', function(event) {
+        // Ngăn chặn hành động mặc định của liên kết
+        event.preventDefault();
+
+        // Xóa lớp CSS 'selected-image' khỏi tất cả các hình ảnh thu nhỏ
+        thumbnailImages.forEach(function(image) {
+            image.classList.remove('selected-image');
+        });
+
+        // Thêm lớp CSS 'selected-image' vào hình ảnh thu nhỏ được chọn
+        this.classList.add('selected-image');
+
+        // Đặt giá trị 'src' của hình ảnh chính thành giá trị 'src' của hình ảnh thu nhỏ được chọn
+        mainImage.setAttribute('src', this.getAttribute('src'));
+    });
+});
+</script>

@@ -63,7 +63,7 @@ public class ProductController {
 
     /*TODO test call api here */
 
-    @GetMapping("/view")
+    @GetMapping("/view/{id}")
     public String getView(@PathVariable(value = "id") Long id,Model model) {
         String url = "http://localhost:8080/product/"+id;
         ProductDto product = this.restTemplate.getForObject(url, ProductDto.class);

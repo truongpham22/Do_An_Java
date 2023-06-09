@@ -1,12 +1,12 @@
 package com.example.DoAnJava.services;
 
-import com.example.DoAnJava.DTO.CreateProductDto;
 import com.example.DoAnJava.DTO.CreateUserDto;
 import com.example.DoAnJava.entity.*;
 import com.example.DoAnJava.repository.IRoleRepository;
 import com.example.DoAnJava.repository.IUserRepository;
 import com.example.DoAnJava.repository.IUserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +14,7 @@ import java.util.List;
 @Service
 public class UserService {
 
+    private BCryptPasswordEncoder passwordEncoder;
     @Autowired
     private IUserRepository userRepository;
     @Autowired
@@ -55,11 +56,14 @@ public class UserService {
     }
 
     public User saveUsers(CreateUserDto user){
+
         User usersave = new User();
         usersave.setUsername(user.getUsername());
         usersave.setPassword(user.getPassword());
         usersave.setEmail(user.getEmail());
         usersave.setName(user.getName());
+        Role role = this.roleRepository.findById(2L).orElse(null);
+        usersave.setRole(role);
         usersave.setPhoneNumber(user.getPhoneNumber());
         return userRepository.save(usersave);
     }
@@ -69,6 +73,8 @@ public class UserService {
         usersave.setPassword(user.getPassword());
         usersave.setEmail(user.getEmail());
         usersave.setName(user.getName());
+        Role role = this.roleRepository.findById(user.getRole().getId()).orElse(null);
+        usersave.setRole(role);
         usersave.setPhoneNumber(user.getPhoneNumber());
         return userRepository.save(usersave);
     }

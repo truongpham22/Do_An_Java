@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
@@ -27,11 +28,10 @@ public class CartService {
         session.removeAttribute(CART_SESSION_KEY);
     }
 
-    public double getSumPrice(@jakarta.validation.constraints.NotNull HttpSession session) {
+    public BigDecimal getSumPrice(@jakarta.validation.constraints.NotNull HttpSession session) {
         return getCart(session).getItems().stream()
-                .mapToDouble(item -> item.getPrice() *
-                        item.getQuantity())
-                .sum();
+                .map(item -> item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
 }

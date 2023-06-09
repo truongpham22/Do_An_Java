@@ -1,5 +1,7 @@
 package com.example.DoAnJava.daos;
 
+import java.math.BigDecimal;
+
 public class CartItem {
 
     public String getName() {
@@ -10,13 +12,14 @@ public class CartItem {
         this.name = name;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
 
     public Long getId() {
         return id;
@@ -28,7 +31,7 @@ public class CartItem {
 
     private Long id;
     private String name;
-    private double price;
+    private BigDecimal price;
 
     public String getImageList() {
         return imageList;
@@ -53,7 +56,7 @@ public class CartItem {
 
 
     // Constructor
-    public CartItem(Long id, int quantity ,String imageList,String name, double price) {
+    public CartItem(Long id, int quantity ,String imageList,String name,BigDecimal price) {
         this.id = id;
         this.name = name;
         this.price = price;

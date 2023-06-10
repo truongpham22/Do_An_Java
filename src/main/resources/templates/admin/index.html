@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security"
+      lang="en">
+<div sec:authorize="hasAnyAuthority('ADMIN')">
 <head th:replace="@{layout/layoutAdmin} :: header(Levent-Admin)">
 </head>
 <body class="sb-nav-fixed">
@@ -16,4 +18,5 @@
     </div>
 </div>
 </body>
+</div>
 </html>

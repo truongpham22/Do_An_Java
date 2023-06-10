@@ -27,6 +27,7 @@ public class HomeController {
         model.addAttribute("products",products);
         return  "home/index";
     }
+
     @GetMapping("/products")
     public String products(Model model) {
         String url = "http://localhost:8080/api/product/list";

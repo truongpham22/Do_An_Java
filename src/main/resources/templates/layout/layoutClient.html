@@ -83,7 +83,18 @@
             <div class="Host__Store">
                 <div class="icon__function_list icon__function_search" style="font-size: 1.6rem">
                     <form th:action="@{/product/search}" method="get" >
-                        <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm!" >
+                        <input type="text" list="topics" name="keyword" placeholder="Tìm kiếm sản phẩm!" >
+                        <datalist id="topics">
+                            <option value="Thức ăn cho chó con cỡ nhỏ ROYAL CANIN Mini Puppy">
+                            <option value="Thức ăn cho chó Poodle MKB All Life Stages Formula Nutrition">
+                            <option value="Súp thưởng cho mèo vị thịt gà thanh cua CIAO Chicken & Crab">
+                            <option value="Pate cho mèo vị cá ngừ IRIS OHYAMA Love Meow Tuna">
+                            <option value="Sữa tắm cho chó con JOYCE & DOLLS 102 Puppy Tender Formula">
+                            <option value="Pate cho mèo vị cá ngừ IRIS OHYAMA Love Meow Tuna">
+                            <option value="Pate gói cho mèo CIAO vị thịt gà, cá ngừ và cá bào nhật">
+                            <option value="hihi">
+                            <option value="haha">
+                        </datalist>
                         <button style="border: 0.5px solid black;" type="submit">Search</button>
                     </form>
                 </div>

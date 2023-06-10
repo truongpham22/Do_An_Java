@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="@{layout/layoutAdmin} :: header(Levent-Admin)">
+
+</head>
+<body class="sb-nav-fixed"  style="background-color: whitesmoke;">
+<nav th:replace="@{layout/layoutAdmin} :: header_top"></nav>
+<div id="layoutSidenav">
+  <div th:replace="@{layout/layoutAdmin} :: menu"></div>
+  <div id="layoutSidenav_content">
+    <!--main-->
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin}">Home</a> </li>
+      <li class="breadcrumb-item"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin/products}">Quản lý sản phẩm</a> </li>
+      <li class="breadcrumb-item active"> <a class="nav-link" style="display: inline-block;" >Chi tiết sản phẩm</a> </li>
+
+    </ol>
+
+    <!--main-->
+    <footer th:replace="@{layout/layoutAdmin} :: footer"></footer>
+  </div>
+</div>
+<script>
+      // Lấy tham chiếu đến input số lượng
+      const quantityInput = document.getElementById("quantityStock");
+
+      // Nếu giá trị của input là rỗng thì set giá trị mặc định là 0
+      if (quantityInput.value === "") {
+        quantityInput.value = "0";
+      }
+      const priceInput = document.getElementById("price");
+      if (price.value === "") {
+        priceInput.value = "0";
+      }
+    </script>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+  $('#product-form').submit(function(event) {
+    event.preventDefault();
+    var formData = new FormData($('#product-form')[0]);
+    $.ajax({
+      type: 'POST',
+      url: '/product',
+      processData: false,
+      contentType: false,
+      data: formData,
+      success: function(response) {
+        $('#message').html('<div class="alert alert-success">Product created successfully</div>');
+        window.location.href = '/admin/products';
+      },
+      error: function(xhr, status, error) {
+        $('#message').html('<div class="alert alert-danger">Error creating product: ' + error + '</div>');
+      }
+    });
+  });
+});
+</script>

@@ -28,6 +28,7 @@
                 <th scope="col">Tồn kho</th>
                 <th scope="col">Trạng thái</th>
                 <th scope="col">Đơn vị tính</th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody id="records_table">
@@ -54,6 +55,12 @@
                     <span th:case="*" class="badge rounded-pill bg-dark">In Stock</span>
                 </td>
                 <td th:text="${product.unit}"></td>
+                <td>
+                    <a class="text-decoration-none text-dark" th:href="@{/admin/product/{id}(id=${product.id})}">Chi tiết</a>|
+                    <a class="text-decoration-none text-dark" th:href="@{/admin/product/{id}(id=${product.id})}">Sửa</a>|
+                    <a class="text-decoration-none text-danger" th:href="@{/admin/delete/{id}(id=${product.id})}"
+                    onclick="return confirm('Are you sure?')">Xóa</a>
+                </td>
             </tr>
             </tbody>
         </table>

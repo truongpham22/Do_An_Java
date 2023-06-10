@@ -20,7 +20,7 @@
             <div class="row gy-3" >
                 <div class="col-4 " th:each="product: ${products}">
                     <div class="card shadow">
-                        <a  th:href="@{/product/view/{id}(id=${product.id})}" style="text-decoration:none; color:black;">
+                        <a  th:href="@{/product/view/{id}(id=${product.id})}" style="text-decoration:none; color:black;" onclick="addToCart()">
                             <img style="height: 363px" th:src="${product.urlImageThumbnail}" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title" th:text="${product.name}"></h5>
@@ -48,6 +48,11 @@
     </div>
 <th:block th:replace="@{layout/layoutClient} :: footer"></th:block>
 </div>
+<script>
+function addToCart() {
+    alert("Vui lòng đăng ký tài khoản và đăng nhập để có thể thêm vào giỏ hàng và thanh toán.");
+}
+</script>
 <!--còn này là script chuyển đổi vnd của t đụng là đập-->
 <script src="/js/toVND.js"></script>
 <!--!!!-->

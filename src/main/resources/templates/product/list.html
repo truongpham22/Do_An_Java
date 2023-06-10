@@ -45,17 +45,17 @@
         <div class="row gy-3" >
             <div class="col-4 " th:each="product: ${products}">
                 <div class="card shadow">
-                    <a  th:href="@{/product/view/{id}(id=${product.id})}" style="text-decoration:none; color:black;">
+                    <a th:href="@{/product/view/{id}(id=${product.id})}" style="text-decoration:none; color:black;" onclick="addToCart()">
                         <img style="height: 363px" th:src="${product.urlImageThumbnail}" class="card-img-top" alt="...">
-                        <td sec:authorize="hasAnyAuthority('ADMIN','USER')">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${product.name}"></h5>
                             <p class="card-text text-truncate " th:text="${product.description}"></p>
-                            <h5 class="card-text text-danger m-1 product_price" th:text="${product.price}">  VNĐ</h5>
+                            <h5 class="card-text text-danger m-1 product_price" th:text="${product.price}">VNĐ</h5>
+                            <td sec:authorize="hasAnyAuthority('ADMIN','USER')">
                             <a th:href="@{/cart/add(id=${product.id},imageList=${product.urlImageThumbnail},name=${product.name},price=${product.price}, quantity=1)}"
-                               class="btn btn-lg btn-dark">Thêm vào giỏ hàng</a>
+                               class="btn btn-lg btn-dark" >Thêm vào giỏ hàng</a>
+                            </td>
                         </div>
-                        </td>
                     </a>
                 </div>
             </div>
@@ -63,6 +63,11 @@
     </div>
 </div>
 <script src="/js/toVND.js"></script>
+<script>
+function addToCart() {
+    alert("Vui lòng đăng ký tài khoản và đăng nhập để có thể thêm vào giỏ hàng và thanh toán.");
+}
+</script>
 <th:block th:replace="@{layout/layoutClient} :: footer"></th:block>
 </body>
 </html>

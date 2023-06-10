@@ -1,5 +1,6 @@
 package com.example.DoAnJava.controller;
 
+import com.example.DoAnJava.DTO.CreateUserDto;
 import com.example.DoAnJava.entity.Product;
 import com.example.DoAnJava.entity.User;
 import com.example.DoAnJava.repository.IUserRepository;
@@ -52,7 +53,8 @@ public class UserController {
         }
         user.setPassword(new
                 BCryptPasswordEncoder().encode(user.getPassword()));
-        userService.saveUser(user);
+        CreateUserDto userDto = this.userService.parseCreateUserDto(user);
+        userService.create(userDto);
 
         return "redirect:/login";
 

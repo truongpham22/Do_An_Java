@@ -25,6 +25,10 @@ public class PaymentController {
 
         return  "Payment/Checkout";
     }
+    @GetMapping("status-fail")
+    public String fail (Model model){
+        return "Payment/statusFailOrder";
+    }
 
 
 }

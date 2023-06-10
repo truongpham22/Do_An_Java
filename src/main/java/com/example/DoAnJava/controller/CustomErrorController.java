@@ -16,7 +16,7 @@ public class CustomErrorController implements ErrorController {
         if(status !=null) {
             int statusCode = Integer.parseInt(status.toString());
             if (statusCode == 404)
-                return "/error/404";
+                return "error/404";
         }
         return null;
     }

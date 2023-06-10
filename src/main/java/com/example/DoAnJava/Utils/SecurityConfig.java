@@ -1,5 +1,6 @@
 package com.example.DoAnJava.Utils;
 import com.example.DoAnJava.services.CustomUserDetailService;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -36,20 +37,16 @@ public class SecurityConfig {
         return auth;
     }
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws
-            Exception {
-
+    public SecurityFilterChain securityFilterChain(@NotNull HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers( "/**", "/js/**", "/", "/register","/error")
+                        .requestMatchers( "/**", "/js/**", "/","/register","/error")
                         .permitAll()
                         .requestMatchers("/admin")
                         .hasAnyAuthority("ADMIN")
                         .requestMatchers("/product/list")
                         .hasAnyAuthority("ADMIN","USER")
-                        .requestMatchers("/cart")
-                        .hasAnyAuthority("USER","ADMIN")
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout.logoutUrl("/logout")

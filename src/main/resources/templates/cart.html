@@ -33,23 +33,25 @@
           color: black;
         }
     </style>
-      <script>
-            document.addEventListener('DOMContentLoaded', function() {
-      var quantityInput = document.getElementById('quantity');
-      var priceElement = document.querySelector('.price.product_price');
-      var priceElement = document.querySelector('.total.product_price');
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var quantityInput = document.getElementById('quantity');
+    var productPriceElement = document.querySelector('.price.product_price');
+    var totalPriceElement = document.querySelector('.total.product_price');
 
-      quantityInput.addEventListener('input', updatePrice);
-      quantityInput.addEventListener('change', updatePrice);
+    quantityInput.addEventListener('input', updatePrice);
+    quantityInput.addEventListener('change', updatePrice);
 
-      function updatePrice() {
-        var quantity = parseInt(quantityInput.value);
-        var price = parseFloat(priceElement.textContent);
-        var updatedPrice = price * quantity;
-        priceElement.textContent = updatedPrice;
-      }
-    });
-    </script>
+    function updatePrice() {
+      var quantity = parseInt(quantityInput.value);
+      var price = parseFloat(productPriceElement.textContent);
+      var updatedPrice = price * quantity;
+
+      productPriceElement.textContent = updatedPrice;
+      totalPriceElement.textContent = updatedPrice;
+    }
+  });
+</script>
 </head>
 <body class="app">
 <th:block th:replace="@{layout/layoutClient} :: head_top"></th:block>

@@ -31,41 +31,42 @@ public class UserService {
         return this.userRepository.findById(id).orElse(null);
     }
 
-//    public User create(CreateUserDto user){
-//        User usertoSave = new User();
-//        usertoSave.setUsername(user.getUsername());
-//        usertoSave.setPassword(user.getPassword());
-//        usertoSave.setEmail(user.getEmail());
-//        usertoSave.setName(user.getName());
-//        if(user.getRoleName() == null){
-//            user.setRoleName("USER");
-//        }
-//        Long role_id = this.roleRepository.getRoleIdByName(user.getRoleName());
-//        Role role = this.roleRepository.findById(role_id).orElse(null);
-//        usertoSave.setRole(role);
-//        usertoSave.setPhoneNumber(user.getPhoneNumber());
-//        return userRepository.save(usertoSave);
-//    }
-
-    public User saveUser(User user){
-        return userRepository.save(user);
+    public CreateUserDto parseCreateUserDto(User user){
+        CreateUserDto createUser = new CreateUserDto();
+        createUser.setName(user.getName());
+        createUser.setPassword(user.getPassword());
+        createUser.setUsername(user.getUsername());
+        createUser.setPhoneNumber(user.getPhoneNumber());
+        createUser.setEmail(user.getEmail());
+        return createUser;
+    }
+    public User create(CreateUserDto user){
+        User usertoSave = new User();
+        usertoSave.setUsername(user.getUsername());
+        usertoSave.setPassword(user.getPassword());
+        usertoSave.setEmail(user.getEmail());
+        usertoSave.setName(user.getName());
+        usertoSave.setPhoneNumber(user.getPhoneNumber());
+        var k = userRepository.save(usertoSave);
+        if(user.getRoleName() == null){
+            UserRole userRole = new UserRole();
+            UserRolePk pk = new UserRolePk();
+            pk.setUserId(k.getId());
+            var id = this.roleRepository.getRoleIdByName("USER");
+            var role = this.roleRepository.findById(id).orElse(null);
+            pk.setRoleId(id);
+            userRole.setId(pk);
+            userRole.setRole(role);
+            userRole.setUser(usertoSave);
+            this.userroleRepository.save(userRole);
+        }
+        return  usertoSave;
     }
 
     public void DeleteUser(Long userId){
         userRepository.deleteById(userId);
     }
 
-    public User saveUsers(CreateUserDto user){
-
-        User usersave = new User();
-        usersave.setUsername(user.getUsername());
-        usersave.setPassword(user.getPassword());
-        usersave.setEmail(user.getEmail());
-        usersave.setName(user.getName());
-        Role role = this.roleRepository.findById(2L).orElse(null);
-        usersave.setPhoneNumber(user.getPhoneNumber());
-        return userRepository.save(usersave);
-    }
     public User updateUser(CreateUserDto user, Long id){
         User usersave = this.userRepository.findById(id).orElse(null);
         usersave.setUsername(user.getUsername());

@@ -17,6 +17,10 @@ public class PaymentController {
 
         return  "Payment/payment-form";
     }
+    @GetMapping("status-fail")
+    public String fail (Model model){
+        return "Payment/statusFailOrder";
+    }
 
 
 }

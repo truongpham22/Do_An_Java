@@ -41,6 +41,7 @@ public class OrdersControllerApi {
     @ResponseBody
     public ResponseEntity createOrders(@RequestBody() CreateOrdersDto orders) {
         boolean isSuccess = this.orderService.createOrder(orders);
+        System.out.println("GỌI " + isSuccess);
         if (isSuccess) {
             return ResponseEntity.ok(isSuccess);
         }

@@ -20,6 +20,7 @@
             <div class="row gy-3" >
                 <div class="col-4 " th:each="product: ${products}">
                     <div class="card shadow">
+                        <tr sec:authorize="!hasAnyAuthority('USER','ADMIN')" th:remove="tag">
                         <a  th:href="@{/product/view/{id}(id=${product.id})}" style="text-decoration:none; color:black;" onclick="addToCart()">
                             <img style="height: 363px" th:src="${product.urlImageThumbnail}" class="card-img-top" alt="...">
                             <div class="card-body">
@@ -32,6 +33,19 @@
                                 </td>
                             </div>
                         </a>
+                        </tr>
+                        <td sec:authorize="hasAnyAuthority('ADMIN','USER')">
+                        <a th:href="@{/product/view/{id}(id=${product.id})}" style="text-decoration:none; color:black;">
+                            <img style="height: 363px" th:src="${product.urlImageThumbnail}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${product.name}"></h5>
+                                <p class="card-text text-truncate " th:text="${product.description}"></p>
+                                <h5 class="card-text text-danger m-1 product_price" th:text="${product.price}">  VNĐ</h5>
+                                    <a th:href="@{/cart/add(id=${product.id},imageList=${product.urlImageThumbnail},name=${product.name},price=${product.price}, quantity=1)}"
+                                       class="btn btn-lg btn-dark">Thêm vào giỏ hàng</a>
+                            </div>
+                        </a>
+                        </td>
                     </div>
                 </div>
             </div>

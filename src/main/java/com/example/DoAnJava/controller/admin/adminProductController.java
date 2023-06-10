@@ -1,6 +1,7 @@
 package com.example.DoAnJava.controller.admin;
 
 import com.example.DoAnJava.DTO.CreateProductDto;
+import com.example.DoAnJava.DTO.ProductDto;
 import com.example.DoAnJava.entity.Category;
 import com.example.DoAnJava.entity.ProductType;
 import com.example.DoAnJava.services.CategoryService;
@@ -10,6 +11,7 @@ import com.example.DoAnJava.entity.Product;
 import com.example.DoAnJava.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +33,12 @@ public class adminProductController {
     @Autowired
     private RestTemplate restTemplate;
 
-
+   @GetMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable(value = "id") Long id)
+    {
+        productService.deleteProduct(id);
+        return "redirect:/admin/products";
+    }
 
     @GetMapping
     public String home()
@@ -65,5 +72,12 @@ public class adminProductController {
         model.addAttribute("categories", categories);
         model.addAttribute("productTypes", productTypes);
         return "admin/product/edit";
+    }
+    @GetMapping("/product/{id}")
+    public String getView(@PathVariable(value = "id") Long id,Model model) {
+        String url = "http://localhost:8080/product/"+id;
+        ProductDto product = this.restTemplate.getForObject(url, ProductDto.class);
+        model.addAttribute("product", product);
+        return "admin/product/detail";
     }
 }

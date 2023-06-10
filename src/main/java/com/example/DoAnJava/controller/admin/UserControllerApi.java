@@ -32,15 +32,6 @@ public class UserControllerApi {
         return users;
     }
 
-//    @PostMapping("/add")
-//    @ResponseBody
-//    public User addUser(@RequestBody CreateUserDto user) {
-//
-//
-//        return this.userService.create(user);
-//    }
-
-
     @GetMapping("/detail/{id}")
     @ResponseBody
     public User getDetaiUser(@PathVariable Long id) {
@@ -51,10 +42,10 @@ public class UserControllerApi {
     @ResponseBody
     public User createUser(@ModelAttribute() CreateUserDto user) {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        return this.userService.saveUsers(user);
+        return this.userService.create(user);
     }
 
-    @PostMapping("/update/{id}")
+    @PutMapping("/{id}")
     @ResponseBody
     public ResponseEntity updateUser(@PathVariable Long id, @RequestBody CreateUserDto createUserDto) {
         User user = this.userService.getUserById(id);
@@ -65,7 +56,7 @@ public class UserControllerApi {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
     }
 
-    @DeleteMapping("/Xoa/{id}")
+    @DeleteMapping("/{id}")
     @ResponseBody
     public ResponseEntity DeleteUser(@PathVariable (value = "id") Long id){
         User user = this.userService.getUserById(id);

@@ -47,18 +47,19 @@ public class OrderService {
             // order details
             for (AddCartToOrderDto item : order.getCartItems()
             ) {
+                System.out.println("trước khi SAVE");
                 OrderDetail detail = new OrderDetail();
                 KeyOrderDetail keyOrderDetail = new KeyOrderDetail();
+                System.out.println("TÌM PRODUCT");
                 Product product = this.productRepository.findById(item.getProductId()).orElse(null);
+                System.out.println("PRODUCTID: " + product.getId());
                 detail.setProduct(product);
                 Orders orders = orderRepository.findById(orderToSave.getId()).orElse(null);
                 keyOrderDetail.setOrderId(orderToSave.getId());
-                assert product != null;
                 keyOrderDetail.setProductId(product.getId());
                 detail.setId(keyOrderDetail);
                 detail.setOrders(orders);
                 detail.setQuantity(item.getQuantity());
-                System.out.println("trước khi SAVE");
 
                 this.orderDetailRepository.save(detail);
                 System.out.println("sau khi SAVE");

@@ -86,7 +86,7 @@
         <div class="col-xl-6">
           <input type="text" class="form-control" id="location-ward" placeholder="Phường" name ="ward">
         </div>
-        <button type="submit" class="btn btn-primary col-xl-12" style="width:19%; padding: 8px; margin-left: 80%; background-color:black;">Đặt hàng</button>
+        <button id="btn-order" type="submit" class="btn btn-primary col-xl-12" style="width:19%; padding: 8px; margin-left: 80%; background-color:black;">Đặt hàng</button>
       </div>
     </div>
     <div class="col-xl-6">
@@ -108,7 +108,8 @@
               <div class="quantity" style="display: flex; justify-content: space-between;">
 <!--                <h3 style="width: 38px;height: 5rem;" class="form-control" id="quantity" name ="quantity" th:text="${item.quantity}"></h3>-->
 
-                  <input style="margin-top: 25px;width: 54px;padding-left: 13px;height: 34px;" min="0" type="number" name ="quantity" id="quantity" class="form-control"th:value="${item.quantity}"/>
+                  <input style="margin-top: 25px;width: 54px;padding-left: 13px;height: 34px;" min="0" type="number"
+                         name ="quantity" id="quantity" class="form-control"th:value="${item.quantity}"/>
                 <div class="card_price">
                   <h3 class="price product_price" th:text="${item.price * item.quantity}">Price</h3>
                   <a th:href="@{/remove/{id}(id=${item.getId})}" style="padding: 9px 20px;" class="btn btn-dark btn-primary btn-sm">Xóa</a>
@@ -127,6 +128,43 @@
   </div>
 </div>
 </div>
+<script>
+  const myButton = document.getElementById("btn-order");
+  myButton.addEventListener("click", () => {
+  const data = {
+    "userId": 1,
+    "paymentMethodId": 1,
+    "discount": 10,
+    "status": "pending",
+    "totalPrice": 100.0,
+    "cartItems": [
+        {
+            "productId": 1,
+            "quantity": 10
+        },
+        {
+            "productId": 2,
+            "quantity": 20
+        }
+    ]
+};
+    fetch("/orders", {
+     method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("MYDATA " + data); // do something with the data
+
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  });
+</script>
 <script src="/js/toVND.js"></script>
 <th:block th:replace="@{layout/layoutClient} :: footer"></th:block>
 </body>

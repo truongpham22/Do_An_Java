@@ -38,7 +38,7 @@
             <h4 class="my-4 product_price"><span  id="price" th:text="${product.price}"> </span></h4>
             <h4 class="my-4 "><span  id="cate" th:text="${product.productType.name +' - '+ product.category.name}"> </span></h4>
             <div class="d-grid my-4">
-                <a href="" class="btn btn-lg btn-dark">
+                <a th:href="@{/cart/add(id=${product.id},imageList=${product.urlImageThumbnail},name=${product.name},price=${product.price}, quantity=1)}" class="btn btn-lg btn-dark">
                     Thêm vào giỏ hàng
                 </a>
             </div>
@@ -56,7 +56,7 @@
                 </div>
             </div>
             <div class="d-grid my-4">
-                <a class="btn btn-lg btn-danger">
+                <a th:href="@{/product/products}" class="btn btn-lg btn-danger">
                     Tiếp tục mua sắm
                 </a>
             </div>

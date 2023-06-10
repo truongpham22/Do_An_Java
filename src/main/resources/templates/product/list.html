@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security"
+      lang="en">
 <head>
     <meta charset="UTF-8">
     <title>List Product</title>
@@ -47,6 +47,7 @@
                 <div class="card shadow">
                     <a  th:href="@{/product/view/{id}(id=${product.id})}" style="text-decoration:none; color:black;">
                         <img style="height: 363px" th:src="${product.urlImageThumbnail}" class="card-img-top" alt="...">
+                        <td sec:authorize="hasAnyAuthority('ADMIN','USER')">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${product.name}"></h5>
                             <p class="card-text text-truncate " th:text="${product.description}"></p>
@@ -54,6 +55,7 @@
                             <a th:href="@{/cart/add(id=${product.id},imageList=${product.urlImageThumbnail},name=${product.name},price=${product.price}, quantity=1)}"
                                class="btn btn-lg btn-dark">Thêm vào giỏ hàng</a>
                         </div>
+                        </td>
                     </a>
                 </div>
             </div>

@@ -48,6 +48,8 @@ public class SecurityConfig {
                         .hasAnyAuthority("ADMIN")
                         .requestMatchers("/product/list")
                         .hasAnyAuthority("ADMIN","USER")
+                        .requestMatchers("/cart")
+                        .hasAnyAuthority("USER","ADMIN")
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout.logoutUrl("/logout")

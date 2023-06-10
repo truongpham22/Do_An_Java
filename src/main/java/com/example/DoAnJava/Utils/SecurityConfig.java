@@ -42,8 +42,12 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers( "/**", "/js/**", "/", "/register","/error")
+                        .requestMatchers( "/**", "/js/**", "/", "/register","/errors")
                         .permitAll()
+                        .requestMatchers("/admin")
+                        .hasAnyAuthority("ADMIN")
+                        .requestMatchers("/product/list")
+                        .hasAnyAuthority("ADMIN","USER")
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout.logoutUrl("/logout")

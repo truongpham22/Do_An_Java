@@ -17,45 +17,52 @@
         </p>
 
         <table class="table rounded shadow " style="background-color: white; width:98%">
-        <thead>
-        <tr>
-            <th class="text-center" scope="col">ID</th>
-            <th scope="col">Hình</th>
-            <th scope="col">Tên sản phẩm</th>
-            <th scope="col">Loại sản phẩm</th>
-            <th scope="col">Mô tả</th>
-            <th scope="col">Giá</th>
-            <th scope="col">Tồn kho</th>
-            <th scope="col">Trạng thái</th>
-            <th scope="col">Đơn vị tính</th>
-        </tr>
-        </thead>
-        <tbody id="records_table">
+            <thead>
+            <tr>
+                <th class="text-center" scope="col">ID</th>
+                <th scope="col">Hình</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Loại sản phẩm</th>
+                <th scope="col">Mô tả</th>
+                <th scope="col">Giá</th>
+                <th scope="col">Tồn kho</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col">Đơn vị tính</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody id="records_table">
 
-        <tr th:each="product: ${products}">
-            <th class="text-center" scope="row" th:text="${product.id}"></th>
-            <td>
-                <p> <img th:src="${product.urlImageThumbnail}" alt="hinh thumnail" height="60px" class="shadow-sm"></p>
-            </td>
-            <td>
-                <div class="d-flex align-items-center">
-                    <h6 class="" th:text="${product.name}"></h6>
-                </div>
-            </td>
-            <td th:text="${product.productType.name +' - '+ product.category.name}"></td>
-            <td>
-                <span th:text="${#strings.length(product.description) > 20 ? #strings.substring(product.description, 0, 20) + '...' : product.description}"></span>
-            </td>
-            <td class="product_price" th:text="${product.price}"></td>
-            <td th:text="${product.quantityStock}"></td>
-            <td th:switch="${product.quantityStock}">
-                <span th:case="0" class="badge rounded-pill bg-danger">Out Stock</span>
+            <tr th:each="product: ${products}">
+                <th class="text-center" scope="row" th:text="${product.id}"></th>
+                <td>
+                    <img th:src="${product.urlImageThumbnail}" alt="hinh thumnail" height="60px" class="shadow-sm">
+                </td>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <h6 class="" th:text="${product.name}"></h6>
+                    </div>
+                </td>
+                <td th:text="${product.productType.name +' - '+ product.category.name}"></td>
+                <td class="text-truncate" style="max-width: 160px;">
+                    <span th:text="${product.description}"></span>
+                </td>
+                <td class="product_price" th:text="${product.price}"></td>
+                <td th:text="${product.quantityStock}"></td>
+                <td th:switch="${product.quantityStock}">
+                    <span th:case="0" class="badge rounded-pill bg-danger">Out Stock</span>
 
-                <span th:case="*" class="badge rounded-pill bg-dark">In Stock</span>
-            </td>
-            <td th:text="${product.unit}"></td>
-        </tr>
-        </tbody>
+                    <span th:case="*" class="badge rounded-pill bg-dark">In Stock</span>
+                </td>
+                <td th:text="${product.unit}"></td>
+                <td>
+                    <a class="text-decoration-none text-dark" th:href="@{/admin/product/{id}(id=${product.id})}">Chi tiết</a>|
+                    <a class="text-decoration-none text-dark" th:href="@{/admin/product/{id}(id=${product.id})}">Sửa</a>|
+                    <a class="text-decoration-none text-danger" th:href="@{/admin/delete/{id}(id=${product.id})}"
+                    onclick="return confirm('Are you sure?')">Xóa</a>
+                </td>
+            </tr>
+            </tbody>
         </table>
 
 
@@ -66,3 +73,4 @@
 
 </body>
 </html>
+

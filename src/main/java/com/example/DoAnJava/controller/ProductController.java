@@ -32,12 +32,27 @@ public class ProductController {
     private RestTemplate restTemplate;
 
     /* TODO create api list products*/
+    /*products by category*/
+    @GetMapping("/cate/{name}")
+    public String listProductByCate(@PathVariable(value="name") String name,Model model)
+    {
+        String url = "http://localhost:8080/product/category/"+name;
+        List products = this.restTemplate.getForObject(url, List.class);
+        model.addAttribute("products", products);
+        String uri = "http://localhost:8080/category";
+        List categories = this.restTemplate.getForObject(uri, List.class);
+        model.addAttribute("categories",categories);
+        return "product/list";
+    }
     @GetMapping("/products")
     public String listProduct(Model model)
     {
         String url = "http://localhost:8080/product/list";
         List products = this.restTemplate.getForObject(url, List.class);
         model.addAttribute("products",products);
+        String uri = "http://localhost:8080/category";
+        List categories = this.restTemplate.getForObject(uri, List.class);
+        model.addAttribute("categories",categories);
         return "product/list";
     }
     @DeleteMapping("/delete/{id}")
@@ -88,9 +103,9 @@ public class ProductController {
     }
 
     // /product/category?category=abc
-    @GetMapping("/category")
+    @GetMapping("/category/{name}")
     @ResponseBody
-    public List<Product> getProductsByCate(@RequestParam("name") String category) {
+    public List<Product> getProductsByCate(@PathVariable(value="name") String category) {
         List<Product> product = this.productService.getProductsByCategory(category);
         return product;
     }

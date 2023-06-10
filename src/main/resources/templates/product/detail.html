@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:strings="http://www.thymeleaf.org/extras/spring-strings">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security"
+      lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Detail Product</title>
@@ -10,68 +11,63 @@
     <th:block th:replace="@{layout/layoutClient} :: link-rob-css"></th:block>
 </head>
 <body class="app">
-    <th:block th:replace="@{layout/layoutClient} :: head_top"></th:block>
-    <div class="app__container">
-        <nav aria-label="breadcrumb " class="product">
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item active"><a style="color: #000; text-decoration: none;" th:href="@{/}" >Trang chủ</a></li>
-                <li class="breadcrumb-item active"><a style="color: #000; text-decoration: none;" th:href="@{/product}" >Cửa hàng</a></li>
-                <li class="breadcrumb-item active "><strong>Chi tiết sản phẩm</strong></li>
-            </ol>
-        </nav>
-        <div class="row g-5 shadow" style="padding: 0px 210px 30px 210px;">
-            <!-- image thumb -->
-            <div class="col-12 col-lg-6 ">
-                <img th:src="${product.urlImageThumbnail}" class="m-1 w-100 sliderMainImage large-image"/>
-                <ul class="list-group list-group-horizontal ">
-                    <li class="list-group-item border-0 ">
-                        <img th:src="${product.urlImageThumbnail}" th:alt="hinh" width="60px" class="m-1 sliderThumb selected-image"/>
-                    </li>
-                    <li class="list-group-item border-0" th:each="image : ${product.imageList}">
-                        <img th:src="${image}" th:alt="hinh" width="60px" class="m-1 sliderThumb"/>
-                    </li>
-                </ul>
+<th:block th:replace="@{layout/layoutClient} :: head_top"></th:block>
+<div class="app__container">
+    <nav aria-label="breadcrumb " class="product">
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active"><a style="color: #000; text-decoration: none;" th:href="@{/}" >Trang chủ</a></li>
+            <li class="breadcrumb-item active"><a style="color: #000; text-decoration: none;" th:href="@{/product}" >Cửa hàng</a></li>
+            <li class="breadcrumb-item active "><strong>Chi tiết sản phẩm</strong></li>
+        </ol>
+    </nav>
+    <div class="row py-5 g-5 shadow" style="padding: 0px 210px 30px 210px;">
+        <!-- image thumb -->
+        <div class="col-12 col-lg-6 ">
+            <img th:src="${product.urlImageThumbnail}" class="m-1 w-100 sliderMainImage large-image" data-bs-toggle="model" data-bs-target="#imageModel"/>
+            <ul class="list-group list-group-horizontal ">
+                <li class="list-group-item border-0 ">
+                    <img th:src="${product.urlImageThumbnail}" th:alt="hinh" width="60px" class="m-1 sliderThumb selected-image"/>
+                </li>
+                <li class="list-group-item border-0" th:each="image : ${product.imageList}">
+                    <img th:src="${image}" th:alt="hinh" width="60px" class="m-1 sliderThumb"/>
+                </li>
+            </ul>
+        </div>
+        <div class="col-12 col-lg-6">
+            <h2 id="productName"  th:text="${product.name}"></h2>
+            <small class="text-muted">Levent</small>
+            <h4 class="my-4 product_price"><span  id="price" th:text="${product.price}"> </span></h4>
+            <h4 class="my-4 "><span  id="cate" th:text="${product.productType.name +' - '+ product.category.name}"> </span></h4>
+            <td sec:authorize="hasAnyAuthority('ADMIN','USER')">
+            <div class="d-grid my-4">
+                <a href="" class="btn btn-lg btn-dark">
+                    Thêm vào giỏ hàng
+                </a>
             </div>
-            <!--  list images          -->
-
-                <!--<img th:each="img: ${products.imageList}" th:src="${img}" width="̉60" class="m-1 sliderThumb">-->
-            <div class="col-12 col-lg-6">
-                <h2 id="productName"  th:text="${product.name}"></h2>
-                <small class="text-muted">Levent</small>
-                <h4 class="my-4 product_price"><span  id="price" th:text="${product.price}"> </span></h4>
-                <div class="d-grid my-4">
-                    <a th:href="@{/cart/add(id=${product.id},imageList=${product.urlImageThumbnail},name=${product.name},price=${product.price}, quantity=1)}" class="btn btn-lg btn-dark">
-                        Thêm vào giỏ hàng
-                    </a>
-                </div>
-                <div class="accordion">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                <strong>Mô tả</strong>
-                            </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
-                            <div class="accordion-body" th:text="${product.description}"> </div>
+            </td>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <strong>Mô tả</strong>
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
+                        <div class="accordion-body text-truncate" th:text="${product.description}">
                         </div>
-                        <!--<h2>
-                            <strong>Mô tả:</strong>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
-                            <div class="accordion-body" th:text="${product.description}"></div>
-                        </div>-->
                     </div>
                 </div>
-                <div class="d-grid my-4">
-                    <a href="/" class="btn btn-lg btn-danger">
-                        Tiếp tục mua sắm
-                    </a>
-                </div>
+            </div>
+            <div class="d-grid my-4">
+                <a href="/" class="btn btn-lg btn-danger">
+                    Tiếp tục mua sắm
+                </a>
             </div>
         </div>
     </div>
-    <th:block th:replace="@{layout/layoutClient} :: footer"></th:block>
-    <script src="/js/toVND.js"></script>
+</div>
+<th:block th:replace="@{layout/layoutClient} :: footer"></th:block>
+<script src="/js/toVND.js"></script>
 </body>
 </html>
 <style>

@@ -136,16 +136,14 @@
     "paymentMethodId": 1,
     "discount": 10,
     "status": "pending",
-    "totalPrice": 100.0,
+    "totalPrice": ${totalPrice},
     "cartItems": [
+      <th:block th:each="item : ${cartItems}">
         {
-            "productId": 1,
-            "quantity": 10
-        },
-        {
-            "productId": 2,
-            "quantity": 20
-        }
+          "productId": ${item.getId()},
+          "quantity": ${item.quantity}
+        }<span th:if="${!item.last()},"></span>
+      </th:block>
     ]
 };
     fetch("/orders", {
@@ -155,9 +153,16 @@
       },
       body: JSON.stringify(data)
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log("MYDATA " + data); // do something with the data
+      .then(res => {
+      if(res.status === 200){
+              window.location.href = "/pay/status-success"; // redirect to a new page
+              return;
+      }
+      else if(res.status ===400) {
+        window.location.href = "/pay/status-fail"; // redirect to a new page
+        return;
+
+      }
 
       })
       .catch(error => {

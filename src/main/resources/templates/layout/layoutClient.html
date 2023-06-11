@@ -66,7 +66,7 @@
                 <ul class="header_navbar_list">
                         <span class="header_navbar_items">
                             <i class="fas fa-globe-americas"></i>
-                            Levents love you
+                            Pets love you
                         </span>
                 </ul>
                 <ul class="header_navbar_list">
@@ -121,7 +121,9 @@
                         <button style="border: 0.5px solid black;" type="submit">Search</button>
                     </form>
                 </div>
-                <a href=""><img th:src="@{/img/logo.png}" alt=""></a>
+                <div>
+                    <a href=""><img th:src="@{/img/logo2.webp}" alt="" style="width: 10rem;"></a>
+                </div>
                 <div class="icon__function_list">
                     <i class="icon__function_items far fa-bell"></i>
                     <tr sec:authorize="!hasAnyAuthority('USER','ADMIN')" th:remove="tag">

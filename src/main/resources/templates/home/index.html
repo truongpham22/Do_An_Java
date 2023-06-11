@@ -9,6 +9,7 @@
     <th:block th:replace="@{layout/layoutClient} :: link-base-css"></th:block>
     <th:block th:replace="@{layout/layoutClient} :: link-font-css"></th:block>
     <th:block th:replace="@{layout/layoutClient} :: link-rob-css"></th:block>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body class="app">
 <th:block th:replace="@{layout/layoutClient} :: head_top"></th:block>
@@ -36,7 +37,7 @@
                                 </tr>
                                 <tr sec:authorize="hasAnyAuthority('USER','ADMIN')">
                                     <a th:href="@{/cart/add(id=${product.id},imageList=${product.urlImageThumbnail},name=${product.name},price=${product.price}, quantity=1)}"
-                                       class="btn btn-lg btn-dark">Thêm vào giỏ hàng</a>
+                                       class="btn btn-lg btn-dark add-to-cart-button">Thêm vào giỏ hàng</a>
                                 </tr>
                             </div>
                         </a>
@@ -60,6 +61,28 @@
 function addToCart() {
     alert("Vui lòng đăng ký tài khoản và đăng nhập để có thể thêm vào giỏ hàng và thanh toán.");
 }
+</script>
+<script>
+$(document).ready(function() {
+  $('.add-to-cart-button').click(function(event) {
+    event.preventDefault();
+
+    var url = $(this).attr('href');
+    var button = $(this);
+
+
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function(response) {
+        button.text('Thêm vào giỏ hàng');
+      },
+      error: function() {
+        alert('Đã xảy ra lỗi khi thêm sản phẩm vào giỏ hàng.');
+      }
+    });
+  });
+});
 </script>
 <!--còn này là script chuyển đổi vnd của t đụng là đập-->
 <script src="/js/toVND.js"></script>

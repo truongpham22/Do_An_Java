@@ -30,13 +30,8 @@
     </p>
     <script>
     function redirectToCategory() {
-        // Lấy giá trị của tùy chọn đã chọn
         var selectedCategory = document.getElementById("category").value;
-
-        // Tạo đường dẫn mới cho trang web bằng cách kết hợp "/product/category/" với tên danh mục đã chọn
         var newUrl = "/product/cate/" + selectedCategory;
-
-        // Chuyển hướng trang web đến đường dẫn mới
         window.location.href = newUrl;
     }
 </script>
@@ -61,7 +56,7 @@
                             </tr>
                             <tr sec:authorize="hasAnyAuthority('USER','ADMIN')">
                                 <a th:href="@{/cart/add(id=${product.id},imageList=${product.urlImageThumbnail},name=${product.name},price=${product.price}, quantity=1)}"
-                                   class="btn btn-lg btn-dark">Thêm vào giỏ hàng</a>
+                                   class="btn btn-lg btn-dark add-to-cart-button">Thêm vào giỏ hàng</a>
                             </tr>
                         </div>
                     </a>
@@ -69,6 +64,28 @@
         </div>
     </div>
 </div>
+    <script>
+$(document).ready(function() {
+  $('.add-to-cart-button').click(function(event) {
+    event.preventDefault();
+
+    var url = $(this).attr('href');
+    var button = $(this);
+
+
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function(response) {
+        button.text('Thêm vào giỏ hàng');
+      },
+      error: function() {
+        alert('Đã xảy ra lỗi khi thêm sản phẩm vào giỏ hàng.');
+      }
+    });
+  });
+});
+</script>
 <script src="/js/toVND.js"></script>
 <th:block th:replace="@{layout/layoutClient} :: footer"></th:block>
 </div>

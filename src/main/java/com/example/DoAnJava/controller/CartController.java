@@ -27,10 +27,10 @@ public class CartController {
 
     @GetMapping("/cart")
     public String viewCart(Model model, HttpSession session, Authentication authentication) {
-        // Lấy giỏ hàng từ session
+
         Cart cart = (Cart) model.getAttribute("cart");
 
-        // Kiểm tra nếu giỏ hàng không tồn tại, tạo mới
+
         if (cart == null) {
             cart = new Cart();
             model.addAttribute("cart", cart);
@@ -45,15 +45,15 @@ public class CartController {
 
     @RequestMapping(value = "/cart/add", method = {RequestMethod.GET, RequestMethod.POST})
     public String addToCart(@RequestParam Long id, @RequestParam int quantity, @RequestParam String imageList, @RequestParam String name, @RequestParam BigDecimal price, Model model) {
-        // Lấy giỏ hàng từ session
+
         Cart cart = (Cart) model.getAttribute("cart");
 
-        // Kiểm tra nếu giỏ hàng không tồn tại, tạo mới
+
         if (cart == null) {
             cart = new Cart();
             model.addAttribute("cart", cart);
         } else {
-            // Kiểm tra nếu sản phẩm đã tồn tại trong giỏ hàng, cập nhật số lượng
+
             List<CartItem> items = cart.getItems();
             for (CartItem item : items) {
                 if (item.getId().equals(id)) {
@@ -63,11 +63,9 @@ public class CartController {
             }
         }
 
-        // Tạo sản phẩm từ thông tin nhận được
+
         CartItem product = new CartItem(id, name, price, quantity, imageList);
 
-
-        // Thêm sản phẩm vào giỏ hàng
         cart.addItem(product);
 
         return "redirect:/cart";

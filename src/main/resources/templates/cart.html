@@ -129,23 +129,6 @@
 </div>
 </div>
 <script>
-  const myButton = document.getElementById("btn-order");
-  myButton.addEventListener("click", () => {
-  const data = {
-    "userId": 1,
-    "paymentMethodId": 1,
-    "discount": 10,
-    "status": "pending",
-    "totalPrice": ${totalPrice},
-    "cartItems": [
-      <th:block th:each="item : ${cartItems}">
-        {
-          "productId": ${item.getId()},
-          "quantity": ${item.quantity}
-        }<span th:if="${!item.last()},"></span>
-      </th:block>
-    ]
-};
     fetch("/orders", {
      method: "POST",
       headers: {

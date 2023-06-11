@@ -1,5 +1,5 @@
 package com.example.DoAnJava.services;
-import com.example.DoAnJava.CustomUserDetail;
+import com.example.DoAnJava.entity.CustomUserDetails;
 import com.example.DoAnJava.entity.User;
 import com.example.DoAnJava.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,6 @@ public class CustomUserDetailService implements UserDetailsService {
         User user = userRepository.findByUsername(username);
         if (user == null)
             throw  new UsernameNotFoundException("User not found");
-        return new CustomUserDetail(user,userRepository);
+        return new CustomUserDetails(user,userRepository);
     }
 }

@@ -15,4 +15,6 @@
 
         @Query("SELECT p FROM Product p WHERE p.name like %?1%")
         List<Product> searchByName(String keyWord);
+        @Query("SELECT p FROM Product p WHERE LOWER(p.name) LIKE %:keyword% OR LOWER(p.category.name) LIKE %:keyword%")
+        List<Product> searchProducts(@Param("keyword") String keyword);
     }

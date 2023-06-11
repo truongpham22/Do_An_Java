@@ -15,12 +15,22 @@ public class PaymentController {
     @GetMapping
     public String addBookForm(Model model){
 
-        return  "Payment/payment-form";
+        return  "Payment/Checkout";
+    }
+
+
+
+    @GetMapping("status-success")
+    public String checkStatus(Model model){
+
+        return  "Payment/Checkout";
     }
     @GetMapping("status-fail")
     public String fail (Model model){
         return "Payment/statusFailOrder";
     }
+
+
 
 
 }

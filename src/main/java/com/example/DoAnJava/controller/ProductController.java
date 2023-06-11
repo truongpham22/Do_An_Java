@@ -109,12 +109,14 @@ public class ProductController {
         List<Product> product = this.productService.getProductsByCategory(category);
         return product;
     }
-
+    /*
     @GetMapping("/search")
     @ResponseBody
     public List<Product> search(@RequestParam("name") String search) {
         return this.productService.searchProducts(search);
     }
+
+     */
     //upsoluong theo tên sản phẩm
     @PostMapping("/updatesoluong/{id}")
     @ResponseBody
@@ -139,8 +141,22 @@ public class ProductController {
         System.out.println(url_list);
         return this.productService.saveProduct(product);
     }
+    /*
+    @GetMapping
+    public String showAllBooks(Model model){
+        List<Product> products = productService.getAllProduct();
+        model.addAttribute("product",products);
+        return "product/list";
+    }
+     */
     /* TODO create api list products END*/
-
+    @GetMapping("/search")
+    public String searchProducts(@RequestParam("keyword") String keyword, Model model) {
+        List<Product> products = productService.searchProducts(keyword);
+        model.addAttribute("products", products);
+        model.addAttribute("keyword", keyword);
+        return "product/list";
+    }
 
 
 }

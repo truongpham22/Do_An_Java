@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Done</title>
+    <th:block th:replace="@{layout/layoutClient} :: link-bootstrap"></th:block>
+    <th:block th:replace="@{layout/layoutClient} :: link-main-css"></th:block>
+    <th:block th:replace="@{layout/layoutClient} :: link-base-css"></th:block>
+    <th:block th:replace="@{layout/layoutClient} :: link-font-css"></th:block>
+    <th:block th:replace="@{layout/layoutClient} :: link-rob-css"></th:block>
+</head>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+</style>
+<body>
+<div class="form-container">
+    <div style="font-size: 82px;">
+        <i class="far fa-check-circle" style="color:#3b9d34"></i>
+    </div>
+    <div style="font-size: 44px; color:#e4483d;">
+        Đặt hàng thành công!
+    </div>
+    <span style="font-size: 22px;">
+    Chúng tôi sẽ liên hệ Quý khách để xác nhận đơn hàng trong thời gian sớm nhất!!!
+  </span>
+    <div style="display: flex; justify-content: center; align-items: center; padding-top: 40px;">
+        <a style="text-decoration:none" href="/product/products">
+            <button class="btn btn-primary btn-dark" style="padding: 12px 24px; font-size: 16px;">
+                Tiếp tục mua sắm
+            </button>
+        </a>
+    </div>
+</div>
+</body>
+</html>

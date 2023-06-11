@@ -31,9 +31,7 @@ public class ProductService {
     static final Logger logger = LoggerFactory.getLogger(ProductService.class);
 
 
-    public  List<Product> searchProducts(String name){
-        return productRepository.searchByName(name);
-    }
+
     public  List<Product> getProductsByCategory(String category){
         return productRepository.findByCategory(category);
     }
@@ -85,4 +83,8 @@ public class ProductService {
     public void deleteProduct(Long productId){
          productRepository.deleteById(productId);
     }
+    public List<Product> searchProducts(String keyword) {
+        return productRepository.searchProducts(keyword.toLowerCase());
+    }
+
 }

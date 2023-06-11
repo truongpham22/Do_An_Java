@@ -33,6 +33,25 @@
           color: black;
         }
     </style>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var quantityInput = document.getElementById('quantity');
+    var productPriceElement = document.querySelector('.price.product_price');
+    var totalPriceElement = document.querySelector('.total.product_price');
+
+    quantityInput.addEventListener('input', updatePrice);
+    quantityInput.addEventListener('change', updatePrice);
+
+    function updatePrice() {
+      var quantity = parseInt(quantityInput.value);
+      var price = parseFloat(productPriceElement.textContent);
+      var updatedPrice = price * quantity;
+
+      productPriceElement.textContent = updatedPrice;
+      totalPriceElement.textContent = updatedPrice;
+    }
+  });
+</script>
 </head>
 <body class="app">
 <th:block th:replace="@{layout/layoutClient} :: head_top"></th:block>
@@ -67,7 +86,7 @@
         <div class="col-xl-6">
           <input type="text" class="form-control" id="location-ward" placeholder="Phường" name ="ward">
         </div>
-        <button type="submit" class="btn btn-primary col-xl-12" style="width:19%; padding: 8px; margin-left: 80%; background-color:black;">Đặt hàng</button>
+        <button id="btn-order" type="submit" class="btn btn-primary col-xl-12" style="width:19%; padding: 8px; margin-left: 80%; background-color:black;">Đặt hàng</button>
       </div>
     </div>
     <div class="col-xl-6">
@@ -89,7 +108,8 @@
               <div class="quantity" style="display: flex; justify-content: space-between;">
 <!--                <h3 style="width: 38px;height: 5rem;" class="form-control" id="quantity" name ="quantity" th:text="${item.quantity}"></h3>-->
 
-                  <input style="margin-top: 25px;width: 54px;padding-left: 13px;height: 34px;" type="number" name ="quantity" id="quantity" class="form-control"th:value="${item.quantity}"/>
+                  <input style="margin-top: 25px;width: 54px;padding-left: 13px;height: 34px;" min="0" type="number"
+                         name ="quantity" id="quantity" class="form-control"th:value="${item.quantity}"/>
                 <div class="card_price">
                   <h3 class="price product_price" th:text="${item.price * item.quantity}">Price</h3>
                   <a th:href="@{/remove/{id}(id=${item.getId})}" style="padding: 9px 20px;" class="btn btn-dark btn-primary btn-sm">Xóa</a>
@@ -102,12 +122,54 @@
       <div class="check_total" style="display: flex; justify-content: space-between; margin-top: 31px;border-top: 1px solid black;
     line-height: 100px;">
         <div style="font-size: 20px; font-weight:500">Tổng</div>
-        <div class="product_price" style="font-size: 14px; font-weight:500" th:text="${totalPrice}"></div>
+        <div class="total product_price" style="font-size: 14px; font-weight:500" th:text="${totalPrice}"></div>
       </div>
     </div>
   </div>
 </div>
 </div>
+<script>
+  const myButton = document.getElementById("btn-order");
+  myButton.addEventListener("click", () => {
+  const data = {
+    "userId": 1,
+    "paymentMethodId": 1,
+    "discount": 10,
+    "status": "pending",
+    "totalPrice": ${totalPrice},
+    "cartItems": [
+      <th:block th:each="item : ${cartItems}">
+        {
+          "productId": ${item.getId()},
+          "quantity": ${item.quantity}
+        }<span th:if="${!item.last()},"></span>
+      </th:block>
+    ]
+};
+    fetch("/orders", {
+     method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => {
+      if(res.status === 200){
+              window.location.href = "/pay/status-success"; // redirect to a new page
+              return;
+      }
+      else if(res.status ===400) {
+        window.location.href = "/pay/status-fail"; // redirect to a new page
+        return;
+
+      }
+
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  });
+</script>
 <script src="/js/toVND.js"></script>
 <th:block th:replace="@{layout/layoutClient} :: footer"></th:block>
 </body>

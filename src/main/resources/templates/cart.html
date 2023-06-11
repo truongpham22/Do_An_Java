@@ -33,25 +33,25 @@
           color: black;
         }
     </style>
-  <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var quantityInput = document.getElementById('quantity');
-    var productPriceElement = document.querySelector('.price.product_price');
-    var totalPriceElement = document.querySelector('.total.product_price');
+<!--  <script>-->
+<!--  document.addEventListener('DOMContentLoaded', function() {-->
+<!--    var quantityInput = document.getElementById('quantity');-->
+<!--    var productPriceElement = document.querySelector('.price.product_price');-->
+<!--    var totalPriceElement = document.querySelector('.total.product_price');-->
 
-    quantityInput.addEventListener('input', updatePrice);
-    quantityInput.addEventListener('change', updatePrice);
+<!--    quantityInput.addEventListener('input', updatePrice);-->
+<!--    quantityInput.addEventListener('change', updatePrice);-->
 
-    function updatePrice() {
-      var quantity = parseInt(quantityInput.value);
-      var price = parseFloat(productPriceElement.textContent);
-      var updatedPrice = price * quantity;
+<!--    function updatePrice() {-->
+<!--      var quantity = parseInt(quantityInput.value);-->
+<!--      var price = parseFloat(productPriceElement.textContent);-->
+<!--      var updatedPrice = price * quantity;-->
 
-      productPriceElement.textContent = updatedPrice;
-      totalPriceElement.textContent = updatedPrice;
-    }
-  });
-</script>
+<!--      productPriceElement.textContent = updatedPrice;-->
+<!--      totalPriceElement.textContent = updatedPrice;-->
+<!--    }-->
+<!--  });-->
+<!--</script>-->
 </head>
 <body class="app">
 <th:block th:replace="@{layout/layoutClient} :: head_top"></th:block>
@@ -127,24 +127,43 @@
     </div>
   </div>
 </div>
-</div>
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+  var quantityInput = document.getElementById('quantity');
+  var productPriceElement = document.querySelector('.price.product_price');
+  var totalPriceElement = document.querySelector('.total.product_price');
+  var originalPrice = parseFloat(productPriceElement.textContent);
+
+  quantityInput.addEventListener('input', updatePrice);
+  quantityInput.addEventListener('change', updatePrice);
+
+  function updatePrice() {
+    var quantity = parseFloat(quantityInput.value);
+    var updatedPrice = originalPrice * quantity;
+
+    productPriceElement.textContent = toVND(updatedPrice);
+    totalPriceElement.textContent = toVND(updatedPrice);
+  }
+
+  function toVND(price) {
+    return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND', minimumFractionDigits: 3  });
+  }
+});
+</script>
+<script th:inline="javascript">
   const myButton = document.getElementById("btn-order");
   myButton.addEventListener("click", () => {
+
+   const items = /*[[${items}]]*/ null;
+  const cartItems = items.map(item => ({productId: item.id, quantity: item.quantity}));
+
   const data = {
-    "userId": 1,
+    "userId": [[${userId}]],
     "paymentMethodId": 1,
-    "discount": 10,
+    "discount": 0,
     "status": "pending",
-    "totalPrice": ${totalPrice},
-    "cartItems": [
-      <th:block th:each="item : ${cartItems}">
-        {
-          "productId": ${item.getId()},
-          "quantity": ${item.quantity}
-        }<span th:if="${!item.last()},"></span>
-      </th:block>
-    ]
+    "totalPrice": [[${totalPrice}]],
+    "cartItems": cartItems
 };
     fetch("/orders", {
      method: "POST",

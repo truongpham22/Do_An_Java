@@ -4,7 +4,9 @@ import com.example.DoAnJava.DTO.CreateUserDto;
 import com.example.DoAnJava.entity.Product;
 import com.example.DoAnJava.entity.User;
 import com.example.DoAnJava.repository.IUserRepository;
+import com.example.DoAnJava.services.UserInfoService;
 import com.example.DoAnJava.services.UserService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,8 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserInfoService userInfoService;
 
     @Autowired
     private IUserRepository userRepository;
@@ -42,7 +46,7 @@ public class UserController {
     @PostMapping("/register")
 
     public String register(@Valid @ModelAttribute("user") User user,
-                           BindingResult bindingResult, Model model) {
+                           BindingResult bindingResult, Model model, HttpSession session) {
         if (bindingResult.hasErrors()) {
             List<FieldError> errors = bindingResult.getFieldErrors();
             for (FieldError error : errors) {
@@ -54,8 +58,8 @@ public class UserController {
         user.setPassword(new
                 BCryptPasswordEncoder().encode(user.getPassword()));
         CreateUserDto userDto = this.userService.parseCreateUserDto(user);
-        userService.create(userDto);
-
+         userService.create(userDto);
+       //lưu id session
         return "redirect:/login";
 
     }

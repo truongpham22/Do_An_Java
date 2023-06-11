@@ -31,13 +31,13 @@ public class UserController {
 
     @GetMapping("/login")
     public String login() {
-        return "user/login";
+        return "home/dangnhap";
     }
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("user", new User());
 
-        return "user/register";
+        return "home/dangky";
     }
     @PostMapping("/register")
 
@@ -49,14 +49,14 @@ public class UserController {
                 model.addAttribute(error.getField() + "_error",
                         error.getDefaultMessage());
             }
-            return "user/register";
+            return "home/dangky";
         }
         user.setPassword(new
                 BCryptPasswordEncoder().encode(user.getPassword()));
         CreateUserDto userDto = this.userService.parseCreateUserDto(user);
         userService.create(userDto);
 
-        return "redirect:/login";
+        return "home/dangnhap";
 
     }
 

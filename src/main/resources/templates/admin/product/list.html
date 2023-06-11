@@ -13,8 +13,9 @@
             <li class="breadcrumb-item active"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin/products}">Quản lý sản phẩm</a> </li>
         </ol>
         <p>
-            <a class="btn btn-dark m-1" th:href="@{/admin/add}">Tạo Mới</a>
+            <a class="btn btn-dark m-1" th:href="@{/admin/product/add}">Tạo Mới</a>
         </p>
+        <div id="message"></div>
 
         <table class="table rounded shadow " style="background-color: white; width:98%">
             <thead>
@@ -56,10 +57,8 @@
                 </td>
                 <td th:text="${product.unit}"></td>
                 <td>
-                    <a class="text-decoration-none text-dark" th:href="@{/admin/product/{id}(id=${product.id})}">Chi tiết</a>|
-                    <a class="text-decoration-none text-dark" th:href="@{/admin/product/{id}(id=${product.id})}">Sửa</a>|
-                    <a class="text-decoration-none text-danger" th:href="@{/admin/delete/{id}(id=${product.id})}"
-                    onclick="return confirm('Are you sure?')">Xóa</a>
+                    <a class="text-decoration-none text-dark" th:href="@{/admin/product/{id}(id=${product.id})}">Chi tiết</a> |
+                    <a class="text-decoration-none text-danger delete-product" th:attr="data-product-id=${product.id}" th:href="@{#}">Xóa</a>
                 </td>
             </tr>
             </tbody>
@@ -73,4 +72,26 @@
 
 </body>
 </html>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('a.delete-product').click(function(event) {
+      event.preventDefault();
+      var productID = $(this).data('product-id');
+      var confirmation = confirm('Are you sure you want to delete this product?');
+      if (confirmation) {
+        $.ajax({
+          type: 'DELETE',
+          url: 'http://localhost:8080/product/delete/' + productID,
+          success: function(response) {
+            window.location.href = '/admin/products';
+            $('#message').html('<div class="alert alert-success">Product deleted successfully</div>');
+          },
+          error: function(xhr, status, error) {
+            $('#message').html('<div class="alert alert-danger">Error deleting product: ' + error + '</div>');
+          }
+        });
+      }
+    });
+  });
+</script>

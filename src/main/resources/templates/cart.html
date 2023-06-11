@@ -33,31 +33,12 @@
           color: black;
         }
     </style>
-  <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var quantityInput = document.getElementById('quantity');
-    var productPriceElement = document.querySelector('.price.product_price');
-    var totalPriceElement = document.querySelector('.total.product_price');
-
-    quantityInput.addEventListener('input', updatePrice);
-    quantityInput.addEventListener('change', updatePrice);
-
-    function updatePrice() {
-      var quantity = parseInt(quantityInput.value);
-      var price = parseFloat(productPriceElement.textContent);
-      var updatedPrice = price * quantity;
-
-      productPriceElement.textContent = updatedPrice;
-      totalPriceElement.textContent = updatedPrice;
-    }
-  });
-</script>
 </head>
 <body class="app">
 <th:block th:replace="@{layout/layoutClient} :: head_top"></th:block>
 <div class="app__container">
   <div class="row "style="margin: 0 16px;">
-    <div class="col-xl-6">
+    <div id="order-info-form" class="col-xl-6 delivery-info-form" style="display: none;">
       <h1 style="margin-bottom: 22px;">Thông tin giao hàng</h1>
       <div class="row">
         <div class="col-12">
@@ -86,7 +67,7 @@
         <div class="col-xl-6">
           <input type="text" class="form-control" id="location-ward" placeholder="Phường" name ="ward">
         </div>
-        <button id="btn-order" type="submit" class="btn btn-primary col-xl-12" style="width:19%; padding: 8px; margin-left: 80%; background-color:black;">Đặt hàng</button>
+        <button id="btn-order" type="submit" class="btn btn-primary col-xl-12 btn-dark" style="width:19%; padding: 8px; margin-left: 80%;">Đặt hàng</button>
       </div>
     </div>
     <div class="col-xl-6">
@@ -124,11 +105,57 @@
         <div style="font-size: 20px; font-weight:500">Tổng</div>
         <div class="total product_price" style="font-size: 14px; font-weight:500" th:text="${totalPrice}"></div>
       </div>
+      <div>
+        <button id="btn-oder" class="btn btn-primary btn-dark" style="width:19%; padding: 8px; margin-left: 80%;">Xác nhận đơn hàng</button>
+      </div>
     </div>
   </div>
 </div>
-</div>
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+  var quantityInput = document.getElementById('quantity');
+  var productPriceElement = document.querySelector('.price.product_price');
+  var totalPriceElement = document.querySelector('.total.product_price');
+  var originalPrice = parseFloat(productPriceElement.textContent);
+
+
+  quantityInput.addEventListener('input', updatePrice);
+  quantityInput.addEventListener('change', updatePrice);
+
+  function updatePrice() {
+    var quantity = parseFloat(quantityInput.value);
+    var updatedPrice = originalPrice * quantity;
+
+    productPriceElement.textContent = toVND(updatedPrice);
+    totalPriceElement.textContent = toVND(updatedPrice);
+  }
+
+  function toVND(price) {
+    return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND', minimumFractionDigits: 3  });
+  }
+});
+</script>
+<script>
+  document.getElementById('btn-oder').addEventListener('click', function() {
+  var deliveryInfoForm = document.getElementById('order-info-form');
+  deliveryInfoForm.style.display = 'block';
+});
+</script>
+<script th:inline="javascript">
+  const myButton = document.getElementById("btn-order");
+  myButton.addEventListener("click", () => {
+
+   const items = /*[[${items}]]*/ null;
+  const cartItems = items.map(item => ({productId: item.id, quantity: item.quantity}));
+
+  const data = {
+    "userId": [[${userId}]],
+    "paymentMethodId": 1,
+    "discount": 0,
+    "status": "pending",
+    "totalPrice": [[${totalPrice}]],
+    "cartItems": cartItems
+};
     fetch("/orders", {
      method: "POST",
       headers: {
@@ -153,6 +180,7 @@
       });
   });
 </script>
+
 <script src="/js/toVND.js"></script>
 <th:block th:replace="@{layout/layoutClient} :: footer"></th:block>
 </body>

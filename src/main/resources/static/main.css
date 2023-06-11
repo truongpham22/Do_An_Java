@@ -9,7 +9,7 @@
     top: 44px;
     right: 0;
     left: 0;
-    height: 138px;
+    height: 203px;
     background-color: var(--white-color);
     z-index: 1;
 }
@@ -61,7 +61,8 @@
 .header__nav_bot-list{
     display: flex;
     justify-content: space-around;
-    padding: 11px 0 0px;
+    padding: 12px;
+    margin-top: 1rem;
 }
 .header__nav_bot-item{
     display: inline-block;
@@ -121,7 +122,7 @@
 
 }
 .app__container{
-    margin-top:200px;
+    margin-top:260px;
     padding: 0 7px;
 }
 .cart {

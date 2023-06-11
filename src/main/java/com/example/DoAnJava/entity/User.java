@@ -23,6 +23,7 @@ public class User {
     private Long id;
 
     @Size(max = 50, message = "Username must be less than 50 characters")
+    @Column(name = "username", unique = true)
     @ValidUsername
     private String username;
 

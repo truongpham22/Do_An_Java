@@ -40,9 +40,14 @@ public class UserControllerApi {
 
     @PostMapping
     @ResponseBody
-    public User createUser(@ModelAttribute() CreateUserDto user) {
+    public ResponseEntity createUser(@ModelAttribute() CreateUserDto user) {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        return this.userService.create(user);
+        var exist = this.userService.findUserByUserName(user.getUsername());
+        if(exist != null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already exists");
+        }
+        var userSave = this.userService.create(user);
+        return  ResponseEntity.ok(userSave);
     }
 
     @PutMapping("/{id}")

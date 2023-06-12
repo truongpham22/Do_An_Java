@@ -1,6 +1,7 @@
 package com.example.DoAnJava.controller;
 
 import com.example.DoAnJava.DTO.CreateUserDto;
+import com.example.DoAnJava.DTO.EditRoleDto;
 import com.example.DoAnJava.entity.User;
 import com.example.DoAnJava.repository.IProductRepository;
 import com.example.DoAnJava.repository.IUserRepository;
@@ -42,12 +43,18 @@ public class UserController {
         return "home/dangky";
     }
 
-    @GetMapping("/test")
+    @PostMapping("/editPermission")
     @ResponseBody
-    public ResponseEntity test(Model model) {
-        List<Long> kq = this.userRoleRepository.findRoleIdsByUserId(3L);
-        return ResponseEntity.ok(kq) ;
+    public int editPermission(@RequestBody() EditRoleDto editRoleDto){
+        try {
+             this.userRoleRepository.editRoleOfUser(editRoleDto.getUserId(), editRoleDto.getOldRoleId(), editRoleDto.getNewRoleId());
+            return 1;
+        }catch (Exception e){
+            System.out.println("lỗi sau" +e.getMessage());
+            return 0;
+        }
     }
+
     @PostMapping("/register")
 
     public String register(@Valid @ModelAttribute("user") User user,

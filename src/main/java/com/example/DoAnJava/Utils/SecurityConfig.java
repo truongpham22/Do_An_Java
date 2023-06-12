@@ -41,7 +41,7 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers( "/**", "/js/**", "/","/register","/error")
+                        .requestMatchers( "/**", "/js/**", "/","/register","/404")
                         .permitAll()
                         .requestMatchers("/admin/product")
                         .hasAnyAuthority("ADMIN")
@@ -68,7 +68,7 @@ public class SecurityConfig {
                         .userDetailsService(userDetailsService())
                 )
                 .exceptionHandling(exceptionHandling ->
-                        exceptionHandling.accessDeniedPage("/403"))
+                        exceptionHandling.accessDeniedPage("/404"))
                 .build();
     }
 

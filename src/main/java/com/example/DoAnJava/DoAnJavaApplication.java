@@ -17,5 +17,4 @@ public class DoAnJavaApplication {
 		new FirebaseService().initialAppFireBase();
 		SpringApplication.run(DoAnJavaApplication.class, args);
 	}
-
 }

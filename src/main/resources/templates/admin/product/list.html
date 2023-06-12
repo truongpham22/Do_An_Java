@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security4"
+      lang="en">
+<tr sec:authorize="hasAnyAuthority('ADMIN')">
 <head th:replace="@{layout/layoutAdmin} :: header(Levent-Admin)">
 </head>
 <body class="sb-nav-fixed" style="background-color: whitesmoke;">
@@ -71,6 +73,7 @@
 <script src="/js/toVND.js"></script>
 
 </body>
+</tr>
 </html>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>

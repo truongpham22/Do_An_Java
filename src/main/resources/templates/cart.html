@@ -90,7 +90,7 @@
 <!--                <h3 style="width: 38px;height: 5rem;" class="form-control" id="quantity" name ="quantity" th:text="${item.quantity}"></h3>-->
 
                   <input style="margin-top: 25px;width: 54px;padding-left: 13px;height: 34px;" min="0" type="number"
-                         name ="quantity" id="quantity" class="form-control"th:value="${item.quantity}"/>
+                         name ="quantity" class="form-control quantity-input"th:value="${item.quantity}"/>
                 <div class="card_price">
                   <h3 class="price product_price" th:text="${item.price * item.quantity}">Price</h3>
                   <a th:href="@{/remove/{id}(id=${item.getId})}" style="padding: 9px 20px;" class="btn btn-dark btn-primary btn-sm">Xóa</a>
@@ -112,33 +112,50 @@
   </div>
 </div>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  var quantityInput = document.getElementById('quantity');
-  var productPriceElement = document.querySelector('.price.product_price');
-  var totalPriceElement = document.querySelector('.total.product_price');
-  var originalPrice = parseFloat(productPriceElement.textContent);
+  document.addEventListener('DOMContentLoaded', function() {
+    var quantityInputs = document.querySelectorAll('.quantity-input');
+    var productPriceElements = document.querySelectorAll('.price.product_price');
+    var totalPriceElement = document.querySelector('.total.product_price');
+    var originalPrices = Array.from(productPriceElements).map(function(element) {
+      return parseFloat(element.textContent);
+    });
 
+    quantityInputs.forEach(function(input, index) {
+      input.addEventListener('input', function() {
+        updatePrice(index);
+      });
 
-  quantityInput.addEventListener('input', updatePrice);
-  quantityInput.addEventListener('change', updatePrice);
+      input.addEventListener('change', function() {
+        updatePrice(index);
+      });
+    });
 
-  function updatePrice() {
-    var quantity = parseFloat(quantityInput.value);
-    var updatedPrice = originalPrice * quantity;
+    function updatePrice(index) {
+      var quantity = parseFloat(quantityInputs[index].value);
+      var updatedPrice = originalPrices[index] * quantity;
 
-    productPriceElement.textContent = toVND(updatedPrice);
-    totalPriceElement.textContent = toVND(updatedPrice);
-  }
+      productPriceElements[index].textContent = toVND(updatedPrice);
 
-  function toVND(price) {
-    return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND', minimumFractionDigits: 3  });
-  }
-});
+      var totalPrice = Array.from(productPriceElements).reduce(function(acc, element) {
+        return acc + parseFloat(element.textContent);
+      }, 0);
+
+      totalPriceElement.textContent = toVND(totalPrice);
+    }
+
+    function toVND(price) {
+      return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND', minimumFractionDigits: 3  });
+    }
+  });
 </script>
 <script>
   document.getElementById('btn-oder').addEventListener('click', function() {
   var deliveryInfoForm = document.getElementById('order-info-form');
-  deliveryInfoForm.style.display = 'block';
+  if (document.querySelector('.cart_item')) {
+    deliveryInfoForm.style.display = 'block';
+  } else {
+    alert('Giỏ hàng đang trống. Vui lòng thêm sản phẩm trước khi đặt hàng.');
+  }
 });
 </script>
 <script th:inline="javascript">

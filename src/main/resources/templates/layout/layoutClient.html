@@ -10,6 +10,12 @@
     <script th:fragment="script-jquery" th:src=@{https://code.jquery.com/jquery-3.6.0.js}></script>
     <title>Home</title>
 </head>
+<style>
+    .header__nav_bot-link:hover{
+    color: black;
+    }
+
+</style>
 <body>
 <script>
         $(document).ready(function() {
@@ -157,7 +163,7 @@
             <div class="header__nav_bot">
                 <ul class="header__nav_bot-list">
                     <li class="header__nav_bot-item">
-                        <a class="header__nav_bot-link-sp" href="">Về chúng tôi</a>
+                        <a class="header__nav_bot-link" href="">Về chúng tôi</a>
                     </li>
                     <li class="header__nav_bot-item header__nav_bot-flex">
                         <a class="header__nav_bot-link" th:href="@{/product/products}">Sản phẩm</a>

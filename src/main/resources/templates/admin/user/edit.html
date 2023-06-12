@@ -1,10 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="@{layout/layoutAdmin} :: header(Levent-Admin)">
 
+</head>
+<body class="sb-nav-fixed"  style="background-color: whitesmoke;">
+<nav th:replace="@{layout/layoutAdmin} :: header_top"></nav>
+<div id="layoutSidenav">
+    <div th:replace="@{layout/layoutAdmin} :: menu"></div>
+    <div id="layoutSidenav_content">
+        <!--main-->
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin}">Home</a> </li>
+            <li class="breadcrumb-item"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin/products}">Quản lý sản phẩm</a> </li>
+            <li class="breadcrumb-item active"> <a class="nav-link" style="display: inline-block;" >Thêm sản phẩm</a> </li>
+
+        </ol>
+        <hr />
+        <form id="product-form" th:object="${user}" class="row g-3 px-5 shadow mx-5" style="background-color: white;">
+                <div class="col-md-6">
+                    <label class="form-label" >Tên người dùng:</label>
+                    <input class="form-control" th:field="${user.name}" >
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" >Tên tài khoản:</label>
+                    <input class="form-control" th:field="${user.username}" >
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" >Email:</label>
+                    <input class="form-control" th:field="${user.email}" >
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" >Số điện thoại:</label>
+                    <input class="form-control" th:field="${user.phoneNumber}" >
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" >Role:</label>
+                    <input class="form-control" th:field="${user.roleName}" >
+                </div>
+
+            <div class="col-12">
+                <input  type="submit" class="btn btn-dark mb-3" value="Lưu thay đổi">
+            </div>
+        </form>
+        <div id="message"></div>
+        <!--main-->
+        <footer th:replace="@{layout/layoutAdmin} :: footer"></footer>
+    </div>
+</div>
 </body>
 </html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+  $('#product-form').submit(function(event) {
+    event.preventDefault();
+    var formData = new FormData($('#product-form')[0]);
+    var urlParams = new URLSearchParams(window.location.search);
+    var productId = urlParams.get('id');
+    $.ajax({
+      type: 'PUT',
+      url: '/authent/'+userId,
+      processData: false,
+      contentType: false,
+      data: formData,
+      success: function(response) {
+        $('#message').html('<div class="alert alert-success">Product edit successfully</div>');
+        window.location.href = '/admin/products';
+      },
+      error: function(xhr, status, error) {
+        $('#message').html('<div class="alert alert-danger">Error edit product: ' + error + '</div>');
+      }
+    });
+  });
+});
+</script>

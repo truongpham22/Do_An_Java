@@ -1,20 +1,18 @@
 package com.example.DoAnJava.controller.admin;
 
-import com.example.DoAnJava.DTO.CreateProductDto;
 import com.example.DoAnJava.DTO.CreateUserDto;
-import com.example.DoAnJava.entity.Product;
 import com.example.DoAnJava.entity.User;
 import com.example.DoAnJava.services.UserService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller()
 @RequestMapping("/authent")
@@ -23,8 +21,24 @@ public class UserControllerApi {
     @Autowired
     private UserService userService;
 
-
+    @Autowired
+    private RestTemplate restTemplate;
     //TODO Api for UserController
+    @GetMapping("/update/{id}")
+    public String getView(@PathVariable(value = "id") Long id,Model model) {
+        String url = "http://localhost:8080/authent/detail/"+id;
+        CreateUserDto product = this.restTemplate.getForObject(url, CreateUserDto.class);
+        model.addAttribute("user", product);
+        return "admin/user/edit" ;
+    }
+    @GetMapping("/array")
+    public String listProduct(Model model)
+    {
+        String url = "http://localhost:8080/authent/list";
+        List users = this.restTemplate.getForObject(url, List.class);
+        model.addAttribute("users",users);
+        return "admin/user/list";
+    }
     @GetMapping("/list")
     @ResponseBody
     public List<User> getUser() {
@@ -61,7 +75,7 @@ public class UserControllerApi {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @ResponseBody
     public ResponseEntity DeleteUser(@PathVariable (value = "id") Long id){
         User user = this.userService.getUserById(id);

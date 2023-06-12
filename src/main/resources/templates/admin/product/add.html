@@ -102,7 +102,7 @@
       data: formData,
       success: function(response) {
         $('#message').html('<div class="alert alert-success">Product created successfully</div>');
-        window.location.href = '/admin/products';
+        window.location.href = '/admin/product/list';
       },
       error: function(xhr, status, error) {
         $('#message').html('<div class="alert alert-danger">Error creating product: ' + error + '</div>');

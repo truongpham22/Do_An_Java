@@ -14,6 +14,8 @@ public class CartItem {
     private BigDecimal price;
     private int quantity;
     private String imageList;
+    // private Product product;
+    //private int quantity;
     // Constructor
 }
 

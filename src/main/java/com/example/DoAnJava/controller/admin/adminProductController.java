@@ -58,7 +58,7 @@ public class adminProductController {
 
     @GetMapping("/edit/{id}")
     public String editProduct(@PathVariable("id") Long id, Model model) {
-        String url = "http://localhost:8080/product/"+id;
+        String url = "http://localhost:8080/product/edit/"+id;
         ProductDto product = this.restTemplate.getForObject(url, ProductDto.class);
         List<Category> categories = categoryService.getAllCate();
         List<ProductType> productTypes = productTypeService.getAllProductTypes();

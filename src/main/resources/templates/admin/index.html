@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="@{layout/layoutAdmin} :: header(Levent-Admin)">
-
-</head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security4"
+      lang="en">
+<tr sec:authorize="hasAnyAuthority('ADMIN')">
+<head th:replace="@{layout/layoutAdmin} :: header(Levent-Admin)"></head>
 <body class="sb-nav-fixed"  style="background-color: whitesmoke;">
 <nav th:replace="@{layout/layoutAdmin} :: header_top"></nav>
 <div id="layoutSidenav">
@@ -14,7 +14,7 @@
         <footer th:replace="@{layout/layoutAdmin} :: footer"></footer>
     </div>
 </div>
-
 </body>
+</tr>
 </html>
 

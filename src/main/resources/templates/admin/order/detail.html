@@ -9,16 +9,52 @@
     <div th:replace="@{layout/layoutAdmin} :: menu"></div>
     <div id="layoutSidenav_content">
         <!--main-->
-       <!-- <ol class="breadcrumb mb-4">
+        <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin}">Home</a> </li>
             <li class="breadcrumb-item"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin/products}">Quản lý sản phẩm</a> </li>
             <li class="breadcrumb-item active"> <a class="nav-link" style="display: inline-block;" >Chi tiết sản phẩm</a> </li>
 
         </ol>
         <div class="row g-3 px-5 shadow mx-5 mb-5" style="background-color: white;">
-            <div class="col-md-6">
-                <label class="form-label" for="name">Tên sản phẩm:</label>
-                <div class="form-control" th:text="${order.id}" id="name"></div>
+            <div class="col-md-6" th:each="detail: ${orders}">
+                <label class="form-label" >Thông tin khách hàng:</label>
+                <div class="form-control"  >
+                    <div class="row g-3 " th:if="${detail.orders.id != temp}">
+                       <div class="col-md-12">
+                           <label class="form-label" >Tên:</label>
+                           <input class="form-control" th:value="${detail.orders.user.name}" readonly>
+                       </div>
+                        <div class="col-md-6">
+                            <label class="form-label" >Email:</label>
+                            <input class="form-control" th:value="${detail.orders.user.email}" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" >Số điện thoại:</label>
+                            <input class="form-control" th:value="${detail.orders.user.phoneNumber}" readonly>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label" >Địa chỉ:</label>
+                            <input class="form-control" th:value="${detail.orders.user.address}" readonly>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label" >Tỉnh / Thành phố:</label>
+                            <input class="form-control" th:value="${detail.orders.user.location.name}" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" >Quận / Huyện:</label>
+                            <input class="form-control" th:value="${detail.orders.user.district}" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" >Phường / Xã:</label>
+                            <input class="form-control" th:value="${detail.orders.user.ward}" readonly>
+                        </div>
+
+                        <!-- Hiển thị thông tin chi tiết của đối tượng -->
+
+                        <!-- Lưu trữ id của đối tượng hiện tại -->
+                        <div th:with="temp=${detail.orders.id}"></div>
+                    </div>
+                </div>
             </div>
             <div class="col-md-6">
 
@@ -28,7 +64,7 @@
                 <a  type="submit" class="btn btn-dark mb-3"  th:href="@{/admin/product}">Chỉnh sửa sản phẩm</a>
             </div>
         </div>
-        <div id="message"></div>-->
+        <div id="message"></div>
         <!--main-->
         <footer th:replace="@{layout/layoutAdmin} :: footer"></footer>
     </div>

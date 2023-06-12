@@ -33,7 +33,7 @@ public class OrdersControllerApi {
     public String getView(@PathVariable(value = "id") Long id,Model model) {
         String url = "http://localhost:8080/orders/detail/"+id;
         List order = this.restTemplate.getForObject(url, List.class);
-        model.addAttribute("order", order);
+        model.addAttribute("orders", order);
         return "admin/order/detail";
     }
     @GetMapping("/array")

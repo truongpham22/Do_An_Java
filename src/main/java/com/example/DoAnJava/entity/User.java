@@ -3,6 +3,7 @@ package com.example.DoAnJava.entity;
 import com.example.DoAnJava.validator.annotation.ValidUsername;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import jakarta.validation.constraints.NotBlank;
@@ -52,6 +53,18 @@ public class User {
     @JsonBackReference
     @JsonIgnore
     private Set<UserRole> user_roles;
+
+    @ManyToOne
+    @JsonManagedReference
+    @JoinColumn(name = "location_id", referencedColumnName = "id", nullable = true)
+    private Location location;
+
+    @Column(name = "address")
+    private String address;
+    @Column(name = "district")
+    private String district;
+    @Column(name = "ward")
+    private String ward;
 
 
 }

@@ -1,50 +1,123 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>Edit Product</title>
+<head th:replace="@{layout/layoutAdmin} :: header(Levent-Admin)">
+
 </head>
-<body>
-<h1>Edit Product</h1>
-<form th:object="${product}" method="post" enctype="multipart/form-data">
-  <input type="hidden" th:field="*{id}">
-  <div>
-    <label>Name:</label>
-    <input type="text" th:field="*{name}">
+<body class="sb-nav-fixed"  style="background-color: whitesmoke;">
+<nav th:replace="@{layout/layoutAdmin} :: header_top"></nav>
+<div id="layoutSidenav">
+  <div th:replace="@{layout/layoutAdmin} :: menu"></div>
+  <div id="layoutSidenav_content">
+    <!--main-->
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin}">Home</a> </li>
+      <li class="breadcrumb-item"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin/products}">Quản lý sản phẩm</a> </li>
+      <li class="breadcrumb-item active"> <a class="nav-link" style="display: inline-block;" >Thêm sản phẩm</a> </li>
+
+    </ol>
+    <hr />
+    <form id="product-form" th:object="${product}" class="row g-3 px-5 shadow mx-5" style="background-color: white;">
+      <div class="col-md-6">
+        <label class="form-label" for="name">Tên sản phẩm:</label>
+        <input class="form-control" type="text" th:field="*{name}" id="name">
+      </div>
+     <div class="col-md-3">
+        <label class="form-label" for="category_id">Danh mục:</label>
+        <select class="form-control" id="category_id" name="category.id" th:field="*{category}">
+          <option th:each="category : ${categories}" th:value="${category.id}"
+                  th:text="${category.name}"></option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label" for="product_type_id">Loại:</label>
+        <select class="form-control" id="product_type_id" th:field="*{productType}">
+          <option th:each="type : ${productTypes}" th:value="${type.id}"
+                  th:text="${type.name}"></option>
+        </select>
+      </div>
+      <div class="col-md-12">
+        <label class="form-label" for="description">Mô tả:</label>
+        <textarea class="form-control" th:field="*{description}" id="description"></textarea>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label" for="price">Giá tiền:</label>
+        <input class="form-control" type="text" th:field="*{price}" id="price">
+      </div>
+      <div class="col-md-4">
+        <label class="form-label" for="quantityStock">Số lượng:</label>
+        <input class="form-control" type="text" th:field="*{quantityStock}" id="quantityStock" value="0">
+      </div>
+      <div class="col-md-4">
+        <label class="form-label" for="unit">Đơn vị tính:</label>
+        <input class="form-control" type="text" th:field="*{unit}" id="unit">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" for="file">Hình đại diện:</label>
+        <ul class="list-group list-group-horizontal ">
+          <li class="list-group-item border-0" >
+            <img class="m-1 sliderThumb" width="60px" th:src="${product.urlImageThumbnail}" alt="hinh thumnail">
+          </li>
+        </ul>
+        <input class="form-control" type="file" th:field="*{urlImageThumbnail}" id="file">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" for="files">Danh sách hình:</label>
+        <ul class="list-group list-group-horizontal ">
+          <li class="list-group-item border-0" th:each="image : ${product.imageList}">
+            <img th:src="${image}" th:alt="hinh" width="60px" class="m-1 sliderThumb"/>
+          </li>
+        </ul>
+        <input class="form-control" type="file" th:field="*{imageList}" id="files" multiple>
+      </div>
+
+
+      <div class="col-12">
+        <input  type="submit" class="btn btn-dark mb-3" value="Lưu sản phẩm">
+      </div>
+    </form>
+    <div id="message"></div>
+    <!--main-->
+    <footer th:replace="@{layout/layoutAdmin} :: footer"></footer>
   </div>
-  <div>
-    <label>Description:</label>
-    <textarea th:field="*{description}"></textarea>
-  </div>
-  <div>
-    <label>Price:</label>
-    <input type="number" th:field="*{price}" step="0.01">
-  </div>
-  <div>
-    <label>Unit:</label>
-    <input type="text" th:field="*{unit}">
-  </div>
-  <div>
-    <label>Thumbnail Image:</label>
-    <input type="file" name="thumbnailImage">
-  </div>
-  <div>
-    <label>Stock Quantity:</label>
-    <input type="number" th:field="*{quantityStock}">
-  </div>
-  <div>
-    <label>Category:</label>
-    <select th:field="*{category}">
-      <option th:each="category : ${categories}" th:value="${category}" th:text="${category.name}"></option>
-    </select>
-  </div>
-  <div>
-    <label>Product Type:</label>
-    <select th:field="*{productType}">
-      <option th:each="productType : ${productTypes}" th:value="${productType}" th:text="${productType.name}"></option>
-    </select>
-  </div>
-  <button type="submit">Save</button>
-</form>
+</div>
+<script>
+      // Lấy tham chiếu đến input số lượng
+      const quantityInput = document.getElementById("quantityStock");
+
+      // Nếu giá trị của input là rỗng thì set giá trị mặc định là 0
+      if (quantityInput.value === "") {
+        quantityInput.value = "0";
+      }
+      const priceInput = document.getElementById("price");
+      if (price.value === "") {
+        priceInput.value = "0";
+      }
+    </script>
 </body>
 </html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+  $('#product-form').submit(function(event) {
+    event.preventDefault();
+    var formData = new FormData($('#product-form')[0]);
+    var urlParams = new URLSearchParams(window.location.search);
+    var productId = urlParams.get('id');
+    $.ajax({
+      type: 'PUT',
+      url: '/product/edit/'+productId,
+      processData: false,
+      contentType: false,
+      data: formData,
+      success: function(response) {
+        $('#message').html('<div class="alert alert-success">Product edit successfully</div>');
+        window.location.href = '/admin/products';
+      },
+      error: function(xhr, status, error) {
+        $('#message').html('<div class="alert alert-danger">Error edit product: ' + error + '</div>');
+      }
+    });
+  });
+});
+</script>

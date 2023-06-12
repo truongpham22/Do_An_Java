@@ -25,6 +25,9 @@ public class OrderDetailService {
 
     @Autowired
     private IOrderRepository orderRepository;
+    public List<OrderDetail> getOrderDetailsByOrdersId(Long ordersId) {
+        return orderDetailRepository.findByOrdersId(ordersId);
+    }
 
     public List<OrderDetail> getAllOrderDetail(){
         return orderDetailRepository.findAll();

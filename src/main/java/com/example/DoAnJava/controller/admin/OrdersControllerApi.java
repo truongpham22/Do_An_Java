@@ -2,17 +2,17 @@ package com.example.DoAnJava.controller.admin;
 
 
 import com.example.DoAnJava.DTO.CreateOrdersDto;
-import com.example.DoAnJava.DTO.CreateUserDto;
+import com.example.DoAnJava.entity.OrderDetail;
 import com.example.DoAnJava.entity.Orders;
-import com.example.DoAnJava.entity.User;
+import com.example.DoAnJava.services.OrderDetailService;
 import com.example.DoAnJava.services.OrderService;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -22,8 +22,28 @@ public class OrdersControllerApi {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private OrderDetailService orderDetailService;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     //TODO Api for OrdersController
+    @GetMapping("/{id}")
+    public String getView(@PathVariable(value = "id") Long id,Model model) {
+        String url = "http://localhost:8080/orders/detail/"+id;
+        List order = this.restTemplate.getForObject(url, List.class);
+        model.addAttribute("order", order);
+        return "admin/order/detail";
+    }
+    @GetMapping("/array")
+    public String listProduct(Model model)
+    {
+        String url = "http://localhost:8080/orders/list";
+        List orders = this.restTemplate.getForObject(url, List.class);
+        model.addAttribute("orders",orders);
+        return "admin/order/list";
+    }
     @GetMapping("/list")
     @ResponseBody
     public List<Orders> getAllOrder() {
@@ -33,8 +53,8 @@ public class OrdersControllerApi {
 
     @GetMapping("/detail/{id}")
     @ResponseBody
-    public Orders getDetailOrders(@PathVariable Long id) {
-        return this.orderService.getOrdersById(id);
+    public List<OrderDetail> getDetailOrders(@PathVariable Long id) {
+        return this.orderDetailService.getOrderDetailsByOrdersId(id);
     }
 
     @PostMapping

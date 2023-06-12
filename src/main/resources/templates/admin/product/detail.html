@@ -15,46 +15,60 @@
       <li class="breadcrumb-item active"> <a class="nav-link" style="display: inline-block;" >Chi tiết sản phẩm</a> </li>
 
     </ol>
+    <div class="row g-3 px-5 shadow mx-5 mb-5" style="background-color: white;">
+      <div class="col-md-6">
+        <label class="form-label" for="name">Tên sản phẩm:</label>
+        <div class="form-control" th:text="${product.name}" id="name"></div>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label" >Danh mục:</label>
+        <div class="form-control"  th:text="${product.category.name}" ></div>
+      </div>
 
+      <div class="col-md-3">
+        <label class="form-label" >Loại:</label>
+        <div class="form-control"  th:text="${product.productType.name}" ></div>
+      </div>
+      <div class="col-md-12">
+        <label class="form-label" for="description">Mô tả:</label>
+        <textarea readonly class="form-control" th:text="${product.description}" id="description"></textarea>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label product_price" for="price">Giá tiền:</label>
+        <div class="form-control" th:text="${product.price}" id="price"></div>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label" for="quantityStock">Số lượng:</label>
+        <div class="form-control"  th:text="${product.quantityStock}" id="quantityStock" ></div>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label" for="unit">Đơn vị tính:</label>
+        <div class="form-control"  th:text="${product.unit}" id="unit"></div>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label" >Hình đại diện:</label>
+        <img class="form-control" th:src="${product.urlImageThumbnail}" alt="hinh thumnail">
+      </div>
+      <div class="col-md-9">
+        <label class="form-label " >Danh sách hình:</label>
+        <ul class="list-group list-group-horizontal ">
+          <li class="list-group-item border-0" th:each="image : ${product.imageList}">
+            <img th:src="${image}" th:alt="hinh" width="60px" class="m-1 sliderThumb"/>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-12">
+        <a  type="submit" class="btn btn-dark mb-3"  th:href="@{/admin/product/edit/{id}(id=${product.id})}">Chỉnh sửa sản phẩm</a>
+      </div>
+    </div>
+    <div id="message"></div>
     <!--main-->
     <footer th:replace="@{layout/layoutAdmin} :: footer"></footer>
   </div>
 </div>
-<script>
-      // Lấy tham chiếu đến input số lượng
-      const quantityInput = document.getElementById("quantityStock");
+<script src="/js/toVND.js"></script>
 
-      // Nếu giá trị của input là rỗng thì set giá trị mặc định là 0
-      if (quantityInput.value === "") {
-        quantityInput.value = "0";
-      }
-      const priceInput = document.getElementById("price");
-      if (price.value === "") {
-        priceInput.value = "0";
-      }
-    </script>
 </body>
 </html>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function() {
-  $('#product-form').submit(function(event) {
-    event.preventDefault();
-    var formData = new FormData($('#product-form')[0]);
-    $.ajax({
-      type: 'POST',
-      url: '/product',
-      processData: false,
-      contentType: false,
-      data: formData,
-      success: function(response) {
-        $('#message').html('<div class="alert alert-success">Product created successfully</div>');
-        window.location.href = '/admin/products';
-      },
-      error: function(xhr, status, error) {
-        $('#message').html('<div class="alert alert-danger">Error creating product: ' + error + '</div>');
-      }
-    });
-  });
-});
-</script>

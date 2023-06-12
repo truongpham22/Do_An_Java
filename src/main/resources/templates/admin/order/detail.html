@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="@{layout/layoutAdmin} :: header(Levent-Admin)">
+
+</head>
+<body class="sb-nav-fixed"  style="background-color: whitesmoke;">
+<nav th:replace="@{layout/layoutAdmin} :: header_top"></nav>
+<div id="layoutSidenav">
+    <div th:replace="@{layout/layoutAdmin} :: menu"></div>
+    <div id="layoutSidenav_content">
+        <!--main-->
+       <!-- <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin}">Home</a> </li>
+            <li class="breadcrumb-item"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin/products}">Quản lý sản phẩm</a> </li>
+            <li class="breadcrumb-item active"> <a class="nav-link" style="display: inline-block;" >Chi tiết sản phẩm</a> </li>
+
+        </ol>
+        <div class="row g-3 px-5 shadow mx-5 mb-5" style="background-color: white;">
+            <div class="col-md-6">
+                <label class="form-label" for="name">Tên sản phẩm:</label>
+                <div class="form-control" th:text="${order.id}" id="name"></div>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+
+            <div class="col-12">
+                <a  type="submit" class="btn btn-dark mb-3"  th:href="@{/admin/product}">Chỉnh sửa sản phẩm</a>
+            </div>
+        </div>
+        <div id="message"></div>-->
+        <!--main-->
+        <footer th:replace="@{layout/layoutAdmin} :: footer"></footer>
+    </div>
+</div>
+<script src="/js/toVND.js"></script>
+
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

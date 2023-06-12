@@ -6,6 +6,7 @@ import com.example.DoAnJava.entity.User;
 import com.example.DoAnJava.repository.IUserRepository;
 import com.example.DoAnJava.services.UserInfoService;
 import com.example.DoAnJava.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,22 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security"
-      lang="en">
-<tr sec:authorize="hasAnyAuthority('ADMIN')">
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="@{layout/layoutAdmin} :: header(Levent-Admin)">
+
 </head>
-<body class="sb-nav-fixed">
+<body class="sb-nav-fixed"  style="background-color: whitesmoke;">
 <nav th:replace="@{layout/layoutAdmin} :: header_top"></nav>
 <div id="layoutSidenav">
     <div th:replace="@{layout/layoutAdmin} :: menu"></div>
     <div id="layoutSidenav_content">
-
-        <div>
-            test
-        </div>
-
+        <!--main-->
+        admin
+        <!--main-->
         <footer th:replace="@{layout/layoutAdmin} :: footer"></footer>
     </div>
 </div>
+
 </body>
-</tr>
 </html>
+

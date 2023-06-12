@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/product")
 public class adminProductController {
     @Autowired
     private ProductService productService;
@@ -33,19 +33,12 @@ public class adminProductController {
     @Autowired
     private RestTemplate restTemplate;
 
-   @GetMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable(value = "id") Long id)
-    {
-        productService.deleteProduct(id);
-        return "redirect:/admin/products";
-    }
-
     @GetMapping
     public String home()
     {
         return  "admin/index";
     }
-    @GetMapping("/products")
+    @GetMapping("/list")
     public String listProduct(Model model)
     {
         String url = "http://localhost:8080/product/list";
@@ -63,9 +56,10 @@ public class adminProductController {
     }
 
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/edit/{id}")
     public String editProduct(@PathVariable("id") Long id, Model model) {
-        Product product = productService.getProductById(id);
+        String url = "http://localhost:8080/product/"+id;
+        ProductDto product = this.restTemplate.getForObject(url, ProductDto.class);
         List<Category> categories = categoryService.getAllCate();
         List<ProductType> productTypes = productTypeService.getAllProductTypes();
         model.addAttribute("product", product);
@@ -73,7 +67,7 @@ public class adminProductController {
         model.addAttribute("productTypes", productTypes);
         return "admin/product/edit";
     }
-    @GetMapping("/product/{id}")
+    @GetMapping("/{id}")
     public String getView(@PathVariable(value = "id") Long id,Model model) {
         String url = "http://localhost:8080/product/"+id;
         ProductDto product = this.restTemplate.getForObject(url, ProductDto.class);

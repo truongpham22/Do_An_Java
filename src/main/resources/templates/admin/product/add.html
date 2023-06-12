@@ -17,35 +17,11 @@
     </ol>
     <hr />
     <form id="product-form" th:object="${product}" class="row g-3 px-5 shadow mx-5" style="background-color: white;">
-      <div class="col-md-12">
+      <div class="col-md-6">
         <label class="form-label" for="name">Tên sản phẩm:</label>
         <input class="form-control" type="text" th:field="*{name}" id="name">
       </div>
-      <div class="col-md-12">
-        <label class="form-label" for="description">Mô tả:</label>
-        <textarea class="form-control" th:field="*{description}" id="description"></textarea>
-      </div>
-      <div class="col-md-6">
-        <label class="form-label" for="price">Giá tiền:</label>
-        <input class="form-control" type="text" th:field="*{price}" id="price">
-      </div>
-      <div class="col-md-4">
-        <label class="form-label" for="quantityStock">Số lượng:</label>
-        <input class="form-control" type="text" th:field="*{quantityStock}" id="quantityStock" value="0">
-      </div>
-      <div class="col-md-2">
-        <label class="form-label" for="unit">Đơn vị tính:</label>
-        <input class="form-control" type="text" th:field="*{unit}" id="unit">
-      </div>
-      <div class="col-md-6">
-        <label class="form-label" for="files">Danh sách hình:</label>
-        <input class="form-control" type="file" th:field="*{files}" id="files" multiple>
-      </div>
-      <div class="col-md-6">
-        <label class="form-label" for="file">Hình đại diện:</label>
-        <input class="form-control" type="file" th:field="*{file}" id="file">
-      </div>
-      <div class="col-md-6">
+      <div class="col-md-3">
         <label class="form-label" for="category_id">Danh mục:</label>
         <select class="form-control" id="category_id" name="category.id" th:field="*{category_id}">
           <option value=""> Select Category </option>
@@ -54,7 +30,7 @@
         </select>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-3">
         <label class="form-label" for="product_type_id">Loại:</label>
         <select class="form-control" id="product_type_id" th:field="*{product_type_id}">
           <option value=""> Select Type </option>
@@ -62,6 +38,32 @@
                   th:text="${type.name}"></option>
         </select>
       </div>
+      <div class="col-md-12">
+        <label class="form-label" for="description">Mô tả:</label>
+        <textarea class="form-control" th:field="*{description}" id="description"></textarea>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label" for="price">Giá tiền:</label>
+        <input class="form-control" type="text" th:field="*{price}" id="price">
+      </div>
+      <div class="col-md-4">
+        <label class="form-label" for="quantityStock">Số lượng:</label>
+        <input class="form-control" type="text" th:field="*{quantityStock}" id="quantityStock" value="0">
+      </div>
+      <div class="col-md-4">
+        <label class="form-label" for="unit">Đơn vị tính:</label>
+        <input class="form-control" type="text" th:field="*{unit}" id="unit">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" for="file">Hình đại diện:</label>
+        <input class="form-control" type="file" th:field="*{file}" id="file">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" for="files">Danh sách hình:</label>
+        <input class="form-control" type="file" th:field="*{files}" id="files" multiple>
+      </div>
+
+
       <div class="col-12">
         <input  type="submit" class="btn btn-dark mb-3" value="Thêm sản phẩm">
       </div>

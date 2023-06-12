@@ -66,7 +66,7 @@
                 <ul class="header_navbar_list">
                         <span class="header_navbar_items">
                             <i class="fas fa-globe-americas"></i>
-                            Levents love you
+                            Pets love you
                         </span>
                 </ul>
                 <ul class="header_navbar_list">
@@ -92,16 +92,51 @@
                             <option value="Sữa tắm cho chó con JOYCE & DOLLS 102 Puppy Tender Formula">
                             <option value="Pate cho mèo vị cá ngừ IRIS OHYAMA Love Meow Tuna">
                             <option value="Pate gói cho mèo CIAO vị thịt gà, cá ngừ và cá bào nhật">
-                            <option value="hihi">
-                            <option value="haha">
+                            <option value="Sốt pate cho mèo CIAO vị cá ngừ nướng và sò điệp">
+                            <option value="Thức ăn cho mèo Anh lông ngắn trưởng thành ROYAL CANIN British Shorthair Adult">
+                            <option value="Bánh thưởng cho mèo vị cá hồi JERHIGH Jinny Salmon">
+                            <option value="Súp thưởng cho mèo CIAO Hairball Control vị thịt gà tiêu búi lông">
+                            <option value="Gel dinh dưỡng cho mèo BIOLINE Integrated Nutrition Supplements Gel">
+                            <option value="Catnip cho mèo dạng khô BIOLINE Catnip Invigorating">
+                            <option value="Hạt giống trồng cỏ tươi cho mèo BIOLINE Cat Grass Kit">
+                            <option value="Thuốc trị chống rụng lông cho chó VEGEBRAND Lecithin Hair Beauty">
+                            <option value="Xúc xích cho mèo vị phô mai MEOWOW Mozzarella & Taurine Stick">
+                            <option value="Hạt Catsrang Cho Mèo Mọi Lứa Tuổi">
+                            <option value="Snack Cho Chó Xương Gặm Fonti Inu - Xương Nơ Mini">
+                            <option value="Snack Cho Chó Thịt Gà Sấy DoggyMan">
+                            <option value="Pate Pedigree Cho Chó Con - Gà Nấu Sốt">
+                            <option value="Maria Dog Pate Cho Chó Nhập Khẩu Thái Lan">
+                            <option value="Snack Cho Chó Bánh Thưởng Giòn Tan Pedigree Tasty Bites">
+                            <option value="Chà Bông Ruốc Gà Cho Chó Mèo Hipidog">
+                            <option value="Viên Thịt Bò, Gà & Cá Hồi Bowwow Cube Jerky Snack Cho Chó">
+                            <option value="Phô Mai Thịt Cừu BowWow Snack Cho Chó ">
+                            <option value="Thịt Que BowWow Stick Jerky Snack Cho Chó">
+                            <option value="Viên Gà Tây Lamer Petpedia Snack Cho Chó Giảm Stress & Tăng Miễn Dịch">
+                            <option value="Snack Cho Chó Bánh Quy DoggyMan">
+                            <option value="Pate Cho Mèo Con Dạng Kem Nekko">
+                            <option value="Hạt Mèo Con Hữu Cơ Natural Core Kitten">
+                            <option value="Hạt Me-O Gold Kitten Cao Cấp Cho Mèo Con">
+                            <option value="Viên Snack Dinh Dưỡng Cho Mèo GimCat Tabs">
                         </datalist>
                         <button style="border: 0.5px solid black;" type="submit">Search</button>
                     </form>
                 </div>
-                <a href=""><img th:src="@{/img/logo.png}" alt=""></a>
+                <div>
+                    <a href=""><img th:src="@{/img/logo2.webp}" alt="" style="width: 10rem;"></a>
+                </div>
                 <div class="icon__function_list">
                     <i class="icon__function_items far fa-bell"></i>
-                    <a class="icon__function_items icon__function_items_bag fas fa-shopping-bag" href="/cart"></a>
+                    <tr sec:authorize="!hasAnyAuthority('USER','ADMIN')" th:remove="tag">
+                    <a th:if="${user == null}" th:href="@{/login}" class="icon__function_items icon__function_items_bag fas fa-shopping-bag" onclick="thongbao1()"></a>
+                        <script>
+                            function thongbao1() {
+                                alert('Bạn cần đăng nhập hoặc đăng ký để xem giỏ hàng.');
+                                    }
+                            </script>
+                    </tr>
+                    <tr sec:authorize="hasAnyAuthority('USER','ADMIN')">
+                    <a th:if="${user == null}" class="icon__function_items icon__function_items_bag fas fa-shopping-bag" href="/cart"></a>
+                    </tr>
                     <i class="icon__function_items icon__function_items-user far fa-user-circle">
                         <ul class="header__navbar-user-menu">
                             <li sec:authorize="isAuthenticated()">

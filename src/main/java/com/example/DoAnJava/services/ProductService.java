@@ -26,11 +26,11 @@ public class ProductService {
     private ICategoryRepository categoryRepository;
 
     @Autowired
+    private FirebaseService firebaseService;
+    @Autowired
     private IProductTypeRepository productTypeRepository;
 
     static final Logger logger = LoggerFactory.getLogger(ProductService.class);
-
-
 
     public  List<Product> getProductsByCategory(String category){
         return productRepository.findByCategory(category);
@@ -50,8 +50,13 @@ public class ProductService {
         productSaved.setDescription(product.getDescription());
         productSaved.setPrice(product.getPrice());
         productSaved.setUnit(product.getUnit());
-        productSaved.setUrlImageThumbnail(product.getUrlImageThumbnail());
-        productSaved.setImageList(product.getImageList());
+        var imageThumbnail = this.firebaseService.uploadImages(product.getFile());
+        System.out.println("IMAGE THUMB "+ imageThumbnail.get(0));
+        productSaved.setUrlImageThumbnail(imageThumbnail.get(0));
+        var imageList = this.firebaseService.uploadImages(product.getFiles());
+        System.out.println("IMAGE LIST "+imageList);
+
+        productSaved.setImageList(imageList);
         productSaved.setQuantityStock(product.getQuantityStock());
         Category cate = this.categoryRepository.findById(product.getCategory_id()).orElse(null);
         productSaved.setCategory(cate);

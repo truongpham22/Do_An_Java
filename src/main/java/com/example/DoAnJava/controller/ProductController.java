@@ -67,11 +67,11 @@ public class ProductController {
     }
     @PutMapping("/edit/{id}")
     @ResponseBody
-    public ResponseEntity updateProduct(@PathVariable Long id, @RequestBody CreateProductDto createProductDto) {
+    public ResponseEntity updateProduct(@PathVariable Long id, @ModelAttribute CreateProductDto createProductDto) {
         Product product = this.productService.getProductById(id);
         if (product != null) {
-            this.productService.updateProduct(createProductDto, id);
-            return ResponseEntity.status(HttpStatus.OK).body(product);
+            var productUpdate = this.productService.updateProduct(createProductDto, id);
+            return ResponseEntity.status(HttpStatus.OK).body(productUpdate);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product not found");
     }
@@ -117,17 +117,17 @@ public class ProductController {
     }
 
      */
-    //upsoluong theo tên sản phẩm
-    @PostMapping("/updatesoluong/{id}")
-    @ResponseBody
-    public ResponseEntity updatesoluong(@PathVariable Long id, @RequestBody CreateProductDto createProductDto){
-        Product products = this.productService.getProductById(id);
-        if (products != null) {
-            this.productService.updateSoLuong(createProductDto, id);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(products);
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product not found");
-    }
+//    //upsoluong theo tên sản phẩm
+//    @PostMapping("/updatesoluong/{id}")
+//    @ResponseBody
+//    public ResponseEntity updatesoluong(@PathVariable Long id, @RequestBody CreateProductDto createProductDto){
+//        Product products = this.productService.getProductById(id);
+//        if (products != null) {
+//            this.productService.updateSoLuong(createProductDto, id);
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(products);
+//        }
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product not found");
+//    }
     //end
     @PostMapping()
     @ResponseBody

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="@{layout/layoutAdmin} :: header(Levent-Admin)">
+</head>
+<body class="sb-nav-fixed" style="background-color: whitesmoke;">
+<nav th:replace="@{layout/layoutAdmin} :: header_top"></nav>
+<div id="layoutSidenav">
+    <div th:replace="@{layout/layoutAdmin} :: menu"></div>
+    <div id="layoutSidenav_content">
+
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"> <a class="nav-link" style="display: inline-block;" th:href="@{/admin/product}">Home</a> </li>
+            <li class="breadcrumb-item active"> <a class="nav-link" style="display: inline-block;" th:href="@{/orders}">Quản lý đơn hàng</a> </li>
+        </ol>
+        <div id="message"></div>
+
+        <table class="table rounded shadow " style="background-color: white; width:98%">
+            <thead>
+            <tr>
+                <th class="text-center" scope="col">ID</th>
+                <th scope="col">Khách hàng</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col">Khuyến mãi</th>
+                <th scope="col">Ngày đặt hàng</th>
+                <th scope="col">Ngày giao hàng</th>
+                <th scope="col">Tổng tiền</th>
+                <th scope="col"></th>
+
+            </tr>
+            </thead>
+            <tbody id="records_table">
+
+            <tr th:each="order: ${orders}">
+                <th class="text-center" scope="row" th:text="${order.id}"></th>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <h6 class="" th:text="${order.user.name}"></h6>
+                    </div>
+                </td>
+                <td th:text="${order.status}"></td>
+                <td th:text="${order.discount}"></td>
+                <td th:text="${order.orderDate}"></td>
+                <td th:text="${order.deliveryDate}"></td>
+                <td class="product_price" th:text="${order.totalPrice}"></td>
+                <td>
+                    <a class="text-decoration-none text-dark" th:href="@{/orders/{id}(id=${order.id})}">Chi tiết</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <footer th:replace="@{layout/layoutAdmin} :: footer"></footer>
+    </div>
+</div>
+<script src="/js/toVND.js"></script>
+
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('a.delete-product').click(function(event) {
+      event.preventDefault();
+      var productID = $(this).data('product-id');
+      var confirmation = confirm('Are you sure you want to delete this product?');
+      if (confirmation) {
+        $.ajax({
+          type: 'DELETE',
+          url: 'http://localhost:8080/product/delete/' + productID,
+          success: function(response) {
+            window.location.href = '/admin/products';
+            $('#message').html('<div class="alert alert-success">Product deleted successfully</div>');
+          },
+          error: function(xhr, status, error) {
+            $('#message').html('<div class="alert alert-danger">Error deleting product: ' + error + '</div>');
+          }
+        });
+      }
+    });
+  });
+</script>

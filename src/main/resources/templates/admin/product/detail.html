@@ -34,7 +34,7 @@
         <textarea readonly class="form-control" th:text="${product.description}" id="description"></textarea>
       </div>
       <div class="col-md-4">
-        <label class="form-label" for="price">Giá tiền:</label>
+        <label class="form-label product_price" for="price">Giá tiền:</label>
         <div class="form-control" th:text="${product.price}" id="price"></div>
       </div>
       <div class="col-md-4">
@@ -67,6 +67,7 @@
     <footer th:replace="@{layout/layoutAdmin} :: footer"></footer>
   </div>
 </div>
+<script src="/js/toVND.js"></script>
 
 </body>
 </html>

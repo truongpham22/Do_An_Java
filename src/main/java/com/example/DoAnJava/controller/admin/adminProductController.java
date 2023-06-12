@@ -58,11 +58,24 @@ public class adminProductController {
 
     @GetMapping("/edit/{id}")
     public String editProduct(@PathVariable("id") Long id, Model model) {
-        String url = "http://localhost:8080/product/edit/"+id;
+        String url = "http://localhost:8080/product/"+id;
         ProductDto product = this.restTemplate.getForObject(url, ProductDto.class);
+
+
         List<Category> categories = categoryService.getAllCate();
         List<ProductType> productTypes = productTypeService.getAllProductTypes();
-        model.addAttribute("product", product);
+        CreateProductDto createProduct = new CreateProductDto();
+        assert product != null;
+        createProduct.setName(product.getName());
+        createProduct.setDescription(product.getDescription());
+        createProduct.setPrice(product.getPrice());
+        createProduct.setUrlImageThumbnail(product.getUrlImageThumbnail());
+        createProduct.setImageList(product.getImageList());
+        createProduct.setUnit(product.getUnit());
+        createProduct.setQuantityStock(product.getQuantityStock());
+        createProduct.setCategory_id(product.getCategory().getId());
+        createProduct.setProduct_type_id(product.getProductType().getId());
+        model.addAttribute("product", createProduct);
         model.addAttribute("categories", categories);
         model.addAttribute("productTypes", productTypes);
         return "admin/product/edit";

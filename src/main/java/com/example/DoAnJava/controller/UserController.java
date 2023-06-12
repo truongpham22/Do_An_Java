@@ -1,16 +1,14 @@
 package com.example.DoAnJava.controller;
 
 import com.example.DoAnJava.DTO.CreateUserDto;
-import com.example.DoAnJava.entity.Product;
 import com.example.DoAnJava.entity.User;
+import com.example.DoAnJava.repository.IProductRepository;
 import com.example.DoAnJava.repository.IUserRepository;
-import com.example.DoAnJava.services.UserInfoService;
+import com.example.DoAnJava.repository.IUserRoleRepository;
 import com.example.DoAnJava.services.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -20,7 +18,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Controller
@@ -28,11 +25,11 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private UserInfoService userInfoService;
 
     @Autowired
     private IUserRepository userRepository;
+    @Autowired
+    private IUserRoleRepository userRoleRepository;
 
     @GetMapping("/login")
     public String login() {
@@ -43,6 +40,13 @@ public class UserController {
         model.addAttribute("user", new User());
 
         return "home/dangky";
+    }
+
+    @GetMapping("/test")
+    @ResponseBody
+    public ResponseEntity test(Model model) {
+        List<Long> kq = this.userRoleRepository.findRoleIdsByUserId(3L);
+        return ResponseEntity.ok(kq) ;
     }
     @PostMapping("/register")
 

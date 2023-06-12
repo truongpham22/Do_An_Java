@@ -87,7 +87,7 @@
           type: 'DELETE',
           url: 'http://localhost:8080/product/delete/' + productID,
           success: function(response) {
-            window.location.href = '/admin/products';
+            window.location.href = '/admin/product/list';
             $('#message').html('<div class="alert alert-success">Product deleted successfully</div>');
           },
           error: function(xhr, status, error) {

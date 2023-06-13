@@ -2,7 +2,9 @@ package com.example.DoAnJava.controller;
 
 import com.example.DoAnJava.daos.Cart;
 import com.example.DoAnJava.daos.CartItem;
+import com.example.DoAnJava.entity.Location;
 import com.example.DoAnJava.services.CartService;
+import com.example.DoAnJava.services.LocationService;
 import com.example.DoAnJava.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class CartController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private LocationService locationService;
+
     @GetMapping("/cart")
     public String viewCart(Model model, HttpSession session, Authentication authentication) {
 
@@ -38,6 +43,8 @@ public class CartController {
         model.addAttribute("totalPrice", cartService.getSumPrice(session));
         model.addAttribute("items", cart.getItems());
         model.addAttribute("userId", user.getId());
+        List<Location> location = this.locationService.getAllLoaction();
+        model.addAttribute("location", location);
         return "cart";
     }
     //@RequestMapping("/cart/add/{id}") id product

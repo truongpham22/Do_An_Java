@@ -1,17 +1,24 @@
 package com.example.DoAnJava.controller.admin;
 
 import com.example.DoAnJava.DTO.CreateUserDto;
+import com.example.DoAnJava.entity.Role;
 import com.example.DoAnJava.entity.User;
+import com.example.DoAnJava.entity.UserRole;
+import com.example.DoAnJava.services.RoleService;
+import com.example.DoAnJava.services.UserRoleService;
 import com.example.DoAnJava.services.UserService;
+import com.google.api.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @Controller()
@@ -23,12 +30,22 @@ public class UserControllerApi {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private UserRoleService userRoleService;
     //TODO Api for UserController
+
     @GetMapping("/update/{id}")
     public String getView(@PathVariable(value = "id") Long id,Model model) {
         String url = "http://localhost:8080/authent/detail/"+id;
         CreateUserDto product = this.restTemplate.getForObject(url, CreateUserDto.class);
         model.addAttribute("user", product);
+        List<Role> roles = this.roleService.getAllRole();
+        model.addAttribute("roles", roles);
+        List<UserRole> userRoles = this.userRoleService.getUserRoleByUserId(product.getId());
+        model.addAttribute("userRoles", userRoles);
         return "admin/user/edit" ;
     }
     @GetMapping("/array")

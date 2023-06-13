@@ -13,6 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateUserDto {
+    private Long id;
     private String username;
     private String password;
     private String email;

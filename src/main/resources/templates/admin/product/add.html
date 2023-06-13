@@ -100,6 +100,9 @@
       processData: false,
       contentType: false,
       data: formData,
+      beforeSend: function() {
+          $('#message').html('<div class="alert alert-info">Loading...</div>');
+        },
       success: function(response) {
         $('#message').html('<div class="alert alert-success">Product created successfully</div>');
         window.location.href = '/admin/product/list';

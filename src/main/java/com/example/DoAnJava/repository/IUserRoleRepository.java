@@ -1,4 +1,5 @@
 package com.example.DoAnJava.repository;
+import com.example.DoAnJava.entity.OrderDetail;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Repository
 public interface IUserRoleRepository extends JpaRepository<UserRole, Long> {
+    List<UserRole> findByUserId(Long ordersId);
     @Query("SELECT ur.id.roleId FROM UserRole ur WHERE ur.id.userId = :userId")
     List<Long> findRoleIdsByUserId(@Param("userId") Long userId);
     @Modifying

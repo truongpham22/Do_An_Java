@@ -19,23 +19,30 @@
         <form id="product-form" th:object="${user}" class="row g-3 px-5 shadow mx-5" style="background-color: white;">
                 <div class="col-md-6">
                     <label class="form-label" >Tên người dùng:</label>
-                    <input class="form-control" th:field="${user.name}" >
+                    <input class="form-control" th:field="*{name}" >
                 </div>
                 <div class="col-md-6">
                     <label class="form-label" >Tên tài khoản:</label>
-                    <input class="form-control" th:field="${user.username}" >
+                    <input class="form-control" th:field="*{username}" >
                 </div>
                 <div class="col-md-6">
                     <label class="form-label" >Email:</label>
-                    <input class="form-control" th:field="${user.email}" >
+                    <input class="form-control" th:field="*{email}" >
                 </div>
                 <div class="col-md-6">
                     <label class="form-label" >Số điện thoại:</label>
-                    <input class="form-control" th:field="${user.phoneNumber}" >
+                    <input class="form-control" th:field="*{phoneNumber}" >
                 </div>
                 <div class="col-md-6">
                     <label class="form-label" >Role:</label>
-                    <input class="form-control" th:field="${user.roleName}" >
+                    <input type="hidden" name="userId" th:value="${user.id}"/>
+                    <div th:each="role: ${roles}">
+                        <label>
+                            <input type="checkbox" name="permissions" th:value="${role.id}" th:text="${role.name}"
+                                   th:each="userRole: ${userRoles}"    th:checked="${role.id == userRole.role.id} ? 'checked' : null">
+                        </label>
+                    </div>
+
                 </div>
 
             <div class="col-12">
@@ -51,26 +58,16 @@
 </html>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function() {
-  $('#product-form').submit(function(event) {
-    event.preventDefault();
-    var formData = new FormData($('#product-form')[0]);
-    var urlParams = new URLSearchParams(window.location.search);
-    var productId = urlParams.get('id');
-    $.ajax({
-      type: 'PUT',
-      url: '/authent/'+userId,
-      processData: false,
-      contentType: false,
-      data: formData,
-      success: function(response) {
-        $('#message').html('<div class="alert alert-success">Product edit successfully</div>');
-        window.location.href = '/admin/products';
-      },
-      error: function(xhr, status, error) {
-        $('#message').html('<div class="alert alert-danger">Error edit product: ' + error + '</div>');
-      }
-    });
-  });
+// Lấy tất cả các phần tử input có type là checkbox trong DOM
+var checkboxes = document.querySelectorAll("input[type='checkbox']");
+
+// Duyệt qua từng checkbox và đặt trạng thái checked tương ứng
+checkboxes.forEach(function(checkbox) {
+  var roleId = checkbox.value;
+  if (userRoles.includes(roleId)) {
+    checkbox.checked = true;
+  } else {
+    checkbox.checked = false;
+  }
 });
 </script>

@@ -71,7 +71,7 @@ public class UserController {
                 BCryptPasswordEncoder().encode(user.getPassword()));
         CreateUserDto userDto = this.userService.parseCreateUserDto(user);
         userService.create(userDto);
-        return "home/dangnhap";
+        return "redirect:/login";
 
     }
 

@@ -39,7 +39,7 @@
                     <div th:each="role: ${roles}">
                         <label>
                             <input type="checkbox" name="permissions" th:value="${role.id}" th:text="${role.name}"
-                                   th:each="userRole: ${userRoles}"    th:checked="${role.id == userRole.role.id} ? 'checked' : null">
+                                   th:checked="${#lists.contains(userRoles.![role.id], role.id)}"/>
                         </label>
                     </div>
 

@@ -76,7 +76,7 @@ public class CartController {
 
 
         CartItem product = new CartItem(id, name, price, quantity, imageList);
-
+        CartItem products = new CartItem(id, name, price, quantity, imageList);
         cart.addItem(product);
 
         return "redirect:/cart";

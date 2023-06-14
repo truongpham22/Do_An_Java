@@ -4,6 +4,10 @@ import com.example.DoAnJava.DTO.CreateUserDto;
 import com.example.DoAnJava.entity.Role;
 import com.example.DoAnJava.entity.User;
 import com.example.DoAnJava.entity.UserRole;
+import com.example.DoAnJava.entity.UserRolePk;
+import com.example.DoAnJava.repository.IRoleRepository;
+import com.example.DoAnJava.repository.IUserRepository;
+import com.example.DoAnJava.repository.IUserRoleRepository;
 import com.example.DoAnJava.services.RoleService;
 import com.example.DoAnJava.services.UserRoleService;
 import com.example.DoAnJava.services.UserService;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.nio.file.AccessDeniedException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller()
@@ -35,8 +40,57 @@ public class UserControllerApi {
     private RoleService roleService;
     @Autowired
     private UserRoleService userRoleService;
-    //TODO Api for UserController
 
+    @Autowired
+    private IUserRepository userRepository;
+    @Autowired
+    private IUserRoleRepository userRoleRepository;
+    @Autowired
+    private IRoleRepository roleRepository;
+
+    //TODO Api for UserController
+    @PutMapping("/users/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long userId,
+                                           @RequestBody User userRequest) {
+        // Lấy thông tin User từ UserRepository
+        User user = userRepository.findById(userId)
+                .orElseThrow(null);
+
+        // Cập nhật thông tin User
+        user.setUsername(userRequest.getUsername());
+        user.setPassword(userRequest.getPassword());
+        user.setEmail(userRequest.getEmail());
+        user.setName(userRequest.getName());
+        user.setPhoneNumber(userRequest.getPhoneNumber());
+
+        // Lấy danh sách UserRole của User từ UserRoleRepository
+        List<UserRole> userRoles = userRoleRepository.findByUserId(userId);
+
+        // Tạo danh sách UserRole mới để cập nhật
+        List<UserRole> updatedUserRoles = new ArrayList<>();
+
+        // Thêm các UserRole mới được yêu cầu vào danh sách cập nhật
+        for (UserRole roleId : userRequest.getUser_roles()) {
+            Role role = roleRepository.findById(roleId.getRole().getId())
+                    .orElseThrow(null);
+            updatedUserRoles.add(userRepository.addRoleToUser(user.getId(), role.getId()));
+        }
+
+        // Xóa các UserRole không còn được yêu cầu khỏi danh sách UserRole của User
+        for (UserRole userRole : userRoles) {
+            if (!userRequest.getUser_roles().contains(userRole.getRole().getId())) {
+                userRoleRepository.delete(userRole);
+            }
+        }
+
+        // Thêm các UserRole mới được yêu cầu vào UserRole của User
+        userRoleRepository.saveAll(updatedUserRoles);
+
+        // Lưu thông tin User đã cập nhật vào UserRepository
+        User updatedUser = userRepository.save(user);
+
+        return ResponseEntity.ok(updatedUser);
+    }
     @GetMapping("/update/{id}")
     public String getView(@PathVariable(value = "id") Long id,Model model) {
         String url = "http://localhost:8080/authent/detail/"+id;

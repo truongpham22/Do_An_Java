@@ -1,6 +1,7 @@
 package com.example.DoAnJava.repository;
 
 import com.example.DoAnJava.entity.User;
+import com.example.DoAnJava.entity.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,7 +16,7 @@ public interface IUserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO user_role (user_id, role_id)" + " VALUES (?1, ?2", nativeQuery = true)
-    void addRoleToUser(Long userId, Long roleId);
+    UserRole addRoleToUser(Long userId, Long roleId);
 
     @Query("SELECT u.id FROM User u WHERE u.username = ?1")
     Long getUserIdByUsername(String username);

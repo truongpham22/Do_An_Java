@@ -45,6 +45,7 @@ public class CartController {
         model.addAttribute("userId", user.getId());
         List<Location> location = this.locationService.getAllLoaction();
         model.addAttribute("location", location);
+        model.addAttribute("user", user);
         return "cart";
     }
     //@RequestMapping("/cart/add/{id}") id product

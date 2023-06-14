@@ -2,6 +2,7 @@ package com.example.DoAnJava.services;
 
 import com.example.DoAnJava.DTO.CreateUserDto;
 import com.example.DoAnJava.entity.*;
+import com.example.DoAnJava.repository.ILoactionRepository;
 import com.example.DoAnJava.repository.IRoleRepository;
 import com.example.DoAnJava.repository.IUserRepository;
 import com.example.DoAnJava.repository.IUserRoleRepository;
@@ -19,7 +20,8 @@ public class UserService {
     private IUserRepository userRepository;
     @Autowired
     private IRoleRepository roleRepository;
-
+    @Autowired
+    private ILoactionRepository loactionRepository;
     @Autowired
     private IUserRoleRepository userroleRepository;
 
@@ -80,13 +82,26 @@ public class UserService {
     }
 
     public User updateUser(CreateUserDto user, Long id) {
+
         User usersave = this.userRepository.findById(id).orElse(null);
+        System.out.println(" USER ID ă"+ usersave.getId());
+
         usersave.setUsername(user.getUsername());
-        usersave.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        usersave.setPassword(user.getPassword());
         usersave.setEmail(user.getEmail());
         usersave.setName(user.getName());
         usersave.setPhoneNumber(user.getPhoneNumber());
+        usersave.setDistrict(user.getDistrict());
+        usersave.setAddress(user.getAddress());
+        usersave.setWard(user.getWard());
+        System.out.println(" LOCATION ID "+ user.getLocation_id());
+
+        Location location = this.loactionRepository.findById(user.getLocation_id()).orElse(null);
+        System.out.println(" LOCATION ID find"+ location);
+
+        usersave.setLocation(location);
         var k = userRepository.save(usersave);
+        System.out.println("DEBUG USER "+ k);
         UserRole userRole = new UserRole();
         UserRolePk pk = new UserRolePk();
         pk.setUserId(id);
